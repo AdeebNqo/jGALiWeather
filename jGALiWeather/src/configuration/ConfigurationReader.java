@@ -33,7 +33,7 @@ public class ConfigurationReader {
      */
     public void parseFile(String file_name) {
         try {
-            File inputFile = new File("input.txt");
+            File inputFile = new File(file_name);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             xmlData = dBuilder.parse(file_name);
@@ -81,10 +81,10 @@ public class ConfigurationReader {
             path = (Element) dbs.item(i);
 
             dbc = new BasicDataSource();
-            dbc.setDriverClassName(path.getElementsByTagName("driver").item(0).getTextContent());
-            dbc.setUsername(path.getElementsByTagName("user").item(0).getTextContent());
-            dbc.setPassword(path.getElementsByTagName("pass").item(0).getTextContent());
-            dbc.setUrl(path.getElementsByTagName("host").item(0).getTextContent());
+            dbc.setDriverClassName(path.getElementsByTagName("driver").item(0).getFirstChild().getTextContent());
+            dbc.setUsername(path.getElementsByTagName("user").item(0).getFirstChild().getTextContent());
+            dbc.setPassword(path.getElementsByTagName("pass").item(0).getFirstChild().getTextContent());
+            dbc.setUrl(path.getElementsByTagName("host").item(0).getFirstChild().getTextContent());
 
             db_data.put(path.getAttribute("name"), dbc);
         }
@@ -103,7 +103,7 @@ public class ConfigurationReader {
 
             NodeList alternatives = el.getElementsByTagName("language");
             for (int j = 0; j < alternatives.getLength(); j++) {
-                path = alternatives.item(j).getTextContent();
+                path = alternatives.item(j).getFirstChild().getTextContent();
 
                 lng_data.getLanguages().add(new Language(name, path));
             }
