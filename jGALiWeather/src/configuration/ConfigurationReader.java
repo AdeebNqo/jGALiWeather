@@ -5,7 +5,6 @@ import java.io.File;
 import java.util.HashMap;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import org.apache.commons.dbcp2.BasicDataSource;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -16,7 +15,7 @@ public class ConfigurationReader {
     private Document xmlData;
     private HashMap<String, String> inpaths;
     private HashMap<String, String> outpaths;
-    private HashMap<String, BasicDataSource> db_data;
+    private HashMap<String, DatabaseConfiguration> db_data;
     private LanguageConfiguration lng_data;
 
     public ConfigurationReader() {
@@ -73,20 +72,21 @@ public class ConfigurationReader {
 
     /* Loads database configuration data */
     private void setDatabaseData() {
-        BasicDataSource dbc;
+        String name, driver, host, dbname, user, pwd;
         Element path;
 
         NodeList dbs = xmlData.getElementsByTagName("database");
         for (int i = 0; i < dbs.getLength(); i++) {
             path = (Element) dbs.item(i);
 
-            dbc = new BasicDataSource();
-            dbc.setDriverClassName(path.getElementsByTagName("driver").item(0).getFirstChild().getTextContent());
-            dbc.setUsername(path.getElementsByTagName("user").item(0).getFirstChild().getTextContent());
-            dbc.setPassword(path.getElementsByTagName("pass").item(0).getFirstChild().getTextContent());
-            dbc.setUrl(path.getElementsByTagName("host").item(0).getFirstChild().getTextContent());
+            name = path.getAttribute("name");
+            driver = path.getElementsByTagName("driver").item(0).getFirstChild().getTextContent();
+            host = path.getElementsByTagName("host").item(0).getFirstChild().getTextContent();
+            dbname = path.getElementsByTagName("dbname").item(0).getFirstChild().getTextContent();
+            user = path.getElementsByTagName("user").item(0).getFirstChild().getTextContent();
+            pwd = path.getElementsByTagName("pass").item(0).getFirstChild().getTextContent();
 
-            db_data.put(path.getAttribute("name"), dbc);
+            db_data.put(name, new DatabaseConfiguration(name, driver, host, dbname, user, pwd));
         }
     }
 
