@@ -1,4 +1,4 @@
-package configuration;
+package configuration.configuration_reader;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
@@ -34,7 +34,8 @@ public class XMLVariable {
         }
     }
 
-    public String getDataAsString() {
+    @Override
+    public String toString() {
         return "Variable " + name + ": " + start + " to " + end;
     }
 

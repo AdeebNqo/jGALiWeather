@@ -20,7 +20,8 @@ public class Language {
         this.path = path;
     }
     
-    public String getDataAsString() {
+    @Override
+    public String toString() {
         return name + ": " + path;
     }
 }

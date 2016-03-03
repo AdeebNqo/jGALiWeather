@@ -1,4 +1,4 @@
-package configuration;
+package configuration.logger;
 
 import java.io.File;
 import java.text.DateFormat;

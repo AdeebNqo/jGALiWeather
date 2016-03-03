@@ -1,4 +1,4 @@
-package configuration;
+package configuration.configuration_reader;
 
 import data.Language;
 import java.util.ArrayList;
@@ -17,7 +17,8 @@ public class LanguageConfiguration {
         return languages;
     }
 
-    public String getDataAsString(){
+    @Override
+    public String toString(){
         return "Number of languages: " + languages.size();
     }
 }

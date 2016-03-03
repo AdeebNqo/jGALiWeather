@@ -1,4 +1,4 @@
-package configuration;
+package configuration.configuration_reader;
 
 import java.io.File;
 import java.util.HashMap;
@@ -52,7 +52,8 @@ public class VariableReader {
         }
     }
 
-    public String getDataAsString() {
+    @Override
+    public String toString() {
         return "Number of languages: " + variables.size();
     }
 }

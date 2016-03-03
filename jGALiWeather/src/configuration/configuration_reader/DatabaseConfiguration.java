@@ -1,4 +1,4 @@
-package configuration;
+package configuration.configuration_reader;
 
 /* This class holds database configuration data,
    including host info, username and password and
@@ -22,7 +22,8 @@ public class DatabaseConfiguration {
         this.pwd = pwd;
     }
 
-    public String getDataAsString() {
+    @Override
+    public String toString() {
         return "DRIVER=" + driver + ";SERVER=" + host + ";DATABASE=" + dbname + ";UID=" + user + ";PWD=" + pwd;
     }
 }

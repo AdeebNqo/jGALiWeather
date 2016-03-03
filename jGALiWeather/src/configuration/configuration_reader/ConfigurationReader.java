@@ -1,4 +1,4 @@
-package configuration;
+package configuration.configuration_reader;
 
 import data.Language;
 import java.io.File;
