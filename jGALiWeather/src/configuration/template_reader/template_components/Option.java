@@ -23,6 +23,10 @@ public class Option {
         return components;
     }
 
+    public void setUsed(boolean used) {
+        this.used = used;
+    }
+
     @Override
     public String toString() {
         String txt = "";

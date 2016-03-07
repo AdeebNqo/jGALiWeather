@@ -1,0 +1,75 @@
+<partitions>
+	<partition name="C">
+	    <ObjectSet name="C">
+	    	101 102 114
+	    </ObjectSet>
+	    <ObjectSet name="CL">
+	    	103 104 107 108 109 118 119 115
+	    </ObjectSet>
+	    <ObjectSet name="O">
+	    	105 110 111 112 113 116 117 120 121 106
+	    </ObjectSet>
+	</partition>
+    <partition name="CP">
+        <FuzzySet m1="0" m2="0.2" alpha="0" beta="0.2" name="OC" />
+        <FuzzySet m1="0.4" m2="0.6" alpha="0.2" beta="0.2" name="REL" />
+        <FuzzySet m1="0.8" m2="1" alpha="0.2" beta="0" name="PRED" />
+    </partition>
+	<partition name="R">
+	    <ObjectSet name="I">
+	    	110 117 118
+	    </ObjectSet>
+	    <ObjectSet name="P">
+	    	107 108 111 120
+	    </ObjectSet>
+	    <ObjectSet name="SN">
+	    	109 112
+	    </ObjectSet>
+	    <ObjectSet name="ST">
+	    	113 119
+	    </ObjectSet>
+	    <ObjectSet name="H">
+	    	121
+	    </ObjectSet>
+	</partition>
+	<partition name="V">
+	    <CrispInterval a="-100.0" b="-12.0" name="ED" mode="LeftClosed"/>
+	    <CrispInterval a="-12.0" b="-6.0" name="ND" mode="LeftClosed"/>
+	    <CrispInterval a="-6.0" b="-2.0" name="MD" mode="LeftClosed"/>
+	    <CrispInterval a="-2.0" b="-1.0" name="SD" mode="LeftClosed"/>
+	    <CrispInterval a="-1.0" b="1.0" name="WC" mode="Closed"/>
+	    <CrispInterval a="1.0" b="2.0" name="SI" mode="RightClosed"/>
+	    <CrispInterval a="2.0" b="6.0" name="MI" mode="RightClosed"/>
+	    <CrispInterval a="6.0" b="12.0" name="NI" mode="RightClosed"/>
+	    <CrispInterval a="12.0" b="100.0" name="EI" mode="RightClosed"/>
+	</partition>
+	<partition name="T">
+        <CrispInterval a="-50.0" b="-2.0" name="VL" mode="LeftClosed"/>
+	    <CrispInterval a="-2.0" b="-1.0" name="L" mode="LeftClosed"/>
+	    <CrispInterval a="-1.0" b="1.0" name="N" mode="Closed"/>
+	    <CrispInterval a="1.0" b="2.0" name="H" mode="RightClosed"/>
+	    <CrispInterval a="2.0" b="50.0" name="VH" mode="RightClosed"/>
+	</partition>
+	<partition name="SSFTP">
+		<FuzzySet m1="0" m2="0.182" alpha="0" beta="0.318" name="B"/>
+		<FuzzySet m1="0.409" m2="0.591" alpha="0.318" beta="0.318" name="H"/>
+		<FuzzySet m1="0.818" m2="1" alpha="0.318" beta="0" name="E"/>
+	</partition>
+	<partition name="VAR">
+	    <CrispInterval a="0" b="3" name="C" mode="LeftClosed"/>
+	    <CrispInterval a="3" b="5" name="PV" mode="LeftClosed"/>
+	    <CrispInterval a="5" b="7" name="BV" mode="LeftClosed"/>
+	    <CrispInterval a="7" b="20" name="MV" mode="LeftClosed"/>
+	</partition>
+    <partition name="FOG">
+        <ObjectSet name="F">
+	    	106 115
+	    </ObjectSet>
+    </partition>
+    <partition name="ICA">
+        <CrispInterval a="1" b="1" name="G" mode="Closed"/>
+        <CrispInterval a="3" b="3" name="I" mode="Closed"/>
+        <CrispInterval a="5" b="5" name="B" mode="Closed"/>
+        <CrispInterval a="6" b="6" name="H" mode="Closed"/>
+    </partition>
+</partitions>

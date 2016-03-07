@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language id="EN" name="English">
+	<template id="T" name="Temperature">
+		<case id="1">
+			<part>
+				<static>The temperatures</static>
+                    <space/>
+                    <static>will be</static>
+                    <space/>
+				<option id="1">
+					<variable id="norT"></variable>
+					<space/>
+					<static>for this period of the year,</static>
+				</option>
+				<option id="2">
+					<variable id="minT"></variable>
+					<space/>
+					<static>for the minimums and</static>
+					<space/>
+					<variable id="maxT"></variable>
+					<space/>				
+					<static>for the maximums compared
+                        to the expected for this time of the year,
+                    </static>
+				</option>
+				<space/>
+			</part>
+			<part>
+                <option id="3">
+                <static>which globally will be</static>
+                <space/>
+					<variable id="norV"></variable>
+                </option>
+				<option id="4">
+                    <space/>
+                    <static>although they</static>
+                    <space/>
+                    <variable id="norO"></variable>
+				</option>
+                <option id="5">
+					<static>with minimums</static>
+                    <space/>
+                    <variable id="minV"></variable>
+                </option>
+				<option id="6">
+                    <space/>
+                    <static>although they</static>
+                    <space/>
+                    <variable id="minO"></variable>
+                </option>
+                <option id="7">
+                    <space/>
+                    <static>and maximums</static>
+                    <space/>
+                    <variable id="maxV"></variable>
+                </option>
+                <option id="8">
+                    <static>, despite they</static>
+                    <space/>
+                    <variable id="maxO"></variable>
+                </option>
+                <static>.</static>
+			</part>
+		</case>
+	</template>
+
+    <template id="C1" name="Cobertura Nivel 1">
+		<case id="1">
+			<part>
+				<static>There will be</static>
+				<space/>
+				<variable id="cl1"></variable>
+				<space/>
+                <static>skies</static>
+                <space/>
+                        <option id="1">
+                            <period id="p1"/>
+                            <static>,</static>
+                            <space/>
+                            <variable id="cl2"></variable>
+                            <space/>
+                            <period id="p2"/>
+                            <space/>
+                            <static>and</static>
+                            <space/>
+                            <variable id="cl3"></variable>
+                            <space/>
+                            <period id="p3"/>
+                            <space/>
+                            <static>of this term</static>
+                        </option>
+				<option id="2">
+                            <static>in general during the whole period</static>
+				</option>
+				<static>.</static>
+			</part>
+		</case>
+		<case id="2">
+			<part>
+				<static>There will be</static>
+				<space/>
+				<variable id="cl4"></variable>
+				<space/>
+                <static>skies</static>
+                <space/>
+				<period id="p4"/>
+				<space/>
+                        <option id="3">
+                            <static>and</static>
+                            <space/>
+                            <period id="p5"/>
+                            <space/>
+                        </option>
+				<static>of the term, although</static>
+				<space/>
+				<period id="p6"/>
+				<space/>
+                        <option id="4">
+                            <static>and</static>
+                            <space/>
+                            <period id="p7"/>
+                            <space/>
+                        </option>
+				<static>they will be</static>
+				<space/>
+				<variable id="cl5"></variable>
+				<static>.</static>
+			</part>
+		</case>
+	</template>
+
+    <template id="C2" name="Cobertura Nivel 2">
+        <case id="1">
+            <part>
+                <variable id="pred1"/>
+                <space/>
+                <static>skies in general for the next days</static>
+                <option id="1">
+                    <static>, although they will occasionally be</static>
+                    <space/>
+                    <variable id="pred2"/>
+                </option>
+                <static>.</static>
+            </part>
+        </case>
+        <case id="2">
+            <part>
+                <static>We expect an alternance of</static>
+                <space/>
+                <variable id="rel1"/>
+                <space/>
+                <static>sky periods with others</static>
+                <space/>
+                <variable id="rel2"/>
+                <space/>
+                <static>for the next days</static>
+                <option id="2">
+                    <static>, although they will occasionally be</static>
+                    <space/>
+                    <variable id="rel3"/>
+                </option>
+                <static>.</static>
+            </part>
+        </case>
+        <case id="3">
+            <part>
+                <static>There will be</static>
+                <space/>
+                <variable id="rel4"/>
+                <space/>
+                <static>skies with</static>
+                <space/>
+                <variable id="rel5"/>
+                <option id="3">
+                    <space/>
+                    <static>or</static>
+                    <space/>
+                    <variable id="rel6"/>
+                </option>
+                <space/>
+                <static>moments</static>
+                <static>.</static>
+            </part>
+        </case>
+        <case id="4">
+            <part>
+                <static>The sky state will be very variable for the whole term.</static>
+            </part>
+        </case>
+    </template>
+
+	<template id="W" name="Viento">
+		<case id="1">
+			<part>
+				<static>We expect</static>
+				<space/>
+				<variable id="w1"></variable>
+				<space/>
+				<static>wind for</static>
+				<space/>
+				<time id="t1"></time>
+				<static>.</static>
+			</part>
+		</case>
+		<case id="2">
+			<part>
+			<static>We expect winds which will be</static>
+			<space/>
+			<variable id="w2"></variable>
+			<space/>
+			<static>from</static>
+			<space/>
+			<time id="t2"></time>
+			<space/>
+			<static>to</static>
+			<space/>
+			<time id="t3"></time>
+			<static>.</static>
+			</part>
+		</case>
+		<case id="3">
+			<part>
+			<static>We expect winds which will be</static>
+			<space/>
+			<variable id="w3"></variable>
+			<space/>
+			<static>from</static>
+			<space/>
+			<time id="t4"></time>
+			<static>, changing to</static>
+			<space/>
+			<variable id="w4"></variable>
+			<space/>
+			<static>on</static>
+			<space/>
+			<time id="t5"></time>
+			<static>.</static>
+			</part>
+		</case>
+	</template>
+	
+	<labelset name="C" value="Cloud Coverage">
+	    <label name="C">clear</label>
+	    <label name="CL">cloudy</label>
+	    <label name="O">covered</label>
+	    <label name="F">foggy</label>
+	</labelset>
+	<labelset name="R" value="Rain">
+		<label name="I">intermittent</label>
+	    <label name="P">persistent</label>
+	    <label name="SN">of snow</label>
+	    <label name="ST">stormy</label>
+	    <label name="H">of hail</label>
+	</labelset>
+	<labelset name="V" value="Temperature Variation">
+		<label name="ED">in extreme decrease</label>
+		<label name="ND">in notable decrease</label>
+		<label name="MD">in moderate decrease</label>
+		<label name="SD">in slight decrease</label>
+		<label name="WC">without changes</label>
+	    <label name="SI">in slight increase</label>
+		<label name="MI">in moderate increase</label>
+		<label name="NI">in notable increase</label>
+		<label name="EI">in extreme increase</label>
+	</labelset>
+	<labelset name="T" value="Climate Temperature">
+		<label name="VL">very low</label>
+		<label name="L">low</label>
+		<label name="N">normal</label>
+		<label name="H">high</label>
+	    <label name="VH">very high</label>
+	</labelset>
+	<labelset name="W" value="Wind">
+		<label name="317">strong from the North </label>
+		<label name="318">strong from the Northeast</label>
+		<label name="319">strong from the East</label>
+		<label name="320">strong from the Southeast</label>
+		<label name="321">strong from the South</label>
+		<label name="322">strong from the Southwest</label>
+		<label name="323">strong from the West</label>
+		<label name="324">strong from the Northwest</label>
+		<label name="325">very strong from the North</label>
+		<label name="326">very strong from the Northeast</label>
+		<label name="327">very strong from the East</label>
+		<label name="328">very strong from the Southeast</label>
+		<label name="329">very strong from the South</label>
+		<label name="330">very strong from the Southwest</label>
+		<label name="331">very strong from the West</label>
+		<label name="332">very strong from the Northwest</label>
+	</labelset>
+	<labelset name="VAR" value="Temperature variability">
+		<label name="C">will not oscillate</label>
+		<label name="PV">will oscillate</label>
+		<label name="BV">will oscillate</label>
+		<label name="MV">will oscillate</label>
+	</labelset>
+	<labelset name="PD" value="Parts of the day">
+		<label name="0">in the morning</label>
+		<label name="1">in the afternoon</label>
+		<label name="2">at night</label>
+	</labelset>
+	<labelset name="DW" value="Days of the week">
+		<label name="0">Monday</label>
+		<label name="1">Tuesday</label>
+		<label name="2">Wednesday</label>
+		<label name="3">Thursday</label>
+		<label name="4">Friday</label>
+		<label name="5">Saturday</label>
+		<label name="6">Sunday</label>
+	</labelset>
+	<labelset name="SSFTP" value="Periods">
+		<label name="B">at the beginning</label>
+		<label name="H">towards the middle</label>
+		<label name="E">at the end</label>
+	</labelset>
+    <labelset name="RNLGE" value="Rain NLG expressions">
+        <label name="start">We expect precipitations</label>
+        <label name="nuance">which can be</label>
+		<label name="single_period">on</label>
+		<label name="composite_period_start">from</label>
+        <label name="composite_period_end">to</label>
+        <label name="nexus">and</label>
+        <label name="separator">,</label>
+		<label name="everyday">everyday</label>
+	</labelset>
+    <labelset name="ICA" value="Air quality expressions">
+        <label name="start">With respect to the air quality state,</label>
+        <label name="case_stable">se mantendrá {} en general</label>
+        <label name="case_mchange">será variable aunque se espera que {} a {}</label>
+        <label name="case_schange">it is expected to {} to {}</label>
+        <label name="case_echange">it is expected to {} to {}</label>
+        <label name="case_pchange">it is expected to {} progressively to {}</label>
+        <label name="nuance_rain">, favored by the precitipations during the coming days.</label>
+        <label name="nuance_wind">, favored by the wind expected for the coming days.</label>
+        <label name="nuance_rainwind">, favored by the low pressures in the atmosphere during the coming days.</label>
+        <label name="nuance_sunnowind">, due to the sunny and stable weather in the coming days.</label>
+        <label name="nuance_dry">, due to the dry weather during the coming days.</label>
+        <label name="nuance_nonuance">.</label>
+        <label name="G">good</label>
+        <label name="I">admissible</label>
+        <label name="B">bad</label>
+        <label name="H">hazardous</label>
+        <label name="change">change</label>
+        <label name="improve">improve</label>
+    </labelset>
+</language>

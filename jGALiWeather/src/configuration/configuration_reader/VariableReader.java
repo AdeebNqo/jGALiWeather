@@ -19,6 +19,22 @@ public class VariableReader {
         variables = new HashMap();
     }
 
+    public Document getXmlData() {
+        return xmlData;
+    }
+
+    public void setXmlData(Document xmlData) {
+        this.xmlData = xmlData;
+    }
+
+    public HashMap<String, XMLVariable> getVariables() {
+        return variables;
+    }
+
+    public void setVariables(HashMap<String, XMLVariable> variables) {
+        this.variables = variables;
+    }
+
     /* Parses a variable configuration file
 
        :param file_name: The path string to the variable configuration file
@@ -32,7 +48,7 @@ public class VariableReader {
             File inputFile = new File(file_name);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            xmlData = dBuilder.parse(file_name);
+            xmlData = dBuilder.parse(inputFile);
             xmlData.getDocumentElement().normalize();
 
             NodeList vs = xmlData.getElementsByTagName("variable");

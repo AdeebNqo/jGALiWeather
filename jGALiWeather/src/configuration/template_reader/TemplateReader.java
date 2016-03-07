@@ -13,6 +13,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /* Implements a language template file reader
@@ -32,6 +33,30 @@ public class TemplateReader {
         this.labelsets = new HashMap();
     }
 
+    public Document getXmlData() {
+        return xmlData;
+    }
+
+    public void setXmlData(Document xmlData) {
+        this.xmlData = xmlData;
+    }
+
+    public HashMap<String, Template> getTemplates() {
+        return templates;
+    }
+
+    public void setTemplates(HashMap<String, Template> templates) {
+        this.templates = templates;
+    }
+
+    public HashMap<String, LabelSet> getLabelsets() {
+        return labelsets;
+    }
+
+    public void setLabelsets(HashMap<String, LabelSet> labelsets) {
+        this.labelsets = labelsets;
+    }
+
     /* Parses a XML file into a dictionary of templates and
        a dictionary of label sets
 
@@ -42,7 +67,7 @@ public class TemplateReader {
             File inputFile = new File(file_name);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            xmlData = dBuilder.parse(file_name);
+            xmlData = dBuilder.parse(inputFile);
             xmlData.getDocumentElement().normalize();
 
             this.parseTemplates();
@@ -58,9 +83,9 @@ public class TemplateReader {
     public void parseTemplates() {
 
         Element t, c, p, vals;
+        Node node;
         NodeList ts, cases, parts, part_childs;
-        String tname;
-        int tid;
+        String tname, tid;
         Template new_template;
         Case new_case;
         Static new_static;
@@ -75,7 +100,7 @@ public class TemplateReader {
             t = (Element) ts.item(i);
 
             tname = t.getAttribute("name");
-            tid = Integer.parseInt(t.getAttribute("id"));
+            tid = t.getAttribute("id");
 
             new_template = new Template(tid, tname);
 
@@ -86,18 +111,19 @@ public class TemplateReader {
                 new_case = new Case(Integer.parseInt(c.getAttribute("id")));
 
                 parts = c.getElementsByTagName("part");
-                for (int k = 0; k < cases.getLength(); k++) {
+                for (int k = 0; k < parts.getLength(); k++) {
                     p = (Element) parts.item(k);
 
                     new_part = new Part();
 
-                    part_childs = p.getChildNodes();
+                    part_childs = p.getElementsByTagName("*");
                     for (int l = 0; l < part_childs.getLength(); l++) {
                         vals = (Element) part_childs.item(l);
 
                         switch (vals.getNodeName()) {
                             case "option":
                                 new_option = parseOptions(vals, new_template);
+                                l += new_option.getComponents().size();
                                 new_part.getComponents().add(new_option);
                                 new_template.getOptions().put(new_option.getId(), new_option);
                                 break;
@@ -151,9 +177,9 @@ public class TemplateReader {
 
         Option new_option = new Option(Integer.parseInt(option.getAttribute("id")));
 
-        NodeList part_childs = option.getChildNodes();
-        for (int i = 0; i < part_childs.getLength(); i++) {
-            Element c = (Element) part_childs.item(i);
+        NodeList partChilds = option.getElementsByTagName("*");
+        for (int i = 0; i < partChilds.getLength(); i++) {
+            Element c = (Element) partChilds.item(i);
 
             switch (c.getNodeName()) {
                 case "static":

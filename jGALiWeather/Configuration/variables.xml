@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<variables>
+	<variable>
+		<name>Meteoro</name>
+		<range>
+			<start>1</start>
+			<end>12</end>
+		</range>
+        <valid_lengths>9 12</valid_lengths>
+	</variable>
+	
+	<variable>
+		<name>Viento</name>
+		<range>
+			<start>50</start>
+			<end>61</end>
+		</range>
+        <valid_lengths>0 9 12</valid_lengths>
+	</variable>
+	
+	<variable>
+		<name>Temperatura</name>
+		<range>
+			<start>30</start>
+			<end>37</end>
+		</range>
+        <valid_lengths>6 8</valid_lengths>
+	</variable>
+</variables>

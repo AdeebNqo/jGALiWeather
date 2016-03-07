@@ -26,6 +26,50 @@ public class ConfigurationReader {
         this.lng_data = new LanguageConfiguration();
     }
 
+    public ConfigurationReader(Document xmlData, HashMap<String, String> inpaths, HashMap<String, String> outpaths, HashMap<String, DatabaseConfiguration> db_data, LanguageConfiguration lng_data) {
+        this.xmlData = xmlData;
+        this.inpaths = inpaths;
+        this.outpaths = outpaths;
+        this.db_data = db_data;
+        this.lng_data = lng_data;
+    }
+
+    public HashMap<String, String> getInpaths() {
+        return inpaths;
+    }
+
+    public void setInpaths(HashMap<String, String> inpaths) {
+        this.inpaths = inpaths;
+    }
+
+    public HashMap<String, String> getOutpaths() {
+        return outpaths;
+    }
+
+    public void setOutpaths(HashMap<String, String> outpaths) {
+        this.outpaths = outpaths;
+    }
+
+    public HashMap<String, DatabaseConfiguration> getDb_data() {
+        return db_data;
+    }
+
+    public void setDb_data(HashMap<String, DatabaseConfiguration> db_data) {
+        this.db_data = db_data;
+    }
+
+    public LanguageConfiguration getLng_data() {
+        return lng_data;
+    }
+
+    public void setLng_data(LanguageConfiguration lng_data) {
+        this.lng_data = lng_data;
+    }
+
+    public Document getXmlData() {
+        return xmlData;
+    }
+
     /* Parses a XML configuration file 
     
        :param file_name: The path string for the configuration file
@@ -35,7 +79,7 @@ public class ConfigurationReader {
             File inputFile = new File(file_name);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            xmlData = dBuilder.parse(file_name);
+            xmlData = dBuilder.parse(inputFile);
             xmlData.getDocumentElement().normalize();
 
             this.setPaths();
@@ -56,7 +100,7 @@ public class ConfigurationReader {
             path = (Element) inroutes.item(i);
 
             name = path.getAttribute("name");
-            string_path = path.getAttributeNode(name).getValue();
+            string_path = path.getFirstChild().getTextContent();
             inpaths.put(name, string_path);
         }
 
@@ -65,7 +109,7 @@ public class ConfigurationReader {
             path = (Element) outroutes.item(i);
 
             name = path.getAttribute("name");
-            string_path = path.getAttributeNode(name).getValue();
+            string_path = path.getFirstChild().getTextContent();
             outpaths.put(name, string_path);
         }
     }
@@ -101,7 +145,7 @@ public class ConfigurationReader {
 
             name = el.getAttribute("name");
 
-            NodeList alternatives = el.getElementsByTagName("language");
+            NodeList alternatives = el.getElementsByTagName("alternative");
             for (int j = 0; j < alternatives.getLength(); j++) {
                 path = alternatives.item(j).getFirstChild().getTextContent();
 

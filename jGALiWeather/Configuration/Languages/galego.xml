@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language id="GA" name="Galego">
+	<template id="T" name="Temperatura">
+		<case id="1">
+			<part>
+				<static>As temperaturas</static>
+                    <space/>
+                    <static>serán</static>
+                    <space/>
+				<option id="1">
+					<variable id="norT"></variable>
+					<space/>
+					<static>para esta época do ano,</static>
+				</option>
+				<option id="2">
+					<variable id="minT"></variable>
+					<space/>
+					<static>para as mínimas e</static>
+					<space/>
+					<variable id="maxT"></variable>
+					<space/>
+					<static>para as máximas respecto ó habitual nesta época do ano,</static>
+				</option>
+				<space/>
+			</part>
+			<part>
+                <option id="3">
+                <static>con valores que globalmente se atoparán</static>
+                <space/>
+					<variable id="norV"></variable>
+                </option>
+				<option id="4">
+                    <space/>
+                    <static>aínda que</static>
+                    <space/>
+                    <variable id="norO"></variable>
+				</option>
+                <option id="5">
+					<static>con mínimas</static>
+                    <space/>
+                    <variable id="minV"></variable>
+                </option>
+				<option id="6">
+                    <space/>
+                    <static>aínda que</static>
+                    <space/>
+                    <variable id="minO"></variable>
+                </option>
+                <option id="7">
+                    <space/>
+                    <static>e máximas</static>
+                    <space/>
+                    <variable id="maxV"></variable>
+                </option>
+                <option id="8">
+                    <static>, a pesares de que</static>
+                    <space/>
+                    <variable id="maxO"></variable>
+                </option>
+                <static>.</static>
+			</part>
+		</case>
+	</template>
+
+	<template id="C1" name="Cobertura Nivel 1">
+		<case id="1">
+			<part>
+				<static>Ceos</static>
+				<space/>
+				<variable id="cl1"></variable>
+				<space/>
+                        <option id="1">
+                            <period id="p1"/>
+                            <static>,</static>
+                            <space/>
+                            <variable id="cl2"></variable>
+                            <space/>
+                            <period id="p2"/>
+                            <space/>
+                            <static>e</static>
+                            <space/>
+                            <variable id="cl3"></variable>
+                            <space/>
+                            <period id="p3"/>
+                            <space/>
+                            <static>do período</static>
+                        </option>
+				<option id="2">
+                            <static>en xeral durante todo o período</static>
+				</option>
+				<static>.</static>
+			</part>
+		</case>
+		<case id="2">
+			<part>
+				<static>Teremos ceos</static>
+				<space/>
+				<variable id="cl4"></variable>
+				<space/>
+				<period id="p4"/>
+				<space/>
+                        <option id="3">
+                            <static>e</static>
+                            <space/>
+                            <period id="p5"/>
+                            <space/>
+                        </option>
+				<static>do período, aínda que</static>
+				<space/>
+				<period id="p6"/>
+				<space/>
+                        <option id="4">
+                            <static>e</static>
+                            <space/>
+                            <period id="p7"/>
+                            <space/>
+                        </option>
+				<static>do mesmo tenderán a estar</static>
+				<space/>
+				<variable id="cl5"></variable>
+				<static>.</static>
+			</part>
+		</case>
+	</template>
+
+    <template id="C2" name="Cobertura Nivel 2">
+        <case id="1">
+            <part>
+                <static>Ceos</static>
+                <space/>
+                <variable id="pred1"/>
+                <space/>
+                <static>en xeral durante os vindeiros días</static>
+                <option id="1">
+                    <static>, aínda que ocasionalmente tornarán</static>
+                    <space/>
+                    <variable id="pred2"/>
+                </option>
+                <static>.</static>
+            </part>
+        </case>
+        <case id="2">
+            <part>
+                <static>Agárdase para os vindeiros días unha alternancia de períodos de ceos</static>
+                <space/>
+                <variable id="rel1"/>
+                <space/>
+                <static>con outros</static>
+                <space/>
+                <variable id="rel2"/>
+                <option id="2">
+                    <static>, aínda que ocasionalmente poderán atoparse</static>
+                    <space/>
+                    <variable id="rel3"/>
+                </option>
+                <static>.</static>
+            </part>
+        </case>
+        <case id="3">
+            <part>
+                <static>O ceo alternará períodos</static>
+                <space/>
+                <variable id="rel4"/>
+                <space/>
+                <static>con outros ocasionalmente</static>
+                <space/>
+                <variable id="rel5"/>
+                <option id="3">
+                    <space/>
+                    <static>ou</static>
+                    <space/>
+                    <variable id="rel6"/>
+                </option>
+                <static>.</static>
+            </part>
+        </case>
+        <case id="4">
+            <part>
+                <static>Teremos ceos con nubosidade moi variable durante todo o período.</static>
+            </part>
+        </case>
+    </template>
+
+	<template id="W" name="Viento">
+		<case id="1">
+			<part>
+				<static>Vento</static>
+				<space/>
+				<variable id="w1"></variable>
+				<space/>
+				<static>para o</static>
+				<space/>
+				<time id="t1"></time>
+				<static>.</static>
+			</part>
+		</case>
+		<case id="2">
+			<part>
+			<static>Vento</static>
+			<space/>
+			<variable id="w2"></variable>
+			<space/>
+			<static>dende o</static>
+			<space/>
+			<time id="t2"></time>
+			<space/>
+			<static>ata o</static>
+			<space/>
+			<time id="t3"></time>
+			<static>.</static>
+			</part>
+		</case>
+		<case id="3">
+			<part>
+			<static>Vento</static>
+			<space/>
+			<variable id="w3"></variable>
+			<space/>
+			<static>dende o</static>
+			<space/>
+			<time id="t4"></time>
+			<static>, rolando a</static>
+			<space/>
+			<variable id="w4"></variable>
+			<space/>
+			<static>o</static>
+			<space/>
+			<time id="t5"></time>
+			<static>.</static>
+			</part>
+		</case>
+	</template>
+
+    <template id="ICA" name="ICA">
+		<case id="1">
+			<part>
+				<static>Agárdase un nivel de calidade do aire en xeral</static>
+				<space/>
+				<variable id="ica1"></variable>
+				<space/>
+				<static>para os vindeiros días.</static>
+			</part>
+		</case>
+        <case id="2">
+			<part>
+				<variable id="cause1"></variable>
+                <static>, polo que se agarda un nivel de calidade do aire</static>
+                <space/>
+				<variable id="ica2"></variable>
+                <space/>
+                <static>en xeral</static>
+				<static>.</static>
+			</part>
+		</case>
+	</template>
+
+	<labelset name="C" value="Cloud Coverage">
+	    <label name="C">pouco nubosos ou despexados</label>
+	    <label name="CL">con nubes e claros</label>
+	    <label name="O">moi nubosos</label>
+	    <label name="F">con néboas</label>
+	</labelset>
+	<labelset name="R" value="Rain">
+		<label name="I">intermitentes</label>
+	    <label name="P">persistentes</label>
+	    <label name="SN">de neve</label>
+	    <label name="ST">treboentas</label>
+	    <label name="H">de sarabia</label>
+	</labelset>
+	<labelset name="V" value="Temperature Variation">
+		<label name="ED">en descenso extremo</label>
+		<label name="ND">en descenso notable</label>
+		<label name="MD">en descenso moderado</label>
+		<label name="SD">en descenso lixeiro</label>
+		<label name="WC">sen cambios</label>
+	    <label name="SI">en ascenso lixeiro</label>
+		<label name="MI">en ascenso moderado</label>
+		<label name="NI">en ascenso notable</label>
+		<label name="EI">en ascenso extremo</label>
+	</labelset>
+	<labelset name="T" value="Climate Temperature">
+		<label name="VL">moi baixas</label>
+		<label name="L">baixas</label>
+		<label name="N">normais</label>
+		<label name="H">altas</label>
+	    <label name="VH">moi altas</label>
+	</labelset>
+	<labelset name="W" value="Wind">
+		<label name="317">forte do Norte</label>
+		<label name="318">forte do Nordeste</label>
+		<label name="319">forte do Este</label>
+		<label name="320">forte do Sudeste</label>
+		<label name="321">forte do Sur</label>
+		<label name="322">forte do Sudoeste</label>
+		<label name="323">forte do Oeste</label>
+		<label name="324">forte do Noroeste</label>
+		<label name="325">moi forte do Norte</label>
+		<label name="326">moi forte do Nordés</label>
+		<label name="327">moi forte do Este</label>
+		<label name="328">moi forte do Sudeste</label>
+		<label name="329">moi forte do Sur</label>
+		<label name="330">moi forte do Sudoeste</label>
+		<label name="331">moi forte do Oeste</label>
+		<label name="332">moi forte do Noroeste</label>
+	</labelset>
+	<labelset name="VAR" value="Temperature variability">
+		<label name="C">non oscilarán</label>
+		<label name="PV">oscilarán</label>
+		<label name="BV">oscilarán</label>
+		<label name="MV">oscilarán</label>
+	</labelset>
+	<labelset name="PD" value="Parts of the day">
+		<label name="0">pola mañá</label>
+		<label name="1">pola tarde</label>
+		<label name="2">pola noite</label>
+	</labelset>
+	<labelset name="DW" value="Days of the week">
+		<label name="0">luns</label>
+		<label name="1">martes</label>
+		<label name="2">mércores</label>
+		<label name="3">xoves</label>
+		<label name="4">venres</label>
+		<label name="5">sábado</label>
+		<label name="6">domingo</label>
+	</labelset>
+	<labelset name="SSFTP" value="Periods">
+		<label name="B">ó comezo</label>
+		<label name="H">cara a metade</label>
+		<label name="E">ó final</label>
+	</labelset>
+    <labelset name="RNLGE" value="Rain NLG expressions">
+        <label name="start">Agárdanse precipitacións</label>
+        <label name="nuance">que poderán ser</label>
+		<label name="single_period">o</label>
+		<label name="composite_period_start">do</label>
+        <label name="composite_period_end">ó</label>
+        <label name="nexus">e</label>
+        <label name="separator">,</label>
+		<label name="everyday">tódolos días</label>
+	</labelset>
+    <labelset name="FOG" value="Fog NLG expressions">
+        <label name="start">Haberá néboas</label>
+        <label name="0">matinais</label>
+        <label name="1">pola tarde</label>
+        <label name="2">nocturnas</label>
+        <label name="single_period">o</label>
+        <label name="nexus">e</label>
+        <label name="separator">,</label>
+        <label name="part_separator">;</label>
+        <label name="persistent">posiblemente persistentes</label>
+        <label name="everyday">ó longo do período</label>
+    </labelset>
+    <labelset name="WNLGE" value="Wind NLG expressions">
+        <label name="start">Vento</label>
+        <label name="single_period">o</label>
+        <label name="nexus">e</label>
+        <label name="one_change">cambiando a</label>
+        <label name="multiple_change">a</label>
+        <label name="composite_period_start">do</label>
+        <label name="composite_period_end">ó</label>
+        <label name="change_start">dende o</label>
+        <label name="separator">,</label>
+        <label name="part_separator">;</label>
+    </labelset>
+    <labelset name="ICA" value="Air quality expressions">
+        <label name="start">No referido ó estado da calidade do aire,</label>
+        <label name="case_stable">manterase {} en xeral</label>
+        <label name="case_mchange">será variable pero agárdase que {} a {}</label>
+        <label name="case_schange">agárdase que {} a {}</label>
+        <label name="case_echange">agárdase que {} a {}</label>
+        <label name="case_pchange">agárdase que {} progresivamente a {}</label>
+        <label name="nuance_rain">, favorecido polas precipitacións dos vindeiros días.</label>
+        <label name="nuance_wind">, favorecido polo vento agardado para os vindeiros días.</label>
+        <label name="nuance_rainwind">, favorecido pola situación de baixas presións dos vindeiros días.</label>
+        <label name="nuance_sunnowind">, debido ó tempo solleiro e estable dos vindeiros días.</label>
+        <label name="nuance_dry">, debido ó tempo sen chuvia dos vindeiros días.</label>
+        <label name="nuance_nonuance">.</label>
+        <label name="G">bo</label>
+        <label name="I">admisible</label>
+        <label name="B">malo</label>
+        <label name="H">moi malo</label>
+        <label name="change">cambie</label>
+        <label name="improve">mellore</label>
+    </labelset>
+</language>
