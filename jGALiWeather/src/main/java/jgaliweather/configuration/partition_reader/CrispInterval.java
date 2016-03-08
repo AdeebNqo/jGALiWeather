@@ -37,6 +37,7 @@ public class CrispInterval implements Set {
         this.b = b;
     }
 
+    @Override
     public String getName() {
         return name;
     }

@@ -1,6 +1,7 @@
 package jgaliweather.configuration.partition_reader;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Partition {
 
@@ -37,15 +38,36 @@ public class Partition {
 
         return res;
     }
-    
+
+    public Set bestEvaluatedLabel(double value) {
+        ArrayList<Integer> res = new ArrayList(Collections.nCopies(sets.size(), 0));
+
+        for (int i = 0; i < sets.size(); i++) {
+            res.set(i, sets.get(i).apply(value));
+        }
+
+        Integer best_label = Collections.max(res);
+        return sets.get(best_label);
+    }
+
+    public int bestEvaluatedIndex(double value) {
+        ArrayList<Integer> res = new ArrayList(Collections.nCopies(sets.size(), 0));
+
+        for (int i = 0; i < sets.size(); i++) {
+            res.set(i, sets.get(i).apply(value));
+        }
+
+        return Collections.max(res);
+    }
+
     @Override
     public String toString() {
         String tostr = "Partition " + name + ":\n";
-        
+
         for (int i = 0; i < sets.size(); i++) {
             tostr = tostr + " " + sets.get(i).toString() + "\n";
         }
-        
+
         return tostr;
     }
 }

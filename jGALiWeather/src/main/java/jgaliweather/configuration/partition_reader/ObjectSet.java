@@ -12,6 +12,7 @@ public class ObjectSet implements Set {
         this.objects = objects;
     }
 
+    @Override
     public String getName() {
         return name;
     }

@@ -17,6 +17,7 @@ public class FuzzySet implements Set { //Faltan funciones por implementar
         this.function = function;
     }
 
+    @Override
     public String getName() {
         return name;
     }
