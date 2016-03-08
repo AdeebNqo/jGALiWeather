@@ -15,6 +15,18 @@ public class Option {
         this.used = false;
     }
 
+    public boolean isUsed() {
+        return used;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setComponents(ArrayList<Object> components) {
+        this.components = components;
+    }
+
     public int getId() {
         return id;
     }

@@ -16,6 +16,22 @@ public class FuzzySet implements Set { //Faltan funciones por implementar
         this.name = name;
         this.function = function;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public TrapezoidalFunction getFunction() {
+        return function;
+    }
+
+    public void setFunction(TrapezoidalFunction function) {
+        this.function = function;
+    }
     
     @Override
     public int apply(double value) {//Pendiente de implementar

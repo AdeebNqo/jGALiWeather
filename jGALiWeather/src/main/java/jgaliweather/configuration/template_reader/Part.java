@@ -15,6 +15,10 @@ public class Part {
         return components;
     }
 
+    public void setComponents(ArrayList<Object> components) {
+        this.components = components;
+    }
+
     @Override
     public String toString() {
         String txt = "";

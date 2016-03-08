@@ -21,6 +21,26 @@ public class Time implements TimeLabel {
         this.day = day;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Calendar getTime() {
+        return time;
+    }
+
+    public void setTime(Calendar time) {
+        this.time = time;
+    }
+
+    public Float getDay() {
+        return day;
+    }
+
+    public void setDay(Float day) {
+        this.day = day;
+    }
+
     public String getName() {
         return name;
     }

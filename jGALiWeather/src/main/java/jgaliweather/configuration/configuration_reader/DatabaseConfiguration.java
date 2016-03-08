@@ -22,6 +22,54 @@ public class DatabaseConfiguration {
         this.pwd = pwd;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDriver() {
+        return driver;
+    }
+
+    public void setDriver(String driver) {
+        this.driver = driver;
+    }
+
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public String getDbname() {
+        return dbname;
+    }
+
+    public void setDbname(String dbname) {
+        this.dbname = dbname;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getPwd() {
+        return pwd;
+    }
+
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
+    }
+
     @Override
     public String toString() {
         return "DRIVER=" + driver + ";SERVER=" + host + ";DATABASE=" + dbname + ";UID=" + user + ";PWD=" + pwd;

@@ -26,6 +26,22 @@ public class DataFilter {
         this.location = location;
     }
 
+    public Variable getVariable() {
+        return variable;
+    }
+
+    public void setVariable(Variable variable) {
+        this.variable = variable;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
     /* 
         Filters the input data, trimming invalid data
         and checking if it is still present. An

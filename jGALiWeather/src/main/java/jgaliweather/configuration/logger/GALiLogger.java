@@ -66,6 +66,10 @@ public class GALiLogger {
         }
     }
 
+    public void setLogger(Logger logger) {
+        this.logger = logger;
+    }
+
     public Logger getLogger() {
         return logger;
     }

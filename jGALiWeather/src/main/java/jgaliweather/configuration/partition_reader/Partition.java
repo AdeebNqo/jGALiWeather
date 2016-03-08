@@ -12,6 +12,14 @@ public class Partition {
         this.sets = new ArrayList();
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSets(ArrayList<Set> sets) {
+        this.sets = sets;
+    }
+
     public ArrayList<Set> getSets() {
         return sets;
     }

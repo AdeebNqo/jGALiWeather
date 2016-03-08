@@ -34,6 +34,10 @@ public class ConfigurationReader {
         this.lng_data = lng_data;
     }
 
+    public void setXmlData(Document xmlData) {
+        this.xmlData = xmlData;
+    }
+
     public HashMap<String, String> getInpaths() {
         return inpaths;
     }

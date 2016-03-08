@@ -12,6 +12,22 @@ public class ObjectSet implements Set {
         this.objects = objects;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public ArrayList<Integer> getObjects() {
+        return objects;
+    }
+
+    public void setObjects(ArrayList<Integer> objects) {
+        this.objects = objects;
+    }
+
     @Override
     public int apply(double value) {
 

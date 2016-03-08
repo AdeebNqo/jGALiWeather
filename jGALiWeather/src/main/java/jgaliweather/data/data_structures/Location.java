@@ -21,6 +21,34 @@ public class Location {
         this.summaries = new HashMap();
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public HashMap<String, Variable> getVariables() {
+        return variables;
+    }
+
+    public void setVariables(HashMap<String, Variable> variables) {
+        this.variables = variables;
+    }
+
+    public HashMap<String, String> getSummaries() {
+        return summaries;
+    }
+
+    public void setSummaries(HashMap<String, String> summaries) {
+        this.summaries = summaries;
+    }
+
+    public void setLid(int lid) {
+        this.lid = lid;
+    }
+
     public int getLid() {
         return lid;
     }

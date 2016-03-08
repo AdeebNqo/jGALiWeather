@@ -32,6 +32,42 @@ public class Template {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCases(ArrayList<Case> cases) {
+        this.cases = cases;
+    }
+
+    public void setVariables(HashMap<String, Variable> variables) {
+        this.variables = variables;
+    }
+
+    public void setOptions(HashMap<Integer, Option> options) {
+        this.options = options;
+    }
+
+    public void setTime_labels(HashMap<String, TimeLabel> time_labels) {
+        this.time_labels = time_labels;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Case getSelectedCase() {
+        return selectedCase;
+    }
+
+    public void setSelectedCase(Case selectedCase) {
+        this.selectedCase = selectedCase;
+    }
+
     public ArrayList<Case> getCases() {
         return cases;
     }

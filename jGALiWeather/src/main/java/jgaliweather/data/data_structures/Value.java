@@ -22,6 +22,10 @@ public class Value {
         return data;
     }
 
+    public void setTemp_location(int temp_location) {
+        this.temp_location = temp_location;
+    }
+
     public void setData(double data) {
         this.data = data;
     }

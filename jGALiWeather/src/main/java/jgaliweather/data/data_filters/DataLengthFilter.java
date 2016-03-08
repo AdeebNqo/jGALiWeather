@@ -32,6 +32,30 @@ public class DataLengthFilter {
         this.real_variable = real_variable;
     }
 
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public XMLVariable getTemplate_variable() {
+        return template_variable;
+    }
+
+    public void setTemplate_variable(XMLVariable template_variable) {
+        this.template_variable = template_variable;
+    }
+
+    public Variable getReal_variable() {
+        return real_variable;
+    }
+
+    public void setReal_variable(Variable real_variable) {
+        this.real_variable = real_variable;
+    }
+
     /*
         Filters the input variable data length by checking the
         supported data lengths defined in the variable definition. If

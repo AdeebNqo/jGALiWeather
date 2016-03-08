@@ -1,6 +1,5 @@
 package jgaliweather.configuration.template_reader;
 
-import jgaliweather.data.data_structures.Language;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -18,6 +17,22 @@ public class TemplateManager {
     public TemplateManager() {
         this.templates = new HashMap();
         this.generator = new Random();
+    }
+
+    public HashMap<String, ArrayList<Template>> getTemplates() {
+        return templates;
+    }
+
+    public void setTemplates(HashMap<String, ArrayList<Template>> templates) {
+        this.templates = templates;
+    }
+
+    public Random getGenerator() {
+        return generator;
+    }
+
+    public void setGenerator(Random generator) {
+        this.generator = generator;
     }
 
     /*
@@ -51,15 +66,15 @@ public class TemplateManager {
             templates.get(language).add(template);
         }
     }
-    
+
     /*
         Returns the list of available languages stored
         by the manager
 
         :return: A list of language identifiers
-    */
-    public ArrayList<String> getLanguages(){
-        
+     */
+    public ArrayList<String> getLanguages() {
+
         return new ArrayList(templates.keySet());
     }
 }

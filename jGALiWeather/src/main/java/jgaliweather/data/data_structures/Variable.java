@@ -22,6 +22,14 @@ public class Variable {
         return actual_data_length;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setValues(ArrayList<Value> values) {
+        this.values = values;
+    }
+
     public String getName() {
         return name;
     }

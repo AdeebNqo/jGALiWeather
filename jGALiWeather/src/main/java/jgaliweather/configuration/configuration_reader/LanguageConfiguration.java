@@ -17,8 +17,12 @@ public class LanguageConfiguration {
         return languages;
     }
 
+    public void setLanguages(ArrayList<Language> languages) {
+        this.languages = languages;
+    }
+
     @Override
-    public String toString(){
+    public String toString() {
         return "Number of languages: " + languages.size();
     }
 }

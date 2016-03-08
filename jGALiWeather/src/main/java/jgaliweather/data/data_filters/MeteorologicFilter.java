@@ -9,7 +9,7 @@ import jgaliweather.data.data_structures.Variable;
     sky state values).
  */
 public class MeteorologicFilter {
-    
+
     Variable variable;
 
     /*
@@ -19,17 +19,25 @@ public class MeteorologicFilter {
         filtered
 
         :return: A new MeteorologicFilter data
-    */
+     */
     public MeteorologicFilter(Variable variable) {
         this.variable = variable;
     }
-    
+
+    public Variable getVariable() {
+        return variable;
+    }
+
+    public void setVariable(Variable variable) {
+        this.variable = variable;
+    }
+
     /* Filters the input data meteorologic codes */
     public void filter() {
-        
+
         for (int i = 0; i < variable.getValues().size(); i++) {
             variable.getValues().get(i).setData((int) variable.getValues().get(i).getData());
-            if(variable.getValues().get(i).getData() > 200) {
+            if (variable.getValues().get(i).getData() > 200) {
                 variable.getValues().get(i).setData(variable.getValues().get(i).getData() - 100);
             }
         }

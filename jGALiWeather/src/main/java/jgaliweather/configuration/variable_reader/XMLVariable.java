@@ -9,10 +9,10 @@ import java.util.StringTokenizer;
  */
 public class XMLVariable {
 
-    private final String name;
-    private final int start;
-    private final int end;
-    private final ArrayList<Integer> valid_lengths;
+    private String name;
+    private int start;
+    private int end;
+    private ArrayList<Integer> valid_lengths;
     private int actual_data_length;
 
     /*  Initializes a new XMLVariable object
@@ -40,6 +40,34 @@ public class XMLVariable {
 
     public ArrayList<Integer> getValid_lengths() {
         return valid_lengths;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setStart(int start) {
+        this.start = start;
+    }
+
+    public void setEnd(int end) {
+        this.end = end;
+    }
+
+    public void setValid_lengths(ArrayList<Integer> valid_lengths) {
+        this.valid_lengths = valid_lengths;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getStart() {
+        return start;
+    }
+
+    public int getEnd() {
+        return end;
     }
 
     public void setActual_data_length(int actual_data_length) {

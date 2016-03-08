@@ -13,6 +13,14 @@ public class LabelSet {
         this.labels = new HashMap();
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLabels(HashMap<String, Label> labels) {
+        this.labels = labels;
+    }
+
     public String getName() {
         return name;
     }
