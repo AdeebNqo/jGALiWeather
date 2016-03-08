@@ -1,6 +1,6 @@
 package jgaliweather.configuration.configuration_reader;
 
-import jgaliweather.data.Language;
+import jgaliweather.data.data_structures.Language;
 import java.util.ArrayList;
 
 /* This class holds information about the languages defined 

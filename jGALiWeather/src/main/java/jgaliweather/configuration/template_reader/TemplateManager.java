@@ -1,6 +1,6 @@
 package jgaliweather.configuration.template_reader;
 
-import jgaliweather.data.Language;
+import jgaliweather.data.data_structures.Language;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;

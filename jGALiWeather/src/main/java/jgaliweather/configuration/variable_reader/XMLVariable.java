@@ -1,6 +1,7 @@
 package jgaliweather.configuration.variable_reader;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.StringTokenizer;
 
 /* Defines an input variable, loaded from a
@@ -11,7 +12,8 @@ public class XMLVariable {
     private final String name;
     private final int start;
     private final int end;
-    private final ArrayList<String> valid_lengths;
+    private final ArrayList<Integer> valid_lengths;
+    private int actual_data_length;
 
     /*  Initializes a new XMLVariable object
 
@@ -27,11 +29,25 @@ public class XMLVariable {
         this.start = start;
         this.end = end;
         this.valid_lengths = new ArrayList();
-        
+
         StringTokenizer st = new StringTokenizer(valid_lengths);
         while (st.hasMoreTokens()) {
-            this.valid_lengths.add(st.nextToken());
+            this.valid_lengths.add(Integer.parseInt(st.nextToken()));
         }
+
+        this.actual_data_length = Collections.max(this.valid_lengths);
+    }
+
+    public ArrayList<Integer> getValid_lengths() {
+        return valid_lengths;
+    }
+
+    public void setActual_data_length(int actual_data_length) {
+        this.actual_data_length = actual_data_length;
+    }
+
+    public int getActual_data_length() {
+        return actual_data_length;
     }
 
     @Override

@@ -2,7 +2,7 @@ package configuration_tests;
 
 import jgaliweather.configuration.configuration_reader.ConfigurationReader;
 import jgaliweather.configuration.configuration_reader.DatabaseConfiguration;
-import jgaliweather.data.Language;
+import jgaliweather.data.data_structures.Language;
 import java.util.HashMap;
 import org.junit.After;
 import org.junit.AfterClass;

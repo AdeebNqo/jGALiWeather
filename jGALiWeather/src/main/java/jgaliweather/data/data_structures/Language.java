@@ -1,4 +1,4 @@
-package jgaliweather.data;
+package jgaliweather.data.data_structures;
 
 /* Defines a language template, used to store language template file paths. */
 public class Language {
