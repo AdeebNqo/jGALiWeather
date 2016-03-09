@@ -1,4 +1,4 @@
-package jgaliweather.algorithm.weather_operators;
+package jgaliweather.data.data_structures;
 
 import java.util.ArrayList;
 

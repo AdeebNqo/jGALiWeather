@@ -1,5 +1,6 @@
 package jgaliweather.algorithm.weather_operators;
 
+import jgaliweather.data.data_structures.Temperature;
 import static java.lang.Math.abs;
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +72,7 @@ public class TemperatureOperator {
         }
     }
 
-    public static double average(List<Double> list) {
+    private double average(List<Double> list) {
 
         if (list == null || list.isEmpty()) {
             return 0.0;
@@ -167,13 +168,13 @@ public class TemperatureOperator {
         } else {
             clim_eval = max_climeval + " " + min_climeval;
         }
-        
+
         if (mx_var_label.equals(mn_var_label)) {
             variability_eval = mx_var_label;
         } else {
             variability_eval = mx_var_label + " " + mn_var_label;
         }
-        
+
         return new Temperature(clim_eval, variation_eval, variability_eval, mxlist, mnlist);
     }
 }

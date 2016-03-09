@@ -52,12 +52,19 @@ public class Partition {
 
     public int bestEvaluatedIndex(double value) {
         ArrayList<Integer> res = new ArrayList(Collections.nCopies(sets.size(), 0));
+        int best_label = 0, max = -9999;
 
         for (int i = 0; i < sets.size(); i++) {
             res.set(i, sets.get(i).apply(value));
         }
 
-        return Collections.max(res);
+        for (int i = 0; i < res.size(); i++) {
+            if (res.get(i) > max) {
+                best_label = i;
+            }
+        }
+
+        return best_label;
     }
 
     @Override
