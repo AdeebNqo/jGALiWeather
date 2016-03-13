@@ -9,7 +9,7 @@ public class Value {
     private int temp_location;
     private double data;
 
-    public Value(int temp_location, double data) {
+    public Value(double data, int temp_location) {
         this.temp_location = temp_location;
         this.data = data;
     }

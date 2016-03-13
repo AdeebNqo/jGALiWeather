@@ -108,12 +108,12 @@ public class PartitionReader {
 
     public ObjectSet parseObjectSet(Element c) {
 
-        ArrayList objects = new ArrayList();
+        ArrayList<Integer> objects = new ArrayList();
         String name = c.getAttribute("name");
 
         StringTokenizer st = new StringTokenizer(c.getFirstChild().getTextContent());
         while (st.hasMoreTokens()) {
-            objects.add(st.nextToken());
+            objects.add(Integer.parseInt(st.nextToken()));
         }
 
         return new ObjectSet(name, objects);

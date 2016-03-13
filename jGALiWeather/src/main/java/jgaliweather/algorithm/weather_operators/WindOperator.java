@@ -36,7 +36,7 @@ public class WindOperator {
         index references to wind values in the source data, as well as
         the wind values associated to those indices.
      */
-    public ArrayList<String> applyOperators() {
+    public ArrayList<String> applyOperator() {
 
         ArrayList<ArrayList> sequences = new ArrayList();
         ArrayList<Value> current_sequence = null;
@@ -48,15 +48,12 @@ public class WindOperator {
                     current_sequence.add(data.getValues().get(i));
                 } else {
                     current_sequence = new ArrayList();
+                    sequences.add(current_sequence);
                     current_sequence.add(data.getValues().get(i));
                 }
             } else {
-                sequences.add(current_sequence);
                 current_sequence = null;
             }
-        }
-        if (current_sequence != null) {
-            sequences.add(current_sequence);
         }
 
         ArrayList<String> periods = new ArrayList();

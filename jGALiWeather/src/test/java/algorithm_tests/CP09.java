@@ -1,7 +1,8 @@
 package algorithm_tests;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import jgaliweather.algorithm.weather_operators.TemperatureOperator;
+import jgaliweather.algorithm.weather_operators.FogOperator;
 import jgaliweather.configuration.partition_reader.Partition;
 import jgaliweather.configuration.partition_reader.PartitionReader;
 import jgaliweather.configuration.variable_reader.VariableReader;
@@ -15,33 +16,31 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-/**
- *
- * @author Difma
- */
-public class CP08 {
-
-    public CP08() {
+/* Tests FOG operators */
+public class CP09 {
+    
+    public CP09() {
     }
-
+    
     @BeforeClass
     public static void setUpClass() {
     }
-
+    
     @AfterClass
     public static void tearDownClass() {
     }
-
+    
     @Before
     public void setUp() {
     }
-
+    
     @After
     public void tearDown() {
     }
 
     @Test
     public void test() {
+              
         PartitionReader pr = new PartitionReader();
         pr.parseFile("Configuration/partitions.xml");
         HashMap<String, Partition> partitions = pr.getPartitions();
@@ -56,28 +55,32 @@ public class CP08 {
         for (XMLVariable v : variables.values()) {
             Variable curr_var = new Variable(v.getName());
             
-            curr_var.getValues().add(new Value(15, 0));
-            curr_var.getValues().add(new Value(16, 1));
-            curr_var.getValues().add(new Value(17, 2));
-            curr_var.getValues().add(new Value(15, 3));
+            curr_var.getValues().add(new Value(106, 0));
+            curr_var.getValues().add(new Value(115, 1));
+            curr_var.getValues().add(new Value(106, 2));
+            curr_var.getValues().add(new Value(106, 3));
+            curr_var.getValues().add(new Value(106, 4));
+            curr_var.getValues().add(new Value(115, 5));
+            curr_var.getValues().add(new Value(106, 6));
+            curr_var.getValues().add(new Value(106, 7));
+            curr_var.getValues().add(new Value(106, 8));
+            curr_var.getValues().add(new Value(106, 9));
+            curr_var.getValues().add(new Value(115, 10));
+            curr_var.getValues().add(new Value(106, 11));
             l1.getVariables().put(curr_var.getName(), curr_var);
         }
-        
-        String[][] cd = new String[4][3];
-        String[] aux1 = {"1", "15", "1"};
-        String[] aux2 = {"2", "16", "1"};
-        String[] aux3 = {"3", "17", "1"};
-        String[] aux4 = {"4", "18", "1"};
-        cd[0] = aux1;
-        cd[1] = aux2;
-        cd[2] = aux3;
-        cd[3] = aux4;
-        
-        l1.setClimatic_data(cd);
 
         locations.put(l1.getName(), l1);
         
-        TemperatureOperator top = new TemperatureOperator(partitions.get("V"), null, null, partitions.get("VAR"), locations.get("Prueba1").getVariables().get("Temperatura"));
-        //top.setClim_partitions();
+        FogOperator f_op = new FogOperator(partitions.get("FOG").getSets().get(0), locations.get("Prueba1").getVariables().get("Meteoro"));
+        
+        HashMap<Double, ArrayList<Double>> salida = f_op.applyOperator();
+        
+        for (ArrayList<Double> v : salida.values()) {
+            for (int i = 0; i < v.size(); i++) {
+                System.out.println(i + ": " + v.get(i));
+                
+            }
+        }
     }
 }

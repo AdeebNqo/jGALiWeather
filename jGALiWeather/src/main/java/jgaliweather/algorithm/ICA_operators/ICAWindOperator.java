@@ -1,4 +1,4 @@
-package jgaliweather.algorithm.sky_operators;
+package jgaliweather.algorithm.ICA_operators;
 
 import java.util.ArrayList;
 import jgaliweather.data.data_structures.Variable;

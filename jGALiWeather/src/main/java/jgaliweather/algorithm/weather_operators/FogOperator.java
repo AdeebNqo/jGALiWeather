@@ -43,25 +43,19 @@ public class FogOperator {
         for (double i = 0; i < data.getValues().size(); i++) {
             if (curDay != i / 3) {
                 curDay = i / 3;
-                e.put(customI % 3, currentFog);
                 currentFog = null;
             }
             if (fog_set.apply(data.getValues().get((int) i).getData()) == 1) {
                 if (currentFog == null) {
                     currentFog = new ArrayList();
                     currentFog.add(i / 3);
-                    customI = i;
+                    e.put(i % 3, currentFog);
                 } else {
                     currentFog.add(i / 3);
                 }
             } else {
-                e.put(customI % 3, currentFog);
                 currentFog = null;
             }
-        }
-        
-        if(currentFog != null) {
-            e.put(customI % 3, currentFog);
         }
         
         return e;

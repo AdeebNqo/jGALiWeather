@@ -15,7 +15,8 @@ import jgaliweather.data.data_structures.Variable;
 public class TemperatureOperator {
 
     private Partition diff_part;
-    private ArrayList<Partition> clim_partitions;
+    private Partition max_climate_partition;
+    private Partition min_climate_partition;
     private Partition var_partition;
     private Variable data;
 
@@ -24,7 +25,9 @@ public class TemperatureOperator {
 
         :param diff_part: An interval partition defining the
         temperature variation labels
-        :param clim_part: An interval partition defining the
+        :param max_climate_partition: A partition defining the maximum
+        temperature climatic behavior labels
+        :param min_climate_partition: A partition defining the minimum
         temperature climatic behavior labels
         :param var_part: An interval partition defining the
         temperature oscillation labels
@@ -32,10 +35,51 @@ public class TemperatureOperator {
 
         :return: A new TemperatureOperator object
      */
-    public TemperatureOperator(Partition diff_part, ArrayList<Partition> clim_part, Partition var_part, Variable data) {
+    public TemperatureOperator(Partition diff_part, Partition max_climate_partition, Partition min_climate_partition, Partition var_partition, Variable data) {
         this.diff_part = diff_part;
-        this.clim_partitions = clim_part;
-        this.var_partition = var_part;
+        this.max_climate_partition = max_climate_partition;
+        this.min_climate_partition = min_climate_partition;
+        this.var_partition = var_partition;
+        this.data = data;
+    }
+
+    public Partition getDiff_part() {
+        return diff_part;
+    }
+
+    public void setDiff_part(Partition diff_part) {
+        this.diff_part = diff_part;
+    }
+
+    public Partition getMax_climate_partition() {
+        return max_climate_partition;
+    }
+
+    public void setMax_climate_partition(Partition max_climate_partition) {
+        this.max_climate_partition = max_climate_partition;
+    }
+
+    public Partition getMin_climate_partition() {
+        return min_climate_partition;
+    }
+
+    public void setMin_climate_partition(Partition min_climate_partition) {
+        this.min_climate_partition = min_climate_partition;
+    }
+
+    public Partition getVar_partition() {
+        return var_partition;
+    }
+
+    public void setVar_partition(Partition var_partition) {
+        this.var_partition = var_partition;
+    }
+
+    public Variable getData() {
+        return data;
+    }
+
+    public void setData(Variable data) {
         this.data = data;
     }
 
@@ -116,12 +160,12 @@ public class TemperatureOperator {
 
         // Calculations for variation and climatic behavior of maximums
         double max_var = maxms.get(maxms.size() - 1) - maxms.get(0);
-        String max_climeval = clim_partitions.get(0).bestEvaluatedLabel(average(maxms)).getName();
+        String max_climeval = this.max_climate_partition.bestEvaluatedLabel(average(maxms)).getName();
         String max_eval = diff_part.bestEvaluatedLabel(max_var).getName();
 
         // Calculations for variation and climatic behavior of minimums
         double min_var = minms.get(minms.size() - 1) - minms.get(0);
-        String min_climeval = clim_partitions.get(0).bestEvaluatedLabel(average(minms)).getName();
+        String min_climeval = this.min_climate_partition.bestEvaluatedLabel(average(minms)).getName();
         String min_eval = diff_part.bestEvaluatedLabel(min_var).getName();
 
         // Variability calculations

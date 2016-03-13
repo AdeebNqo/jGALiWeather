@@ -1,5 +1,6 @@
 package jgaliweather.data.data_structures;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /*
@@ -11,12 +12,14 @@ public class Location {
 
     private String name;
     private int lid;
+    private String[][] climatic_data;
     private HashMap<String, Variable> variables;
     private HashMap<String, String> summaries;
 
     public Location(String name, int lid) {
         this.name = name;
         this.lid = lid;
+        this.climatic_data = null;
         this.variables = new HashMap();
         this.summaries = new HashMap();
     }
@@ -51,6 +54,14 @@ public class Location {
 
     public int getLid() {
         return lid;
+    }
+
+    public String[][] getClimatic_data() {
+        return climatic_data;
+    }
+
+    public void setClimatic_data(String[][] climatic_data) {
+        this.climatic_data = climatic_data;
     }
 
     @Override
