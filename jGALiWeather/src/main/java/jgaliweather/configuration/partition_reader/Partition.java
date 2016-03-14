@@ -46,7 +46,8 @@ public class Partition {
             res.set(i, sets.get(i).apply(value));
         }
 
-        Integer best_label = Collections.max(res);
+        Integer best_value = Collections.max(res);
+        int best_label = res.indexOf(best_value);
         return sets.get(best_label);
     }
 

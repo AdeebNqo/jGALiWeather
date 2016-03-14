@@ -5,9 +5,9 @@ import java.util.ArrayList;
 public class ObjectSet implements Set {
 
     private String name;
-    private ArrayList<Integer> objects;
+    private ArrayList objects;
 
-    public ObjectSet(String name, ArrayList<Integer> objects) {
+    public ObjectSet(String name, ArrayList objects) {
         this.name = name;
         this.objects = objects;
     }
@@ -21,17 +21,16 @@ public class ObjectSet implements Set {
         this.name = name;
     }
 
-    public ArrayList<Integer> getObjects() {
+    public ArrayList getObjects() {
         return objects;
     }
 
-    public void setObjects(ArrayList<Integer> objects) {
+    public void setObjects(ArrayList objects) {
         this.objects = objects;
     }
 
     @Override
     public int apply(double value) {
-
         if (objects.contains(new Integer((int) value))) {
             return 1;
         } else {

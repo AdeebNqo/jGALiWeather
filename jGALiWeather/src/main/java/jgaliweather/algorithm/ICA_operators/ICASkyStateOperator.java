@@ -50,7 +50,11 @@ public class ICASkyStateOperator {
             for (Set s : sky_partition.getSets()) {
                 for (int j = i*3; j < max_length; j++) {
                     v = data.getValues().get(j);
-                    aux = e.get(s.getName());
+                    if (!e.containsKey(s.getName())) {
+                        aux = 0;
+                    } else {
+                        aux = e.get(s.getName());
+                    }                  
                     e.put(s.getName(), aux + new Double(s.apply(v.getData())) / new Double(max_length / (3 * (i + 1))));
                 }
             }

@@ -38,7 +38,7 @@ public class FogOperator {
 
         HashMap<Double, ArrayList<Double>> e = new HashMap();
         ArrayList<Double> currentFog = null;
-        double curDay = 0, customI = 0;
+        double curDay = 0;
 
         for (double i = 0; i < data.getValues().size(); i++) {
             if (curDay != i / 3) {

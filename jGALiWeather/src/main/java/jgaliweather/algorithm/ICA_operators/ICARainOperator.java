@@ -61,6 +61,7 @@ public class ICARainOperator {
             }
             rain_percentages.add(new Double(rain_count) / new Double(max_length / (3 * (i + 1))));
         }
+
         return rain_percentages;
     }
 }

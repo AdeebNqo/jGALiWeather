@@ -2,6 +2,7 @@ package jgaliweather.algorithm.weather_operators;
 
 import java.util.ArrayList;
 import jgaliweather.configuration.partition_reader.Partition;
+import jgaliweather.configuration.partition_reader.Set;
 import jgaliweather.data.data_structures.Value;
 import jgaliweather.data.data_structures.Variable;
 
@@ -44,27 +45,27 @@ public class RainOperator {
 
         ArrayList<ArrayList> sequences = new ArrayList();
         ArrayList<Value> current_sequence = null;
+        boolean no_encontrado = false;
 
-        for (int i = 0; i < data.getValues().size(); i++) {
-            for (int j = 0; j < rain_partition.getSets().size(); j++) {
-                if (rain_partition.getSets().get(j).apply(data.getValues().get(i).getData()) > 0) {
+        for (Value d: data.getValues()) {
+            for (Set s: rain_partition.getSets()) {
+                if (s.apply(d.getData()) > 0) {
+                    no_encontrado = true;
                     if (current_sequence != null) {
-                        current_sequence.add(data.getValues().get(i));
+                        current_sequence.add(d);
                     } else {
                         current_sequence = new ArrayList();
-                        current_sequence.add(data.getValues().get(i));
+                        sequences.add(current_sequence);
+                        current_sequence.add(d);
                     }
                     break;
                 } else {
-                    sequences.add(current_sequence);
-                    current_sequence = null;
+                    no_encontrado= false;
                 }
-
             }
-
-        }
-        if (current_sequence != null) {
-            sequences.add(current_sequence);
+            if(!no_encontrado) {
+                current_sequence = null;
+            }
         }
 
         ArrayList<String> periods = new ArrayList();

@@ -50,6 +50,6 @@ public class ICAOperator {
         }
 
         return diffs.get(0) + " " + diffs.get(1) + " "
-                + ica_partition.bestEvaluatedLabel(data.getValues().get(data.getValues().size() - 1).getData());
+                + ica_partition.bestEvaluatedLabel(data.getValues().get(data.getValues().size() - 1).getData()).getName();
     }
 }

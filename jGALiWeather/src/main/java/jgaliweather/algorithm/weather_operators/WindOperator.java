@@ -3,6 +3,7 @@ package jgaliweather.algorithm.weather_operators;
 import java.util.ArrayList;
 import jgaliweather.data.data_structures.Value;
 import jgaliweather.data.data_structures.Variable;
+import org.javatuples.Pair;
 
 /*
     Implements an operator which generates a wind
@@ -11,7 +12,7 @@ import jgaliweather.data.data_structures.Variable;
  */
 public class WindOperator {
 
-    private ArrayList<Integer> code_range;
+    private Pair<Integer, Integer> code_range;
     private Variable data;
 
     /*
@@ -22,7 +23,7 @@ public class WindOperator {
 
         :return: A new WindOperator object
      */
-    public WindOperator(ArrayList<Integer> code_range, Variable data) {
+    public WindOperator(Pair<Integer, Integer> code_range, Variable data) {
         this.code_range = code_range;
         this.data = data;
     }
@@ -42,8 +43,8 @@ public class WindOperator {
         ArrayList<Value> current_sequence = null;
 
         for (int i = 0; i < data.getValues().size(); i++) {
-            if (code_range.get(0) <= data.getValues().get(i).getData()
-                    && data.getValues().get(i).getData() <= code_range.get(1)) {
+            if (code_range.getValue0() <= data.getValues().get(i).getData()
+                    && data.getValues().get(i).getData() <= code_range.getValue1()) {
                 if (current_sequence != null) {
                     current_sequence.add(data.getValues().get(i));
                 } else {

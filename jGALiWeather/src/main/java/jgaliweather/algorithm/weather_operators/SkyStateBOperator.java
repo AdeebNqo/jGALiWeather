@@ -101,7 +101,7 @@ public class SkyStateBOperator {
         for (int i = 0; i < best_labels_vs_tranposed.length; i++) {
             best_labels_vs_tranposed_first_column[i] = best_labels_vs_tranposed[i][0];
         }
-        
+
         double[][] best_labels_vs_tranposed_aux = new double[best_labels_vs_tranposed.length][3];
         System.arraycopy(best_labels_vs_tranposed, 0, best_labels_vs_tranposed_aux, 0, best_labels_vs_tranposed_first_column.length);
 
@@ -111,12 +111,12 @@ public class SkyStateBOperator {
                 best_labels_vs_tranposed_aux_tranposed[i][j] = best_labels_vs_tranposed[j][i];
             }
         }
-        
+
         double[][] best_labels_vs_tranposed_aux_tranposed_flipped = new double[table.length][3];
         for (int i = 0; i < best_labels_vs_tranposed_aux_tranposed_flipped.length; i++) {
-            ArrayUtils.reverse(best_labels_vs_tranposed_aux_tranposed_flipped[i]);        
-        }       
-        
+            ArrayUtils.reverse(best_labels_vs_tranposed_aux_tranposed_flipped[i]);
+        }
+
         return best_labels_vs_tranposed_aux_tranposed_flipped;
     }
 }
