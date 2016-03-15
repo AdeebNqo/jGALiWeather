@@ -1,6 +1,5 @@
 package jgaliweather.data.data_structures;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /*
