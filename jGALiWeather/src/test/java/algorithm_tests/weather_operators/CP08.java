@@ -4,9 +4,7 @@ import java.util.HashMap;
 import jgaliweather.algorithm.weather_operators.TemperatureOperator;
 import jgaliweather.configuration.partition_reader.Partition;
 import jgaliweather.configuration.partition_reader.PartitionReader;
-import jgaliweather.configuration.variable_reader.VariableReader;
-import jgaliweather.configuration.variable_reader.XMLVariable;
-import jgaliweather.data.data_structures.Location;
+import jgaliweather.data.data_structures.Temperature;
 import jgaliweather.data.data_structures.Value;
 import jgaliweather.data.data_structures.Variable;
 import org.junit.After;
@@ -46,38 +44,32 @@ public class CP08 {
         pr.parseFile("Configuration/partitions.xml");
         HashMap<String, Partition> partitions = pr.getPartitions();
 
-        VariableReader vr = new VariableReader();
-        vr.parseFile("Configuration/variables.xml");
-        HashMap<String, XMLVariable> variables = vr.getVariables();
+        Variable curr_var = new Variable("Temperatura");
 
-        HashMap<String, Location> locations = new HashMap();
-        Location l1 = new Location("Prueba1", 120);
+        curr_var.getValues().add(new Value(15, 0));
+        curr_var.getValues().add(new Value(16, 1));
+        curr_var.getValues().add(new Value(17, 2));
+        curr_var.getValues().add(new Value(15, 3));
+        curr_var.getValues().add(new Value(15, 4));
+        curr_var.getValues().add(new Value(16, 5));
+        curr_var.getValues().add(new Value(17, 6));
+        curr_var.getValues().add(new Value(15, 7));
+
+        Partition max_climate_partition = partitions.get("T");
+        Partition min_climate_partition = partitions.get("T");
         
-        for (XMLVariable v : variables.values()) {
-            Variable curr_var = new Variable(v.getName());
+        /*for (int i = 0; i < partitions.get("T").getSets().size(); i++) {
+            CrispInterval min = (CrispInterval)min_climate_partition.getSets().get(i);
+            CrispInterval max = (CrispInterval)max_climate_partition.getSets().get(i);
             
-            curr_var.getValues().add(new Value(15, 0));
-            curr_var.getValues().add(new Value(16, 1));
-            curr_var.getValues().add(new Value(17, 2));
-            curr_var.getValues().add(new Value(15, 3));
-            l1.getVariables().put(curr_var.getName(), curr_var);
-        }
-        
-        String[][] cd = new String[4][3];
-        String[] aux1 = {"1", "15", "1"};
-        String[] aux2 = {"2", "16", "1"};
-        String[] aux3 = {"3", "17", "1"};
-        String[] aux4 = {"4", "18", "1"};
-        cd[0] = aux1;
-        cd[1] = aux2;
-        cd[2] = aux3;
-        cd[3] = aux4;
-        
-        l1.setClimatic_data(cd);
+            min.setA(i);
+            
+        }*/
 
-        locations.put(l1.getName(), l1);
+        TemperatureOperator top = new TemperatureOperator(partitions.get("V"), max_climate_partition, min_climate_partition, partitions.get("VAR"), curr_var);
         
-        TemperatureOperator top = new TemperatureOperator(partitions.get("V"), null, null, partitions.get("VAR"), locations.get("Prueba1").getVariables().get("Temperatura"));
-        //top.setClim_partitions();
+        Temperature salida = top.applyOperator();
+        
+        System.out.println(salida.getClim_eval() + ", " + salida.getVariability_eval() + ", " + salida.getVariation_eval());
     }
 }

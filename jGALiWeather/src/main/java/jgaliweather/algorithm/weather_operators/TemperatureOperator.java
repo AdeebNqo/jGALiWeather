@@ -177,7 +177,7 @@ public class TemperatureOperator {
             double currmax = maxms.get(i + 1) - maxms.get(i);
             double currmin = maxms.get(i + 1) - maxms.get(i);
             mxlist.add(diff_part.bestEvaluatedIndex(currmax));
-            mxlist.add(diff_part.bestEvaluatedIndex(currmin));
+            mnlist.add(diff_part.bestEvaluatedIndex(currmin));
         }
 
         for (int i = 0; i < mxlist.size() - 1; i++) {

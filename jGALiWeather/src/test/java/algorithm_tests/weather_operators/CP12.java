@@ -5,7 +5,6 @@
  */
 package algorithm_tests.weather_operators;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import jgaliweather.algorithm.weather_operators.SkyStateAOperator;
 import jgaliweather.configuration.partition_reader.Partition;
@@ -52,15 +51,12 @@ public class CP12 {
         curr_var.getValues().add(new Value(101, 0));
         curr_var.getValues().add(new Value(102, 1));
         curr_var.getValues().add(new Value(114, 2));
-        curr_var.getValues().add(new Value(1, 2));//Separador
         curr_var.getValues().add(new Value(103, 3));
         curr_var.getValues().add(new Value(119, 4));
         curr_var.getValues().add(new Value(109, 5));
-        curr_var.getValues().add(new Value(1, 2));//Separador
         curr_var.getValues().add(new Value(115, 6));
         curr_var.getValues().add(new Value(101, 7));
         curr_var.getValues().add(new Value(121, 8));
-        curr_var.getValues().add(new Value(1, 2));//Separador
         curr_var.getValues().add(new Value(120, 9));
         curr_var.getValues().add(new Value(116, 10));
         curr_var.getValues().add(new Value(106, 11));

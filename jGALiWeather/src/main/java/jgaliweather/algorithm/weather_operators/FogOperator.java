@@ -41,7 +41,7 @@ public class FogOperator {
         double curDay = 0;
 
         for (double i = 0; i < data.getValues().size(); i++) {
-            if (curDay != i / 3) {
+            if (curDay !=  i / 3) {
                 curDay = i / 3;
                 currentFog = null;
             }
