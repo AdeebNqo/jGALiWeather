@@ -67,7 +67,7 @@ public class PrecipitationPeriod {
         ArrayList<Integer> days = new ArrayList();
 
         for (int i = 0; i < numberOfDays(); i++) {
-            days.add(beginning.get(Calendar.DAY_OF_MONTH + i) % 7);
+            days.add((beginning.get(Calendar.DAY_OF_MONTH) + i) % 7);
 
         }
 

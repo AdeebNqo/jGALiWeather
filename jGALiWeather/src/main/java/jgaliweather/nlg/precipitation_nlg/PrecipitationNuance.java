@@ -1,7 +1,6 @@
 package jgaliweather.nlg.precipitation_nlg;
 
 import jgaliweather.configuration.template_reader.LabelSet;
-import jgaliweather.configuration.template_reader.Template;
 
 /*
     Defines a precipitation nuance.
