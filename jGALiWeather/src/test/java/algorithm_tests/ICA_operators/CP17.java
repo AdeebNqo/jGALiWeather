@@ -44,15 +44,15 @@ public class CP17 {
 
         Variable curr_var = new Variable("Meteoro");
 
-        curr_var.getValues().add(new Value(0, 0));
+        curr_var.getValues().add(new Value(5, 0));
         curr_var.getValues().add(new Value(1, 1));
         curr_var.getValues().add(new Value(3, 2));
 
-        ICAOperator r_op = new ICAOperator(partitions.get("ICA"), curr_var);// No hay que pasarle un objeto Variable
+        ICAOperator r_op = new ICAOperator(partitions.get("ICA"), curr_var);
 
         String salida = r_op.applyOperator();
 
-        System.out.println(salida);
+        Assert.assertEquals("- + I", salida);
 
     }
 }
