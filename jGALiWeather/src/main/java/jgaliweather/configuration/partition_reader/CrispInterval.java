@@ -55,7 +55,7 @@ public class CrispInterval implements Set {
     }
 
     @Override
-    public int apply(double value) {
+    public double apply(double value) {
         switch (mode) {
             case "Closed":
                 if (value >= a && value <= b) {

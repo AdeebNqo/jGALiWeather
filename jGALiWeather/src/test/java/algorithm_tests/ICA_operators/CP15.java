@@ -2,13 +2,12 @@ package algorithm_tests.ICA_operators;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 import jgaliweather.algorithm.ICA_operators.ICASkyStateOperator;
 import jgaliweather.configuration.partition_reader.Partition;
 import jgaliweather.configuration.partition_reader.PartitionReader;
 import jgaliweather.data.data_structures.Value;
 import jgaliweather.data.data_structures.Variable;
+import org.junit.Assert;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -58,21 +57,11 @@ public class CP15 {
 
         ICASkyStateOperator ss_op = new ICASkyStateOperator(partitions.get("C"), curr_var, 9);
 
-        ArrayList<Double> salida_esperada = new ArrayList();
-        salida_esperada.add(2.0);
-        salida_esperada.add(4.0);
-        salida_esperada.add(2.0);
-
         ArrayList<HashMap<String, Double>> salida = ss_op.applyOperator();
 
-        for (int i = 0; i < salida.size(); i++) {
-            Iterator it = salida.get(i).entrySet().iterator();
-            while (it.hasNext()) {
-                Map.Entry pair = (Map.Entry) it.next();
-                System.out.println(pair.getKey() + ": " + pair.getValue());
-                it.remove();
-            }
-        }
+        double DELTA = 1e-15;
+        Assert.assertEquals(1.3333333333333333, salida.get(0).get("CL"), DELTA);
+        Assert.assertEquals(1.0, salida.get(2).get("C"), DELTA);
 
     }
 }

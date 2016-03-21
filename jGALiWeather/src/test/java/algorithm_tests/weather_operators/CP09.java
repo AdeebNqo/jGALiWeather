@@ -7,6 +7,7 @@ import jgaliweather.configuration.partition_reader.Partition;
 import jgaliweather.configuration.partition_reader.PartitionReader;
 import jgaliweather.data.data_structures.Value;
 import jgaliweather.data.data_structures.Variable;
+import org.junit.Assert;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -59,16 +60,17 @@ public class CP09 {
 
         FogOperator f_op = new FogOperator(partitions.get("FOG").getSets().get(0), curr_var);
 
-        HashMap<Double, ArrayList<Double>> salida = f_op.applyOperator();
+        HashMap<Integer, ArrayList<ArrayList<Integer>>> salida = f_op.applyOperator();
 
-        int j = 0;
-        for (ArrayList<Double> v : salida.values()) {
-            j++;
-            System.out.print(j + ": ");
-            for (int i = 0; i < v.size(); i++) {
-                System.out.print(v.get(i) + " ");
-            }
-            System.out.println("");
+        ArrayList<String> salida_esperada = new ArrayList();
+        salida_esperada.add("[[0, 0], [2, 2], [3]]");
+        salida_esperada.add("[[1]]");
+        salida_esperada.add("[[3]]");
+        
+        int i = 0;
+        for (ArrayList<ArrayList<Integer>> v : salida.values()) {          
+            Assert.assertEquals(salida_esperada.get(i), v.toString());
+            i++;
         }
     }
 }

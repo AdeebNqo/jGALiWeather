@@ -44,10 +44,10 @@ public class SkyStateAOperator {
      */
     public String applyOperator() {
 
-        ArrayList<int[]> evaluations = new ArrayList();
+        ArrayList<double[]> evaluations = new ArrayList();
 
         for (Set p : sky_partition.getSets()) {
-            int[] e = new int[data.getValues().size()];
+            double[] e = new double[data.getValues().size()];
             Arrays.fill(e, 0);
 
             for (int i = 0; i < data.getValues().size(); i++) {
@@ -81,6 +81,7 @@ public class SkyStateAOperator {
         for (int i = 0; i < table.length; i++) {
             for (int j = 0; j < table[i].length; j++) {
                 if (max < table[i][j]) {
+                    max = table[i][j];
                     best_labels[i] = j;
                     best_values[i] = table[i][j];
                 }

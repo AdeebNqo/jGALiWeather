@@ -30,7 +30,7 @@ public class ObjectSet implements Set {
     }
 
     @Override
-    public int apply(double value) {
+    public double apply(double value) {
         if (objects.contains(new Integer((int) value))) {
             return 1;
         } else {

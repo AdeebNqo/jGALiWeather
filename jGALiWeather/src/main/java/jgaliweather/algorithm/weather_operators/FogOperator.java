@@ -34,24 +34,27 @@ public class FogOperator {
 
         :return: A dictionary of fog episodes
      */
-    public HashMap<Double, ArrayList<Double>> applyOperator() {
+    public HashMap<Integer, ArrayList<ArrayList<Integer>>> applyOperator() {
 
-        HashMap<Double, ArrayList<Double>> e = new HashMap();
-        ArrayList<Double> currentFog = null;
-        double curDay = 0;
+        HashMap<Integer, ArrayList<ArrayList<Integer>>> e = new HashMap();
+        ArrayList<Integer> currentFog = null;
+        int curDay = 0;
 
         for (double i = 0; i < data.getValues().size(); i++) {
-            if (curDay !=  i / 3) {
-                curDay = i / 3;
+            if (curDay != (int) i / 3) {
+                curDay = (int) i / 3;
                 currentFog = null;
             }
             if (fog_set.apply(data.getValues().get((int) i).getData()) == 1) {
                 if (currentFog == null) {
                     currentFog = new ArrayList();
-                    currentFog.add(i / 3);
-                    e.put(i % 3, currentFog);
+                    currentFog.add((int) i / 3);
+                    if (!e.containsKey((int) i % 3)) {
+                        e.put((int) i % 3, new ArrayList());
+                    }
+                    e.get((int) i % 3).add(currentFog);
                 } else {
-                    currentFog.add(i / 3);
+                    currentFog.add((int) i / 3);
                 }
             } else {
                 currentFog = null;

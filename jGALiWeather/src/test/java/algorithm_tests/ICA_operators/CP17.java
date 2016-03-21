@@ -48,11 +48,11 @@ public class CP17 {
         curr_var.getValues().add(new Value(1, 1));
         curr_var.getValues().add(new Value(3, 2));
 
-        ICAOperator r_op = new ICAOperator(partitions.get("ICA"), curr_var);
+        ICAOperator r_op = new ICAOperator(partitions.get("ICA"), curr_var);// No hay que pasarle un objeto Variable
 
         String salida = r_op.applyOperator();
 
-        Assert.assertEquals("+ + I", salida);
+        System.out.println(salida);
 
     }
 }

@@ -2,7 +2,7 @@ package jgaliweather.configuration.partition_reader;
 
 import fuzzy4j.sets.TrapezoidalFunction;
 
-public class FuzzySet implements Set { //Faltan funciones por implementar
+public class FuzzySet implements Set {
 
     private String name;
     private TrapezoidalFunction function;
@@ -33,11 +33,10 @@ public class FuzzySet implements Set { //Faltan funciones por implementar
     public void setFunction(TrapezoidalFunction function) {
         this.function = function;
     }
-    
+
     @Override
-    public int apply(double value) {//Pendiente de implementar
-        
-        return 1;
+    public double apply(double value) {
+        return function.apply(value);
     }
 
     @Override

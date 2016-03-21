@@ -1,6 +1,7 @@
 package jgaliweather.algorithm.weather_operators;
 
 import java.util.Arrays;
+import java.util.stream.IntStream;
 import jgaliweather.configuration.partition_reader.Partition;
 import jgaliweather.data.data_structures.Value;
 import jgaliweather.data.data_structures.Variable;
@@ -67,12 +68,13 @@ public class SkyStateBOperator {
 
         double[] best_labels = new double[table.length];
         double[] aux = new double[table.length];
-        int max = -9999;
+        double max = -9999;
 
         // Max value on any single row
         for (int i = 0; i < table.length; i++) {
             for (int j = 0; j < table[i].length; j++) {
                 if (max < table[i][j]) {
+                    max = table[i][j];
                     best_labels[i] = j;
                 }
 
@@ -96,23 +98,29 @@ public class SkyStateBOperator {
             }
         }
 
-        //Matrix flipped
+        //Matrix flipped (problem in this block)
         double[] best_labels_vs_tranposed_first_column = new double[best_labels_vs_tranposed.length];
-        for (int i = 0; i < best_labels_vs_tranposed.length; i++) {
+        for (int i = 0; i < best_labels_vs_tranposed_first_column.length; i++) {
             best_labels_vs_tranposed_first_column[i] = best_labels_vs_tranposed[i][0];
         }
 
-        double[][] best_labels_vs_tranposed_aux = new double[best_labels_vs_tranposed.length][3];
-        System.arraycopy(best_labels_vs_tranposed, 0, best_labels_vs_tranposed_aux, 0, best_labels_vs_tranposed_first_column.length);
+        int[] sortedIndices = IntStream.range(0, best_labels_vs_tranposed_first_column.length)
+                .boxed().sorted((i, j) -> (int) (best_labels_vs_tranposed_first_column[i] - best_labels_vs_tranposed_first_column[j]))
+                .mapToInt(ele -> ele).toArray();
 
-        double[][] best_labels_vs_tranposed_aux_tranposed = new double[3][best_labels_vs_tranposed.length];
+        double[][] best_labels_vs_tranposed_aux = new double[best_labels_vs_tranposed.length][3];
+        for (int i = 0; i < best_labels_vs_tranposed_aux.length; i++) {
+            best_labels_vs_tranposed_aux[i] = best_labels_vs_tranposed[sortedIndices[i]];
+        }
+
+        double[][] best_labels_vs_tranposed_aux_tranposed = new double[3][best_labels_vs_tranposed_aux.length];
         for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < best_labels_vs_tranposed.length; j++) {
-                best_labels_vs_tranposed_aux_tranposed[i][j] = best_labels_vs_tranposed[j][i];
+            for (int j = 0; j < best_labels_vs_tranposed_aux.length; j++) {
+                best_labels_vs_tranposed_aux_tranposed[i][j] = best_labels_vs_tranposed_aux[j][i];
             }
         }
 
-        double[][] best_labels_vs_tranposed_aux_tranposed_flipped = new double[table.length][3];
+        double[][] best_labels_vs_tranposed_aux_tranposed_flipped = best_labels_vs_tranposed_aux_tranposed;
         for (int i = 0; i < best_labels_vs_tranposed_aux_tranposed_flipped.length; i++) {
             ArrayUtils.reverse(best_labels_vs_tranposed_aux_tranposed_flipped[i]);
         }

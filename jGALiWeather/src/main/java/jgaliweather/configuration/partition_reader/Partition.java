@@ -29,8 +29,8 @@ public class Partition {
         return name;
     }
 
-    public ArrayList<Integer> evalValue(double value) {
-        ArrayList<Integer> res = new ArrayList();
+    public ArrayList<Double> evalValue(double value) {
+        ArrayList<Double> res = new ArrayList();
 
         for (Set fp : sets) {
             res.add(fp.apply(value));
@@ -40,19 +40,19 @@ public class Partition {
     }
 
     public Set bestEvaluatedLabel(double value) {
-        ArrayList<Integer> res = new ArrayList(Collections.nCopies(sets.size(), 0));
+        ArrayList<Double> res = new ArrayList(Collections.nCopies(sets.size(), 0));
 
         for (int i = 0; i < sets.size(); i++) {
             res.set(i, sets.get(i).apply(value));
         }
 
-        Integer best_value = Collections.max(res);
+        Double best_value = Collections.max(res);
         int best_label = res.indexOf(best_value);
         return sets.get(best_label);
     }
 
     public int bestEvaluatedIndex(double value) {
-        ArrayList<Integer> res = new ArrayList(Collections.nCopies(sets.size(), 0));
+        ArrayList<Double> res = new ArrayList(Collections.nCopies(sets.size(), 0));
         int best_label = 0, max = -9999;
 
         for (int i = 0; i < sets.size(); i++) {
