@@ -13,10 +13,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-/**
- *
- * @author Difma
- */
+/* Tests Temperature operators */
 public class CP08 {
 
     public CP08() {

@@ -1,9 +1,6 @@
 package jgaliweather.configuration.template_reader.template_components;
 
-/**
- *
- * @author Difma
- */
 public interface TimeLabel {
     
+    public void setData(String data);
 }

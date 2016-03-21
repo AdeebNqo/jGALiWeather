@@ -21,6 +21,11 @@ public class Time implements TimeLabel {
         this.day = day;
     }
 
+    @Override
+    public void setData(String data){
+        
+    }
+    
     public void setName(String name) {
         this.name = name;
     }
