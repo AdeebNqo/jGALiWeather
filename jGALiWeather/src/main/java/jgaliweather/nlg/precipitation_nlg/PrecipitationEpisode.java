@@ -13,6 +13,12 @@ public class PrecipitationEpisode {
     private String label;
     private ArrayList<PrecipitationNuance> nuances;
 
+    public PrecipitationEpisode() {
+        this.duration = null;
+        this.label = null;
+        this.nuances = new ArrayList();
+    }
+
     public PrecipitationEpisode(PrecipitationPeriod duration, String label) {
         this.duration = duration;
         this.label = label;

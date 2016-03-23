@@ -325,11 +325,11 @@
 	</labelset>
     <labelset name="ICA" value="Air quality expressions">
         <label name="start">With respect to the air quality state,</label>
-        <label name="case_stable">se mantendrá {} en general</label>
-        <label name="case_mchange">será variable aunque se espera que {} a {}</label>
-        <label name="case_schange">it is expected to {} to {}</label>
-        <label name="case_echange">it is expected to {} to {}</label>
-        <label name="case_pchange">it is expected to {} progressively to {}</label>
+        <label name="case_stable">se mantendrá {0} en general</label>
+        <label name="case_mchange">será variable aunque se espera que {0} a {1}</label>
+        <label name="case_schange">it is expected to {0} to {1}</label>
+        <label name="case_echange">it is expected to {0} to {1}</label>
+        <label name="case_pchange">it is expected to {0} progressively to {1}</label>
         <label name="nuance_rain">, favored by the precitipations during the coming days.</label>
         <label name="nuance_wind">, favored by the wind expected for the coming days.</label>
         <label name="nuance_rainwind">, favored by the low pressures in the atmosphere during the coming days.</label>

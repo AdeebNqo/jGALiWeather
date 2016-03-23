@@ -290,11 +290,11 @@
 
     <labelset name="ICA" value="Air quality expressions">
         <label name="start">Respecto al estado de la calidad del aire,</label>
-        <label name="case_stable">se mantendrá {} en términos generales</label>
-        <label name="case_mchange">variará aunque {} a {}</label>
-        <label name="case_schange">{} a {}</label>
-        <label name="case_echange">{} a {}</label>
-        <label name="case_pchange">{} progresivamente a {}</label>
+        <label name="case_stable">se mantendrá {0} en términos generales</label>
+        <label name="case_mchange">variará aunque {0} a {1}</label>
+        <label name="case_schange">{0} a {1}</label>
+        <label name="case_echange">{0} a {1}</label>
+        <label name="case_pchange">{0} progresivamente a {1}</label>
         <label name="nuance_rain">, gracias a las precipitaciones que tendrán lugar los próximos días.</label>
         <label name="nuance_wind">, gracias al viento esperado para los próximos días.</label>
         <label name="nuance_rainwind">, gracias a las bajas presiones de los próximos días.</label>

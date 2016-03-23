@@ -1,5 +1,6 @@
 package algorithm_tests.weather_operators;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import jgaliweather.algorithm.weather_operators.FogOperator;

@@ -2,8 +2,8 @@ package jgaliweather.nlg.precipitation_nlg;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import jgaliweather.configuration.template_reader.LabelSet;
+import jgaliweather.configuration.template_reader.template_components.Time;
 import org.javatuples.Pair;
 
 /*
@@ -12,8 +12,8 @@ import org.javatuples.Pair;
  */
 public class PrecipitationPeriod {
 
-    private GregorianCalendar beginning;
-    private GregorianCalendar end;
+    private Time beginning;
+    private Time end;
 
     /*
         Initializes a PrecipitationPeriod object
@@ -23,24 +23,24 @@ public class PrecipitationPeriod {
 
         :return: A new PrecipitationPeriod object
      */
-    public PrecipitationPeriod(GregorianCalendar beginning, GregorianCalendar end) {
+    public PrecipitationPeriod(Time beginning, Time end) {
         this.beginning = beginning;
         this.end = end;
     }
 
-    public GregorianCalendar getBeginning() {
+    public Time getBeginning() {
         return beginning;
     }
 
-    public void setBeginning(GregorianCalendar beginning) {
+    public void setBeginning(Time beginning) {
         this.beginning = beginning;
     }
 
-    public GregorianCalendar getEnd() {
+    public Time getEnd() {
         return end;
     }
 
-    public void setEnd(GregorianCalendar end) {
+    public void setEnd(Time end) {
         this.end = end;
     }
 
@@ -52,7 +52,7 @@ public class PrecipitationPeriod {
         in days
      */
     public int numberOfDays() {
-        return (int) ((end.getTime().getTime() - beginning.getTime().getTime()) / (1000 * 60 * 60 * 24));
+        return (int) ((end.getTime().getTime().getTime() - beginning.getTime().getTime().getTime()) / (1000 * 60 * 60 * 24));
     }
 
     /*
@@ -67,7 +67,7 @@ public class PrecipitationPeriod {
         ArrayList<Integer> days = new ArrayList();
 
         for (int i = 0; i < numberOfDays(); i++) {
-            days.add((beginning.get(Calendar.DAY_OF_MONTH) + i) % 7);
+            days.add((beginning.getTime().get(Calendar.DAY_OF_MONTH) + i) % 7);
 
         }
 
@@ -84,8 +84,8 @@ public class PrecipitationPeriod {
      */
     public Pair<Integer, Integer> single() {
 
-        if (beginning.get(Calendar.DAY_OF_MONTH) == end.get(Calendar.DAY_OF_MONTH) && beginning.getTimeInMillis() == end.getTimeInMillis()) {
-            return new Pair(beginning.get(Calendar.DAY_OF_MONTH), beginning.getTimeInMillis());
+        if (beginning.getTime().get(Calendar.DAY_OF_MONTH) == end.getTime().get(Calendar.DAY_OF_MONTH) && beginning.getTime().getTimeInMillis() == end.getTime().getTimeInMillis()) {
+            return new Pair(beginning.getTime().get(Calendar.DAY_OF_MONTH), beginning.getTime().getTimeInMillis());
         } else {
             return null;
         }
@@ -108,14 +108,14 @@ public class PrecipitationPeriod {
         if (mode.equals("D")) {
             if (single() != null) {
                 d = expresion_template.getLabels().get("single_period").getData() + " "
-                        + day_template.getLabels().get(end.get(Calendar.DAY_OF_MONTH) + "").getData();
+                        + day_template.getLabels().get(end.getTime().get(Calendar.DAY_OF_MONTH) + "").getData();
 
             } else {
                 String d1 = expresion_template.getLabels().get("composite_period_start").getData() + " "
-                        + day_template.getLabels().get(beginning.get(Calendar.DAY_OF_MONTH) + "").getData();
+                        + day_template.getLabels().get(beginning.getTime().get(Calendar.DAY_OF_MONTH) + "").getData();
 
                 String d2 = expresion_template.getLabels().get("composite_period_end").getData() + " "
-                        + day_template.getLabels().get(end.get(Calendar.DAY_OF_MONTH) + "").getData();
+                        + day_template.getLabels().get(end.getTime().get(Calendar.DAY_OF_MONTH) + "").getData();
 
                 d = d1 + " " + d2;
             }
@@ -124,23 +124,23 @@ public class PrecipitationPeriod {
 
         } else if (single() != null) {
             return expresion_template.getLabels().get("single_period").getData() + " "
-                    + day_template.getLabels().get(end.get(Calendar.DAY_OF_MONTH) + "").getData() + " "
-                    + time_template.getLabels().get(end.get(Calendar.DAY_OF_MONTH) + "").getData();
+                    + day_template.getLabels().get(end.getTime().get(Calendar.DAY_OF_MONTH) + "").getData() + " "
+                    + time_template.getLabels().get(end.getTime().get(Calendar.DAY_OF_MONTH) + "").getData();
 
-        } else if (beginning.get(Calendar.DAY_OF_MONTH) != end.get(Calendar.DAY_OF_MONTH)) {
+        } else if (beginning.getTime().get(Calendar.DAY_OF_MONTH) != end.getTime().get(Calendar.DAY_OF_MONTH)) {
             String start = expresion_template.getLabels().get("composite_period_start").getData() + " "
-                    + day_template.getLabels().get(beginning.get(Calendar.DAY_OF_MONTH) + "").getData() + " "
-                    + time_template.getLabels().get(beginning.get(Calendar.DAY_OF_MONTH) + "").getData();
+                    + day_template.getLabels().get(beginning.getTime().get(Calendar.DAY_OF_MONTH) + "").getData() + " "
+                    + time_template.getLabels().get(beginning.getTime().get(Calendar.DAY_OF_MONTH) + "").getData();
 
             String end = expresion_template.getLabels().get("composite_period_end").getData() + " "
-                    + day_template.getLabels().get(this.end.get(Calendar.DAY_OF_MONTH) + "").getData() + " "
-                    + time_template.getLabels().get(this.end.get(Calendar.DAY_OF_MONTH) + "").getData();
+                    + day_template.getLabels().get(this.end.getTime().get(Calendar.DAY_OF_MONTH) + "").getData() + " "
+                    + time_template.getLabels().get(this.end.getTime().get(Calendar.DAY_OF_MONTH) + "").getData();
 
             return start + " " + end;
 
         } else {
             return expresion_template.getLabels().get("single_period").getData() + " "
-                    + day_template.getLabels().get(end.get(Calendar.DAY_OF_MONTH) + "").getData();
+                    + day_template.getLabels().get(end.getTime().get(Calendar.DAY_OF_MONTH) + "").getData();
         }
     }
 }

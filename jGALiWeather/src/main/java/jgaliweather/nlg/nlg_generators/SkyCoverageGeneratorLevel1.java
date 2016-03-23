@@ -78,20 +78,23 @@ public class SkyCoverageGeneratorLevel1 {
     }
 
     private void alternative1(String token1, String token2, String token3) {
-        int l_common = 0;
+        int l_common = 0, aux = 0;
         HashMap<String, Integer> labels = new HashMap();
         labels.merge(token1, 1, Integer::sum);
         labels.merge(token2, 1, Integer::sum);
         labels.merge(token3, 1, Integer::sum);
 
-        if (l_common < labels.getOrDefault(token1, 0)) {
-            l_common = labels.getOrDefault(token1, 0);
+        if (aux < labels.getOrDefault(token1, 0)) {
+            aux = labels.getOrDefault(token1, 0);
+            l_common = aux;
         }
-        if (l_common < labels.getOrDefault(token2, 0)) {
-            l_common = labels.getOrDefault(token2, 0);
+        if (aux < labels.getOrDefault(token2, 0)) {
+            l_common = aux;
+            aux = labels.getOrDefault(token2, 0);
         }
-        if (l_common < labels.getOrDefault(token3, 0)) {
-            l_common = labels.getOrDefault(token3, 0);
+        if (aux < labels.getOrDefault(token3, 0)) {
+            l_common = aux;
+            aux = labels.getOrDefault(token3, 0);
         }
 
         if (labels.size() == 1) {

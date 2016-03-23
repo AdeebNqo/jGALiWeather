@@ -161,21 +161,19 @@ public class PrecipitationDayGroup {
             }
         }
 
-        if (days.size() == term_length / 3) {
-            for (int ts : times.keySet()) {
-                if (times.get(ts) == days.size()) {
-                    recurring_time = ts + 1;
-                    break;
-                }
+        for (int ts : times.keySet()) {
+            if (times.get(ts) == days.size()) {
+                recurring_time = ts + 1;
+                return true;
             }
-
-            return true;
-
-        } else {
-
-            return false;
-
         }
+
+        if (singles == 0 && all_nuances < episodes.size()) {
+            return true;
+        }
+
+        return false;
+
     }
 
     /*
@@ -190,15 +188,41 @@ public class PrecipitationDayGroup {
     public String generateReport(HashMap<String, LabelSet> template_labels) {
 
         String mode = "TD";
+        ArrayList<String> ord_days = new ArrayList();
 
-        String text = template_labels.get("RNLGE").getLabels().get("start").getData() + " "
-                + template_labels.get("RNLGE").getLabels().get("everyday").getData();
-
-        if (recurring_time > 0) {
-            text = text.concat(" " + template_labels.get("RNLGE").getLabels().get(recurring_time - 1 + "").getData());
-            mode = "D";
+        for (Integer d : days.keySet()) {
+            ord_days.add(d.toString());
         }
 
+        String text = template_labels.get("RNLGE").getLabels().get("start").getData() + " "
+                + template_labels.get("RNLGE").getLabels().get("single_period").getData();
+
+        if (days.size() == 1) {
+
+            text = text.concat(" " + template_labels.get("DW").getLabels().get(ord_days.get(0)).getData());
+
+        } else if (days.size() == 2) {
+
+            text = text.concat(" " + template_labels.get("DW").getLabels().get(ord_days.get(0)).getData() + " " + template_labels.get("RNLGE").getLabels().get("nexus").getData());
+            text = text.concat(" " + template_labels.get("RNLGE").getLabels().get("single_period").getData() + " " + template_labels.get("DW").getLabels().get(ord_days.get(1)).getData());
+
+        } else {
+            text = text.concat(" " + template_labels.get("DW").getLabels().get(ord_days.get(0)).getData());
+
+            for (int i = 0; i < nuances.size() - 2; i++) {
+                text = text.concat(" " + template_labels.get("RNLGE").getLabels().get("separator").getData() + " "
+                        + template_labels.get("RNLGE").getLabels().get("single_period").getData() + " "
+                        + template_labels.get("DW").getLabels().get(ord_days.get(i + 1)).getData());
+            }
+            
+            text = text.concat(" " + template_labels.get("RNLGE").getLabels().get("nexus").getData() + " "
+                        + template_labels.get("RNLGE").getLabels().get("single_period").getData() + " "
+                        + template_labels.get("DW").getLabels().get(ord_days.get(ord_days.size() - 1)).getData());
+        }        
+        if(recurring_time>0 && days.size() > 0) {
+            text = text.concat(" " + template_labels.get("PD").getLabels().get(recurring_time - 1 + "").getData());
+            mode = "D";
+        }
         if (nuances.size() > 0) {
             text = text.concat(template_labels.get("RNLGE").getLabels().get("separator").getData() + " "
                     + template_labels.get("RNLGE").getLabels().get("nuance").getData());
