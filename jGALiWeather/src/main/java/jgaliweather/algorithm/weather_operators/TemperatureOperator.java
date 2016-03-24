@@ -91,7 +91,7 @@ public class TemperatureOperator {
         :return: If the temperature trend is constant,
         True is returned. Otherwise False is returned.
      */
-    public boolean isConstant(ArrayList<Double> data) {
+    public boolean isConstant(ArrayList<Integer> data) {
 
         int downs = 0, ups = 0;
         double curr_diff;
@@ -116,7 +116,7 @@ public class TemperatureOperator {
         }
     }
 
-    private double average(List<Double> list) {
+    private double average(List<Integer> list) {
 
         if (list == null || list.isEmpty()) {
             return 0.0;
@@ -143,8 +143,8 @@ public class TemperatureOperator {
      */
     public Temperature applyOperator() {
 
-        ArrayList<Double> maxms = new ArrayList();
-        ArrayList<Double> minms = new ArrayList();
+        ArrayList<Integer> maxms = new ArrayList();
+        ArrayList<Integer> minms = new ArrayList();
 
         for (int i = 0; i < data.getValues().size(); i++) {
             if (i % 2 == 0) {

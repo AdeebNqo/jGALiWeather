@@ -1,6 +1,7 @@
 package jgaliweather.configuration.logger;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -23,7 +24,7 @@ import java.util.logging.SimpleFormatter;
  */
 public class GALiLogger {
 
-    private Logger logger;
+    private static Logger logger;
 
     /*
         Initializes the logger and adds two handlers which
@@ -33,15 +34,14 @@ public class GALiLogger {
         :param log_directory: A valid string path to a directory,
         where the log will be stored
      */
-    public GALiLogger(String log_directory) {
+    public static void initLogger(String log_directory) {
 
         LogManager.getLogManager().reset(); //Disables the default console handler
 
         logger = Logger.getLogger("GALiLogger");
-
         try {
             SimpleFormatter formatter = new SimpleFormatter();
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH.mm.ss");       
             Calendar cal = Calendar.getInstance();
             FileHandler fh;
 
@@ -55,22 +55,22 @@ public class GALiLogger {
                 fh.setFormatter(formatter);
                 logger.addHandler(fh);
             } else {
-                fh = new FileHandler("GALiWeather_Log_" + dateFormat.format(cal.getTime()) + ".log");
+                fh = new FileHandler("logs/GALiWeather_Log_" + dateFormat.format(cal.getTime()) + ".log");
                 fh.setFormatter(formatter);
                 logger.addHandler(fh);
-                logger.warning("Directory " + log_directory + " not found, log file created in current working directory");
+                logger.warning("Directory " + log_directory + " not found, log file created in default log directory");
             }
 
-        } catch (Exception e) {
+        } catch (SecurityException | IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void setLogger(Logger logger) {
-        this.logger = logger;
+    public static void setLogger(Logger logger) {
+        GALiLogger.logger = logger;
     }
 
-    public Logger getLogger() {
+    public static Logger getLogger() {
         return logger;
     }
 }

@@ -7,9 +7,9 @@ package jgaliweather.data.data_structures;
 public class Value {
 
     private int temp_location;
-    private double data;
+    private int data;
 
-    public Value(double data, int temp_location) {
+    public Value(int data, int temp_location) {
         this.temp_location = temp_location;
         this.data = data;
     }
@@ -18,7 +18,7 @@ public class Value {
         return temp_location;
     }
 
-    public double getData() {
+    public int getData() {
         return data;
     }
 
@@ -26,7 +26,7 @@ public class Value {
         this.temp_location = temp_location;
     }
 
-    public void setData(double data) {
+    public void setData(int data) {
         this.data = data;
     }
 
