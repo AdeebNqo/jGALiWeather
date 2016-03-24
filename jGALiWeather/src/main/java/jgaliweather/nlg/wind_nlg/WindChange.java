@@ -52,6 +52,6 @@ public class WindChange {
      */
     public String toText(LabelSet expresion_template, LabelSet label_template, LabelSet day_template, LabelSet time_template) {
 
-        return label_template.getLabels().get(label).getData() + " " + duration.toText(expresion_template, day_template, time_template, "");
+        return label_template.getLabels().get(label).getData() + " " + duration.toText(expresion_template, day_template, time_template, "N");
     }
 }

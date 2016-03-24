@@ -53,13 +53,13 @@ public class WindEpisode {
         :return: A natural language expression of this object
      */
     public String toText(LabelSet expresion_template, LabelSet label_template, LabelSet day_template, LabelSet time_template) {
-        if (changes.size() != 0) {
+        if (!changes.isEmpty()) {
             return label_template.getLabels().get(label).getData() + " "
                     + duration.toText(expresion_template, day_template, time_template, "START")
                     + addTextChanges(expresion_template, label_template, day_template, time_template);
         } else {
             return label_template.getLabels().get(label).getData() + " "
-                    + duration.toText(expresion_template, day_template, time_template, "");
+                    + duration.toText(expresion_template, day_template, time_template, "N");
         }
     }
 
@@ -90,7 +90,7 @@ public class WindEpisode {
                 }
 
                 text = text.concat(" " + expresion_template.getLabels().get("nexus").getData() + " "
-                        + expresion_template.getLabels().get("one_change").getData() + " "
+                        + expresion_template.getLabels().get("multiple_change").getData() + " "
                         + changes.get(changes.size() - 1).toText(expresion_template, label_template, day_template, time_template));
             }
         }

@@ -60,12 +60,12 @@ public class FogGenerator {
             }
 
             String text = fog_expr.getLabels().get("start").getData();
-            text = text.concat(" " + parts.get(0).toString());
+            text = text.concat(" " + parts.get(0));
             if (parts.size() > 1) {
                 for (int i = 0; i < parts.size() - 2; i++) {
-                    text = text.concat(fog_expr.getLabels().get("part_separator").getData() + " " + parts.get(i + 1).toString());
+                    text = text.concat(fog_expr.getLabels().get("part_separator").getData() + " " + parts.get(i + 1));
                 }
-                text = text.concat(fog_expr.getLabels().get("part_separator").getData() + " " + fog_expr.getLabels().get("nexus").getData() + " " + parts.get(parts.size() - 1).toString());
+                text = text.concat(fog_expr.getLabels().get("part_separator").getData() + " " + fog_expr.getLabels().get("nexus").getData() + " " + parts.get(parts.size() - 1));
             }
             return text + ".";
         } else {
@@ -87,6 +87,13 @@ public class FogGenerator {
     private String generatePart(int part, ArrayList<ArrayList<Integer>> days) {
 
         String text = fog_expr.getLabels().get(part + "").getData() + " ";
+        
+        int dayOfWeek = curr_date.get(Calendar.DAY_OF_WEEK) - 2;
+        if (dayOfWeek == 0) {
+            dayOfWeek = 6;
+        } else if (dayOfWeek == -1) {
+            dayOfWeek = 5;
+        }
 
         if (days.size() == term_length / 3) {
             boolean persistent = true;
@@ -98,7 +105,7 @@ public class FogGenerator {
             }
 
             if (persistent) {
-                text = text.concat(fog_expr.getLabels().get("persistent").getData() + " " + fog_expr.getLabels().get("everyday").getData());
+                text = text.concat(fog_expr.getLabels().get("persistent").getData() + " " + fog_expr.getLabels().get("everyday").getData()) + " ";
             } else if (semi_persistent > term_length / 3) {
                 ArrayList<Integer> p_days = new ArrayList();
                 for (ArrayList<Integer> d : days) {
@@ -108,16 +115,16 @@ public class FogGenerator {
                 }
 
                 text = text.concat(fog_expr.getLabels().get("everyday").getData() + fog_expr.getLabels().get("separator").getData() + " "
-                        + fog_expr.getLabels().get("single_period").getData() + " " + days_week.getLabels().get((p_days.get(0) + curr_date.get(Calendar.DAY_OF_WEEK) % 7) + " ").getData());
+                        + fog_expr.getLabels().get("single_period").getData() + " " + days_week.getLabels().get(((p_days.get(0) + dayOfWeek) % 7) + "").getData());
 
                 if (p_days.size() > 1) {
                     for (int i = 0; i < p_days.size() - 2; i++) {
                         text = text.concat(fog_expr.getLabels().get("separator").getData() + " " + fog_expr.getLabels().get("single_period").getData() + " "
-                                + days_week.getLabels().get((p_days.get(i + 1) + curr_date.get(Calendar.DAY_OF_WEEK) % 7) + " ").getData());
+                                + days_week.getLabels().get(((p_days.get(i + 1) + dayOfWeek) % 7) + "").getData());
 
                     }
                     text = text.concat(" " + fog_expr.getLabels().get("nexus").getData() + " " + fog_expr.getLabels().get("single_period").getData() + " "
-                            + days_week.getLabels().get((p_days.get(p_days.size() - 1) + curr_date.get(Calendar.DAY_OF_WEEK) % 7) + " ").getData());
+                            + days_week.getLabels().get(((p_days.get(p_days.size() - 1) + dayOfWeek) % 7) + "").getData());
 
                 }
             } else {
@@ -125,22 +132,22 @@ public class FogGenerator {
             }
         } else {
             text = text.concat(fog_expr.getLabels().get("single_period").getData() + " "
-                    + days_week.getLabels().get((days.get(0).get(0) + curr_date.get(Calendar.DAY_OF_WEEK) % 7) + " ").getData());
+                    + days_week.getLabels().get(((days.get(0).get(0) + dayOfWeek) % 7) + "").getData());
 
             if (days.get(0).size() > 1) {
-                text = text.concat(fog_expr.getLabels().get("persistent").getData() + " ");
+                text = text.concat(" " + fog_expr.getLabels().get("persistent").getData());
             }
             if (days.size() > 1) {
                 for (int i = 0; i < days.size() - 2; i++) {
                     text = text.concat(fog_expr.getLabels().get("separator").getData() + " " + fog_expr.getLabels().get("single_period").getData() + " "
-                            + days_week.getLabels().get((days.get(i + 1).get(0) + curr_date.get(Calendar.DAY_OF_WEEK) % 7) + " ").getData());
+                            + days_week.getLabels().get(((days.get(i + 1).get(0) + dayOfWeek) % 7) + "").getData());
                     if (days.get(i + 1).size() > 1) {
                         text = text.concat(" " + fog_expr.getLabels().get("persistent").getData());
                     }
                 }
                 
                 text = text.concat(" " + fog_expr.getLabels().get("nexus").getData() + " " + fog_expr.getLabels().get("single_period").getData() + " "
-                            + days_week.getLabels().get((days.get(days.size() - 1).get(0) + curr_date.get(Calendar.DAY_OF_WEEK) % 7) + " ").getData());
+                            + days_week.getLabels().get(((days.get(days.size() - 1).get(0) + dayOfWeek) % 7) + "").getData());
                 
                 if(days.get(days.size()-1).size() > 1) {
                     text = text.concat(" (" + fog_expr.getLabels().get("persistent").getData() + ")");

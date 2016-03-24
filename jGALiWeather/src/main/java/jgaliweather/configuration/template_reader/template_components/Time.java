@@ -1,13 +1,11 @@
 package jgaliweather.configuration.template_reader.template_components;
 
-import java.util.Calendar;
-
 /* Defines a specific time, including date and part of the day */
 public class Time implements TimeLabel {
 
     private String name;
-    private Calendar time;
-    private Float day;
+    private Integer time;
+    private Integer day;
 
     public Time(String name) {
         this.name = name;
@@ -15,7 +13,7 @@ public class Time implements TimeLabel {
         this.day = null;
     }
 
-    public Time(String name, Calendar time, float day) {
+    public Time(String name, Integer time, Integer day) {
         this.name = name;
         this.time = time;
         this.day = day;
@@ -30,19 +28,19 @@ public class Time implements TimeLabel {
         this.name = name;
     }
 
-    public Calendar getTime() {
+    public Integer getTime() {
         return time;
     }
 
-    public void setTime(Calendar time) {
+    public void setTime(Integer time) {
         this.time = time;
     }
 
-    public Float getDay() {
+    public Integer getDay() {
         return day;
     }
 
-    public void setDay(Float day) {
+    public void setDay(Integer day) {
         this.day = day;
     }
 

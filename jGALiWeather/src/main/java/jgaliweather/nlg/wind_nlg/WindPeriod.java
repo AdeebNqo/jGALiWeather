@@ -1,7 +1,6 @@
 package jgaliweather.nlg.wind_nlg;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import jgaliweather.configuration.template_reader.LabelSet;
 import jgaliweather.configuration.template_reader.template_components.Time;
 import org.javatuples.Pair;
@@ -49,7 +48,7 @@ public class WindPeriod {
         :return: The length of the period in days
      */
     public int numberOfDays() {
-        return (int) ((end.getTime().getTime().getTime() - beginning.getTime().getTime().getTime()) / (1000 * 60 * 60 * 24)) + 1;
+        return (end.getDay() - beginning.getDay()) % 7 + 1;
     }
 
     /*
@@ -62,8 +61,7 @@ public class WindPeriod {
         ArrayList<Integer> days = new ArrayList();
 
         for (int i = 0; i < numberOfDays(); i++) {
-            days.add(beginning.getTime().get(Calendar.DAY_OF_MONTH) + i);
-
+            days.add((beginning.getDay() + i) % 7);
         }
 
         return days;
@@ -79,8 +77,8 @@ public class WindPeriod {
      */
     public Pair<Integer, Integer> single() {
 
-        if (beginning.getTime().get(Calendar.DAY_OF_MONTH) == end.getTime().get(Calendar.DAY_OF_MONTH) && beginning.getTime().getTimeInMillis() == end.getTime().getTimeInMillis()) {
-            return new Pair(beginning.getTime().get(Calendar.DAY_OF_MONTH), beginning.getTime().getTimeInMillis());
+        if (beginning.getDay().equals(end.getDay()) && beginning.getTime().equals(end.getTime())) {
+            return new Pair(beginning.getDay(), beginning.getTime());
         } else {
             return null;
         }
@@ -102,20 +100,20 @@ public class WindPeriod {
 
         if (mode.equals("START")) {
             d = expresion_template.getLabels().get("change_start").getData() + " "
-                    + day_template.getLabels().get(beginning.getTime().get(Calendar.DAY_OF_MONTH) + "").getData() + " "
-                    + time_template.getLabels().get(beginning.getTime().getTime() + "").getData();
+                    + day_template.getLabels().get(beginning.getDay() + "").getData() + " "
+                    + time_template.getLabels().get(beginning.getTime() + "").getData();
         } else if (single() != null) {
             d = expresion_template.getLabels().get("single_period").getData() + " "
-                    + day_template.getLabels().get(end.getTime().get(Calendar.DAY_OF_MONTH) + "").getData() + " "
-                    + time_template.getLabels().get(end.getTime().getTime() + "").getData();
+                    + day_template.getLabels().get(end.getDay() + "").getData() + " "
+                    + time_template.getLabels().get(end.getTime() + "").getData();
         } else {
             String d1 = expresion_template.getLabels().get("composite_period_start").getData() + " "
-                    + day_template.getLabels().get(beginning.getTime().get(Calendar.DAY_OF_MONTH) + "").getData() + " "
-                    + time_template.getLabels().get(beginning.getTime().getTime() + "").getData();
+                    + day_template.getLabels().get(beginning.getDay() + "").getData() + " "
+                    + time_template.getLabels().get(beginning.getTime() + "").getData();
 
             String d2 = expresion_template.getLabels().get("composite_period_end").getData() + " "
-                    + day_template.getLabels().get(end.getTime().get(Calendar.DAY_OF_MONTH) + "").getData() + " "
-                    + time_template.getLabels().get(end.getTime().getTime() + "").getData();
+                    + day_template.getLabels().get(end.getDay() + "").getData() + " "
+                    + time_template.getLabels().get(end.getTime() + "").getData();
 
             d = d1 + " " + d2;
         }

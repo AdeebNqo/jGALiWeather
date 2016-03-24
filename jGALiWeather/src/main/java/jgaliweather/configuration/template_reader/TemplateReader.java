@@ -160,7 +160,7 @@ public class TemplateReader {
                 }
                 new_template.getCases().add(new_case);
             }
-            templates.put(new_template.getName(), new_template);
+            templates.put(new_template.getId(), new_template);
         }
     }
 

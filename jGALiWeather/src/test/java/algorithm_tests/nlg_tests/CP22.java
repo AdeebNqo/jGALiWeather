@@ -1,23 +1,27 @@
-package algorithm_tests.weather_operators;
+package algorithm_tests.nlg_tests;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import jgaliweather.algorithm.weather_operators.FogOperator;
 import jgaliweather.configuration.partition_reader.Partition;
 import jgaliweather.configuration.partition_reader.PartitionReader;
+import jgaliweather.configuration.template_reader.TemplateReader;
+import jgaliweather.configuration.variable_reader.VariableReader;
 import jgaliweather.data.data_structures.Value;
 import jgaliweather.data.data_structures.Variable;
-import org.junit.Assert;
+import jgaliweather.nlg.nlg_generators.FogGenerator;
 import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-/* Tests FOG operators */
-public class CP09 {
+/* Tests method that generates sentences describing fog predictions*/
+public class CP22 {
 
-    public CP09() {
+    public CP22() {
     }
 
     @BeforeClass
@@ -38,6 +42,12 @@ public class CP09 {
 
     @Test
     public void test() {
+
+        TemplateReader tr = new TemplateReader();
+        tr.parseFile("Configuration/Languages/espanol.xml");
+
+        VariableReader vr = new VariableReader();
+        vr.parseFile("Configuration/variables.xml");
 
         PartitionReader pr = new PartitionReader();
         pr.parseFile("Configuration/partitions.xml");
@@ -60,17 +70,12 @@ public class CP09 {
 
         FogOperator f_op = new FogOperator(partitions.get("FOG").getSets().get(0), curr_var);
 
-        HashMap<Integer, ArrayList<ArrayList<Integer>>> salida = f_op.applyOperator();
+        HashMap<Integer, ArrayList<ArrayList<Integer>>> f_output = f_op.applyOperator();
 
-        ArrayList<String> salida_esperada = new ArrayList();
-        salida_esperada.add("[[0, 0], [2, 2], [3]]");
-        salida_esperada.add("[[1]]");
-        salida_esperada.add("[[3]]");
+        FogGenerator nssg = new FogGenerator(f_output, tr.getLabelsets().get("FOG"), tr.getLabelsets().get("PD"), tr.getLabelsets().get("DW"), Calendar.getInstance(), curr_var.getActual_data_length());
 
-        int i = 0;
-        for (ArrayList<ArrayList<Integer>> v : salida.values()) {
-            Assert.assertEquals(salida_esperada.get(i), v.toString());
-            i++;
-        }
+        String salida = nssg.generate();
+
+        Assert.assertEquals("Habrá nieblas matinales el miércoles posiblemente persistentes, el viernes posiblemente persistentes y el sábado; por la tarde el jueves; y nocturnas el sábado.", salida);
     }
 }

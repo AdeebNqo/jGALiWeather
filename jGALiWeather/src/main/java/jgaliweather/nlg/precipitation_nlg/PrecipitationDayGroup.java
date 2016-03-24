@@ -163,7 +163,7 @@ public class PrecipitationDayGroup {
 
         for (int ts : times.keySet()) {
             if (times.get(ts) == days.size()) {
-                recurring_time = ts + 1;
+                recurring_time = (int) ts + 1;
                 return true;
             }
         }

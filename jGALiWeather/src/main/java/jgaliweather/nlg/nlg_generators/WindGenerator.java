@@ -33,7 +33,7 @@ public class WindGenerator {
 
         :return: A new WindGenerator object
      */
-    public WindGenerator(HashMap<String, LabelSet> template, ArrayList<String> result_strings, Calendar date) {
+    public WindGenerator(HashMap<String, LabelSet> template, Calendar date, ArrayList<String> result_strings) {
         this.template = template;
         this.result_strings = result_strings;
         this.date = date;
@@ -61,7 +61,8 @@ public class WindGenerator {
                 Pair<Integer, Integer> period = new Pair(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()));
                 ArrayList<String> labels = new ArrayList();
                 while (st.hasMoreTokens()) {
-                    labels.add(st.nextToken());
+                    StringTokenizer aux = new StringTokenizer(st.nextToken(), ".");
+                    labels.add(aux.nextToken());
                 }
                 alternative1(period, labels);
             }
@@ -77,16 +78,16 @@ public class WindGenerator {
     }
 
     private void alternative0(String time, String label) {
-        Pair<Calendar, Integer> dt = indexToDayTimeIndex(date, Integer.parseInt(time));
-        WindPeriod wp = new WindPeriod(new Time("", dt.getValue0(), dt.getValue1()), new Time("", dt.getValue0(), dt.getValue1()));
+        Pair<Integer, Integer> dt = indexToDayTimeIndex(date, Integer.parseInt(time));
+        WindPeriod wp = new WindPeriod(new Time("", dt.getValue1(), dt.getValue0()), new Time("", dt.getValue1(), dt.getValue0()));
         WindEpisode nwe = new WindEpisode(wp, label);
         episodes.add(nwe);
     }
 
     private void alternative1(Pair<Integer, Integer> period, ArrayList<String> labels) {
-        Pair<Calendar, Integer> dt1 = indexToDayTimeIndex(date, period.getValue0());
-        Pair<Calendar, Integer> dt2 = indexToDayTimeIndex(date, period.getValue1());
-        WindPeriod wp = new WindPeriod(new Time("", dt1.getValue0(), dt1.getValue1()), new Time("", dt2.getValue0(), dt2.getValue1()));
+        Pair<Integer, Integer> dt1 = indexToDayTimeIndex(date, period.getValue0());
+        Pair<Integer, Integer> dt2 = indexToDayTimeIndex(date, period.getValue1());
+        WindPeriod wp = new WindPeriod(new Time("", dt1.getValue1(), dt1.getValue0()), new Time("", dt2.getValue1(), dt2.getValue0()));
         WindEpisode nwe = new WindEpisode(wp, labels.get(0));
 
         String change_label = labels.get(0);
@@ -94,8 +95,8 @@ public class WindGenerator {
         for (int i = 0; i < labels.size(); i++) {
             if (!labels.get(i).equals(change_label)) {
                 change_label = labels.get(i);
-                Pair<Calendar, Integer> dt = indexToDayTimeIndex(date, period.getValue0() + i);
-                WindPeriod aux = new WindPeriod(new Time("", dt.getValue0(), dt.getValue1()), new Time("", dt.getValue0(), dt.getValue1()));
+                Pair<Integer, Integer> dt = indexToDayTimeIndex(date, period.getValue0() + i);
+                WindPeriod aux = new WindPeriod(new Time("", dt.getValue1(), dt.getValue0()), new Time("", dt.getValue1(), dt.getValue0()));
                 WindChange w_change = new WindChange(aux, change_label);
                 nwe.getChanges().add(w_change);
             }
@@ -113,12 +114,19 @@ public class WindGenerator {
 
         :return: A tuple of day and time indices
      */
-    private Pair<Calendar, Integer> indexToDayTimeIndex(Calendar date, int index) {
+    private Pair<Integer, Integer> indexToDayTimeIndex(Calendar date, int index) {
 
         int new_index = index % 3;
-        Calendar new_date = date;
-        new_date.add(Calendar.DATE, new_index);
 
-        return new Pair(new_date, new_index);
+        int dayOfWeek = date.get(Calendar.DAY_OF_WEEK) - 2;
+        if (dayOfWeek == 0) {
+            dayOfWeek = 6;
+        } else if (dayOfWeek == -1) {
+            dayOfWeek = 5;
+        }
+        
+        int d = (dayOfWeek + index / 3) % 7;
+
+        return new Pair(d, new_index);
     }
 }

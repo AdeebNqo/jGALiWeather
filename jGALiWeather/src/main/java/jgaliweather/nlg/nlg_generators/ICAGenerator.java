@@ -128,7 +128,7 @@ public class ICAGenerator {
     }
 
     private void finishDescription() {
-        text = ica_template.getLabels().get("start").getData() + " " + ica_template.getLabels().get(nuance).getData();
+        text = ica_template.getLabels().get("start").getData()+ " " + text + ica_template.getLabels().get(nuance).getData();
     }
 
     private String weatherNuance(int w_index, String ica_label, String trend) {

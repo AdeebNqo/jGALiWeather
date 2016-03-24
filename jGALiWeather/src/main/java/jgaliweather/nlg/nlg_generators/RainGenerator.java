@@ -36,7 +36,7 @@ public class RainGenerator {
 
         :return: A new RainGenerator object
      */
-    public RainGenerator(HashMap<String, LabelSet> template, int term_length, ArrayList<String> result_strings, Calendar date) {
+    public RainGenerator(HashMap<String, LabelSet> template, Calendar date, int term_length, ArrayList<String> result_strings) {
         this.template = template;
         this.term_length = term_length;
         this.result_strings = result_strings;
@@ -58,7 +58,7 @@ public class RainGenerator {
             for (String rs : result_strings) {
                 StringTokenizer st = new StringTokenizer(rs);
 
-                if (st.countTokens() == 1) {
+                if (st.countTokens() == 2) {
                     String time = st.nextToken();
                     String label = st.nextToken();
                     alternative0(time, label);
@@ -93,8 +93,8 @@ public class RainGenerator {
     }
 
     private void alternative0(String time, String label) {
-        Pair<Calendar, Integer> dt = indexToDayTimeIndex(date, Integer.parseInt(time));
-        PrecipitationPeriod pp = new PrecipitationPeriod(new Time("", dt.getValue0(), dt.getValue1()), new Time("", dt.getValue0(), dt.getValue1()));
+        Pair<Integer, Integer> dt = indexToDayTimeIndex(date, Integer.parseInt(time));
+        PrecipitationPeriod pp = new PrecipitationPeriod(new Time("", dt.getValue1(), dt.getValue0()), new Time("", dt.getValue1(), dt.getValue0()));
         PrecipitationEpisode prec_ep = new PrecipitationEpisode(pp, label);
         episodes.add(prec_ep);
     }
@@ -124,35 +124,35 @@ public class RainGenerator {
                 String l = labels.get(i);
                 if (!l.equals("I") && !l.equals("P")) {
                     if (curr_nuance == null) {
-                        Pair<Calendar, Integer> beg_nuance_dt = indexToDayTimeIndex(date, period.getValue0() + i);
-                        PrecipitationPeriod pp = new PrecipitationPeriod(new Time("", beg_nuance_dt.getValue0(), beg_nuance_dt.getValue1()), null);
+                        Pair<Integer, Integer> beg_nuance_dt = indexToDayTimeIndex(date, period.getValue0() + i);
+                        PrecipitationPeriod pp = new PrecipitationPeriod(new Time("", beg_nuance_dt.getValue1(), beg_nuance_dt.getValue0()), null);
                         curr_nuance = new PrecipitationNuance(pp, l);
-                    } else if (curr_nuance.getLabel() != l) {
-                        Pair<Calendar, Integer> end_nuance_dt = indexToDayTimeIndex(date, period.getValue0() + i - 1);
-                        curr_nuance.getDuration().setEnd(new Time("", end_nuance_dt.getValue0(), end_nuance_dt.getValue1()));
+                    } else if (!curr_nuance.getLabel().equals(l)) {
+                        Pair<Integer, Integer> end_nuance_dt = indexToDayTimeIndex(date, period.getValue0() + i - 1);
+                        curr_nuance.getDuration().setEnd(new Time("", end_nuance_dt.getValue1(), end_nuance_dt.getValue0()));
                         prec_ep.getNuances().add(curr_nuance);
 
-                        Pair<Calendar, Integer> beg_nuance_dt = indexToDayTimeIndex(date, period.getValue0() + i);
-                        PrecipitationPeriod pp = new PrecipitationPeriod(new Time("", beg_nuance_dt.getValue0(), beg_nuance_dt.getValue1()), null);
+                        Pair<Integer, Integer> beg_nuance_dt = indexToDayTimeIndex(date, period.getValue0() + i);
+                        PrecipitationPeriod pp = new PrecipitationPeriod(new Time("", beg_nuance_dt.getValue1(), beg_nuance_dt.getValue0()), null);
                         curr_nuance = new PrecipitationNuance(pp, l);
                     }
                 } else if (curr_nuance != null) {
-                    Pair<Calendar, Integer> end_nuance_dt = indexToDayTimeIndex(date, period.getValue0() + i - 1);
-                    curr_nuance.getDuration().setEnd(new Time("", end_nuance_dt.getValue0(), end_nuance_dt.getValue1()));
+                    Pair<Integer, Integer> end_nuance_dt = indexToDayTimeIndex(date, period.getValue0() + i - 1);
+                    curr_nuance.getDuration().setEnd(new Time("", end_nuance_dt.getValue1(), end_nuance_dt.getValue0()));
                     prec_ep.getNuances().add(curr_nuance);
                     curr_nuance = null;
                 }
             }
 
             if (curr_nuance != null) {
-                Pair<Calendar, Integer> end_nuance_dt = indexToDayTimeIndex(date, period.getValue1());
-                curr_nuance.getDuration().setEnd(new Time("", end_nuance_dt.getValue0(), end_nuance_dt.getValue1()));
+                Pair<Integer, Integer> end_nuance_dt = indexToDayTimeIndex(date, period.getValue1());
+                curr_nuance.getDuration().setEnd(new Time("", end_nuance_dt.getValue1(), end_nuance_dt.getValue0()));
                 prec_ep.getNuances().add(curr_nuance);
             }
-            
-            Pair<Calendar, Integer> dt1 = indexToDayTimeIndex(date, period.getValue0());
-            Pair<Calendar, Integer> dt2 = indexToDayTimeIndex(date, period.getValue1());
-            prec_ep.setDuration(new PrecipitationPeriod(new Time("", dt1.getValue0(), dt1.getValue1()), new Time("", dt2.getValue0(), dt2.getValue1())));
+
+            Pair<Integer, Integer> dt1 = indexToDayTimeIndex(date, period.getValue0());
+            Pair<Integer, Integer> dt2 = indexToDayTimeIndex(date, period.getValue1());
+            prec_ep.setDuration(new PrecipitationPeriod(new Time("", dt1.getValue1(), dt1.getValue0()), new Time("", dt2.getValue1(), dt2.getValue0())));
             episodes.add(prec_ep);
         }
     }
@@ -166,12 +166,19 @@ public class RainGenerator {
 
         :return: A tuple of day and time indices
      */
-    private Pair<Calendar, Integer> indexToDayTimeIndex(Calendar date, int index) {
+    private Pair<Integer, Integer> indexToDayTimeIndex(Calendar date, int index) {
 
         int new_index = index % 3;
-        Calendar new_date = date;
-        new_date.add(Calendar.DATE, new_index);
 
-        return new Pair(new_date, new_index);
+        int dayOfWeek = date.get(Calendar.DAY_OF_WEEK) - 2;
+        if (dayOfWeek == 0) {
+            dayOfWeek = 6;
+        } else if (dayOfWeek == -1) {
+            dayOfWeek = 5;
+        }
+        
+        int d = (dayOfWeek + index / 3) % 7;
+
+        return new Pair(d, new_index);
     }
 }
