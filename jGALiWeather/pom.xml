@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    
     <groupId>diego.iglesias</groupId>
     <artifactId>jGALiWeather</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
+    
     <repositories>
         <repository>
             <id>conjars.org</id>
             <url>http://conjars.org/repo</url>
         </repository>
     </repositories>
+    
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -45,7 +48,15 @@
             <artifactId>sqlite-jdbc</artifactId>
             <version>3.8.11.2</version>
         </dependency>
+        <dependency>
+            <groupId>simpleNLG</groupId>
+            <artifactId>simpleNLG</artifactId>
+            <scope>system</scope>
+            <version>4.4.3</version>
+            <systemPath>${basedir}\src\lib\simplenlg-v4.4.3.jar</systemPath>
+        </dependency>
     </dependencies>
+    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>

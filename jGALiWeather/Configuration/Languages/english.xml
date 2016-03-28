@@ -188,56 +188,6 @@
             </part>
         </case>
     </template>
-
-	<template id="W" name="Viento">
-		<case id="1">
-			<part>
-				<static>We expect</static>
-				<space/>
-				<variable id="w1"></variable>
-				<space/>
-				<static>wind for</static>
-				<space/>
-				<time id="t1"></time>
-				<static>.</static>
-			</part>
-		</case>
-		<case id="2">
-			<part>
-			<static>We expect winds which will be</static>
-			<space/>
-			<variable id="w2"></variable>
-			<space/>
-			<static>from</static>
-			<space/>
-			<time id="t2"></time>
-			<space/>
-			<static>to</static>
-			<space/>
-			<time id="t3"></time>
-			<static>.</static>
-			</part>
-		</case>
-		<case id="3">
-			<part>
-			<static>We expect winds which will be</static>
-			<space/>
-			<variable id="w3"></variable>
-			<space/>
-			<static>from</static>
-			<space/>
-			<time id="t4"></time>
-			<static>, changing to</static>
-			<space/>
-			<variable id="w4"></variable>
-			<space/>
-			<static>on</static>
-			<space/>
-			<time id="t5"></time>
-			<static>.</static>
-			</part>
-		</case>
-	</template>
 	
 	<labelset name="C" value="Cloud Coverage">
 	    <label name="C">clear</label>
@@ -271,22 +221,22 @@
 	    <label name="VH">very high</label>
 	</labelset>
 	<labelset name="W" value="Wind">
-		<label name="317">strong from the North </label>
-		<label name="318">strong from the Northeast</label>
-		<label name="319">strong from the East</label>
-		<label name="320">strong from the Southeast</label>
-		<label name="321">strong from the South</label>
-		<label name="322">strong from the Southwest</label>
-		<label name="323">strong from the West</label>
-		<label name="324">strong from the Northwest</label>
-		<label name="325">very strong from the North</label>
-		<label name="326">very strong from the Northeast</label>
-		<label name="327">very strong from the East</label>
-		<label name="328">very strong from the Southeast</label>
-		<label name="329">very strong from the South</label>
-		<label name="330">very strong from the Southwest</label>
-		<label name="331">very strong from the West</label>
-		<label name="332">very strong from the Northwest</label>
+		<label name="317">strong North</label>
+		<label name="318">strong Northeast</label>
+		<label name="319">strong East</label>
+		<label name="320">strong Southeast</label>
+		<label name="321">strong South</label>
+		<label name="322">strong Southwest</label>
+		<label name="323">strong West</label>
+		<label name="324">strong Northwest</label>
+		<label name="325">Very strong North</label>
+		<label name="326">very strong Northeast</label>
+		<label name="327">very strong East</label>
+		<label name="328">very strong Southeast</label>
+		<label name="329">very strong South</label>
+		<label name="330">very strong Southwest</label>
+		<label name="331">very strong West</label>
+		<label name="332">very strong Northwest</label>
 	</labelset>
 	<labelset name="VAR" value="Temperature variability">
 		<label name="C">will not oscillate</label>
@@ -295,9 +245,9 @@
 		<label name="MV">will oscillate</label>
 	</labelset>
 	<labelset name="PD" value="Parts of the day">
-		<label name="0">in the morning</label>
-		<label name="1">in the afternoon</label>
-		<label name="2">at night</label>
+		<label name="0">morning</label>
+		<label name="1">afternoon</label>
+		<label name="2">night</label>
 	</labelset>
 	<labelset name="DW" value="Days of the week">
 		<label name="0">Monday</label>
@@ -323,6 +273,15 @@
         <label name="separator">,</label>
 		<label name="everyday">everyday</label>
 	</labelset>
+	<labelset name="WNLGE" value="Wind NLG expressions">
+        <label name="noun">wind</label>
+        <label name="single_period">on</label>
+        <label name="one_change">change</label>
+        <label name="change">to</label>
+        <label name="composite_period_start">from</label>
+        <label name="composite_period_end">to</label>
+        <label name="change_start">from</label>
+    </labelset>
     <labelset name="ICA" value="Air quality expressions">
         <label name="start">With respect to the air quality state,</label>
         <label name="case_stable">se mantendrá {0} en general</label>

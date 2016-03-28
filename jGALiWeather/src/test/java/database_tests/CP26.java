@@ -15,7 +15,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /* Tests method: retrieveVariableDataForLocation*/
 public class CP26 {
@@ -57,5 +56,7 @@ public class CP26 {
         ArrayList<Integer> salida = conn.retrieveVariableDataForLocation(15001, dates);
 
         Assert.assertEquals(32, salida.size());
+        
+        
     }
 }
