@@ -1,11 +1,15 @@
-package jgaliweather.nlg.precipitation_nlg;
+package jgaliweather.nlg_simpleNLG.precipitation_nlg;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import jgaliweather.configuration.template_reader.LabelSet;
 import org.javatuples.Pair;
+import simplenlg.features.Feature;
+import simplenlg.features.NumberAgreement;
+import simplenlg.framework.CoordinatedPhraseElement;
 import simplenlg.framework.NLGFactory;
+import simplenlg.phrasespec.SPhraseSpec;
 
 /*
     Defines a group of precipitation episodes
@@ -20,6 +24,7 @@ public class PrecipitationTermGroup {
     private int recurring_time;
     private LinkedHashMap<Integer, Integer> days;
     private LinkedHashMap<Integer, Integer> times;
+    private NLGFactory nlgFactory;
 
     /*
         Initializes a PrecipitationDayGroup object
@@ -28,10 +33,11 @@ public class PrecipitationTermGroup {
         objects
         :param term_length: The length of the forecast
         term
+        :param nlgFactory: Class that contains methods for creating syntactic phrases
 
         :return: A new PrecipitationDayGroup object
      */
-    public PrecipitationTermGroup(ArrayList<PrecipitationEpisode> episodes, int term_length) {
+    public PrecipitationTermGroup(ArrayList<PrecipitationEpisode> episodes, int term_length, NLGFactory nlgFactory) {
         this.length = 1;
         this.episodes = episodes;
         this.nuances = new ArrayList();
@@ -39,10 +45,11 @@ public class PrecipitationTermGroup {
         this.recurring_time = 0;
         this.days = new LinkedHashMap();
         this.times = new LinkedHashMap();
+        this.nlgFactory = nlgFactory;
 
         for (PrecipitationEpisode e : episodes) {
             if (!e.getLabel().equals("I") && !e.getLabel().equals("P")) {
-                nuances.add(new PrecipitationNuance(e.getDuration(), e.getLabel()));
+                nuances.add(new PrecipitationNuance(e.getDuration(), e.getLabel(), this.nlgFactory));
             }
 
             for (PrecipitationNuance n : e.getNuances()) {
@@ -171,35 +178,37 @@ public class PrecipitationTermGroup {
         :return: A natural language textual description of this
         object
      */
-    public String generateReport(HashMap<String, LabelSet> template_labels) {
+    public SPhraseSpec generateReport(HashMap<String, LabelSet> template_labels) {
 
         String mode = "TD";
-      
-        String text = template_labels.get("RNLGE").getLabels().get("start").getData() + " "
-                + template_labels.get("RNLGE").getLabels().get("everyday").getData();
+
+        SPhraseSpec text = nlgFactory.createClause(template_labels.get("RNLGE").getLabels().get("subject").getData(),
+                template_labels.get("RNLGE").getLabels().get("verb").getData());
+        text.addComplement(nlgFactory.createAdverbPhrase(template_labels.get("RNLGE").getLabels().get("frequency").getData()));
+        text.setFeature(Feature.NUMBER, NumberAgreement.PLURAL);
 
         if (recurring_time > 0) {
-            text = text.concat(" " + template_labels.get("PD").getLabels().get(recurring_time - 1 + "").getData());
+            text.addComplement(template_labels.get("PD").getLabels().get(recurring_time - 1 + "").getData());
             mode = "D";
         }
 
         if (nuances.size() > 0) {
-            text = text.concat(template_labels.get("RNLGE").getLabels().get("separator").getData() + " "
-                    + template_labels.get("RNLGE").getLabels().get("nuance").getData());
+            SPhraseSpec main_nuance = nlgFactory.createClause(template_labels.get("RNLGE").getLabels().get("nuance_subject").getData(),
+                    template_labels.get("RNLGE").getLabels().get("nuance_verb").getData());
+            main_nuance.setFeature(Feature.MODAL, template_labels.get("RNLGE").getLabels().get("nuance_modal").getData());
+            main_nuance.setFeature(Feature.APPOSITIVE, true);
 
-            text = text.concat(" " + nuances.get(0).toText(template_labels.get("RNLGE"), template_labels.get("R"), template_labels.get("DW"), template_labels.get("PD"), mode));
+            CoordinatedPhraseElement nuances_list = nlgFactory.createCoordinatedPhrase();
 
-            if (nuances.size() > 1) {
-                for (int i = 0; i < nuances.size() - 2; i++) {
-                    text = text.concat(" " + template_labels.get("RNLGE").getLabels().get("separator").getData() + " "
-                            + nuances.get(i + 1).toText(template_labels.get("RNLGE"), template_labels.get("R"), template_labels.get("DW"), template_labels.get("PD"), mode));
-                }
-
-                text = text.concat(" " + template_labels.get("RNLGE").getLabels().get("nexus").getData() + " "
-                        + nuances.get(episodes.size() - 1).toText(template_labels.get("RNLGE"), template_labels.get("R"), template_labels.get("DW"), template_labels.get("PD"), mode));
+            for (int i = 0; i < nuances.size(); i++) {
+                nuances_list.addCoordinate(nuances.get(i).toText(template_labels.get("RNLGE"), template_labels.get("R"), template_labels.get("DW"), template_labels.get("PD"), mode));
             }
+
+            main_nuance.addComplement(nuances_list);
+
+            text.addPostModifier(main_nuance);
         }
 
-        return text + ".";
+        return text;
     }
 }

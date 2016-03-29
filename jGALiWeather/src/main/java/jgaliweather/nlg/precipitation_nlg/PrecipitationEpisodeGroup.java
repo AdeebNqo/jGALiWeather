@@ -3,6 +3,7 @@ package jgaliweather.nlg.precipitation_nlg;
 import java.util.ArrayList;
 import java.util.HashMap;
 import jgaliweather.configuration.template_reader.LabelSet;
+import simplenlg.framework.NLGFactory;
 
 /*
     Defines a group of precipitation episodes.
@@ -23,7 +24,7 @@ public class PrecipitationEpisodeGroup {
     public PrecipitationEpisodeGroup(ArrayList<PrecipitationEpisode> episodes) {
         this.episodes = episodes;
         this.nuances = new ArrayList();
-
+        
         for (PrecipitationEpisode e : episodes) {
             for (PrecipitationNuance n : e.getNuances()) {
                 nuances.add(n);

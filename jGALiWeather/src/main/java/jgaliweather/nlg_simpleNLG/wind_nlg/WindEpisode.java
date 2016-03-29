@@ -7,11 +7,9 @@ import simplenlg.features.Form;
 import simplenlg.framework.CoordinatedPhraseElement;
 import simplenlg.framework.NLGFactory;
 import simplenlg.framework.PhraseElement;
-import simplenlg.lexicon.Lexicon;
 import simplenlg.phrasespec.PPPhraseSpec;
 import simplenlg.phrasespec.SPhraseSpec;
 import simplenlg.phrasespec.VPPhraseSpec;
-import simplenlg.realiser.english.Realiser;
 
 /*
     Defines a wind episode, composed of a list of ordered labels, and an associated period

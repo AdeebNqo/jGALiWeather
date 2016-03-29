@@ -10,7 +10,6 @@ import simplenlg.framework.PhraseElement;
 import simplenlg.phrasespec.AdjPhraseSpec;
 import simplenlg.phrasespec.NPPhraseSpec;
 import simplenlg.phrasespec.PPPhraseSpec;
-import simplenlg.phrasespec.SPhraseSpec;
 
 
 /*
@@ -101,7 +100,7 @@ public class WindEpisodeGroup {
             }
 
             text.addCoordinate(""); // this puts a comma before the last 'and' (needs to delete duplicate white spaces with f.e. String.replaceAll("\\s+", " ");)
-            
+
             NPPhraseSpec windCondition_aux = nlgFactory.createNounPhrase();
 
             ArrayList<PhraseElement> aux = episodes.get(episodes.size() - 1).toText(template_labels.get("WNLGE"), template_labels.get("W"), template_labels.get("DW"), template_labels.get("PD"));

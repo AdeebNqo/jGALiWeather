@@ -1,7 +1,8 @@
-package jgaliweather.nlg.precipitation_nlg;
+package jgaliweather.nlg_simpleNLG.precipitation_nlg;
 
 import java.util.ArrayList;
 import jgaliweather.configuration.template_reader.LabelSet;
+import simplenlg.phrasespec.PPPhraseSpec;
 
 /*
     Defines a precipitation episode, composed of a list
@@ -60,12 +61,21 @@ public class PrecipitationEpisode {
 
         :return: A natural language expression of this object
      */
-    public String toText(LabelSet expresion_template, LabelSet label_template, LabelSet day_template, LabelSet time_template, String mode) {
+    public PPPhraseSpec toText(LabelSet expresion_template, LabelSet label_template, LabelSet day_template, LabelSet time_template, String mode) {
 
+        ArrayList<PPPhraseSpec> durations = duration.toText(expresion_template, day_template, time_template, mode);
+        PPPhraseSpec episode = durations.get(0);
+        for (int i = 1; i < durations.size(); i++) {
+            episode.addPostModifier(durations.get(i));
+            
+        }
+        
         if (label.equals("I") || label.equals("P")) {
-            return duration.toText(expresion_template, day_template, time_template, mode);
+            return episode;
+            
         } else {
-            return duration.toText(expresion_template, day_template, time_template, mode) + " (" + label_template.getLabels().get(label).getData() + ")";
+            episode.addPostModifier(" (" + label_template.getLabels().get(label).getData() + ")");
+            return episode;
         }
     }
 }

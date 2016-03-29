@@ -264,14 +264,15 @@
 		<label name="E">at the end</label>
 	</labelset>
     <labelset name="RNLGE" value="Rain NLG expressions">
-        <label name="start">We expect precipitations</label>
-        <label name="nuance">which can be</label>
+    	<label name="subject">precipitations</label>
+    	<label name="verb">be expected</label>
+        <label name="nuance_subject">which</label>
+        <label name="nuance_modal">can</label>
+        <label name="nuance_verb">be</label>
 		<label name="single_period">on</label>
 		<label name="composite_period_start">from</label>
         <label name="composite_period_end">to</label>
-        <label name="nexus">and</label>
-        <label name="separator">,</label>
-		<label name="everyday">everyday</label>
+		<label name="frequency">everyday</label>
 	</labelset>
 	<labelset name="WNLGE" value="Wind NLG expressions">
         <label name="noun">wind</label>
