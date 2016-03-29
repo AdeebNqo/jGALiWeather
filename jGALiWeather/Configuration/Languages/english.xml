@@ -283,6 +283,18 @@
         <label name="composite_period_end">to</label>
         <label name="change_start">from</label>
     </labelset>
+    <labelset name="FOG" value="Fog NLG expressions">
+        <label name="subject">there</label>
+        <label name="verb">be</label>
+        <label name="fog">fog</label>
+        <label name="on">on</label>
+        <label name="0">morning</label>
+        <label name="1">afternoon</label>
+        <label name="2">night</label>
+        <label name="single_period">on</label>
+        <label name="persistent">probably persistent</label>
+        <label name="everyday">over the next few days</label>
+    </labelset>
     <labelset name="ICA" value="Air quality expressions">
         <label name="start">With respect to the air quality state,</label>
         <label name="case_stable">se mantendrá {0} en general</label>
