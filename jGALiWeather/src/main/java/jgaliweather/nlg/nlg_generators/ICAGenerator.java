@@ -103,27 +103,27 @@ public class ICAGenerator {
     }
 
     private void stable(String ica) {
-        text = MessageFormat.format(ica_template.getLabels().get("case_stable").getData(), ica_template.getLabels().get(ica));
+        text = MessageFormat.format(ica_template.getLabels().get("case_stable").getData(), ica_template.getLabels().get(ica).getData());
         nuance = weatherNuance(0, ica, change_label);
     }
 
     private void mchange(String ica) {
-        text = MessageFormat.format(ica_template.getLabels().get("case_mchange").getData(), ica_template.getLabels().get(change_label), ica_template.getLabels().get(ica));
+        text = MessageFormat.format(ica_template.getLabels().get("case_mchange").getData(), ica_template.getLabels().get(change_label), ica_template.getLabels().get(ica).getData());
         nuance = weatherNuance(2, ica, change_label);
     }
 
     private void schange(String ica) {
-        text = MessageFormat.format(ica_template.getLabels().get("case_echange").getData(), ica_template.getLabels().get(change_label), ica_template.getLabels().get(ica));
+        text = MessageFormat.format(ica_template.getLabels().get("case_echange").getData(), ica_template.getLabels().get(change_label), ica_template.getLabels().get(ica).getData());
         nuance = weatherNuance(1, ica, change_label);
     }
 
     private void echange(String ica) {
-        text = MessageFormat.format(ica_template.getLabels().get("case_schange").getData(), ica_template.getLabels().get(change_label), ica_template.getLabels().get(ica));
+        text = MessageFormat.format(ica_template.getLabels().get("case_schange").getData(), ica_template.getLabels().get(change_label), ica_template.getLabels().get(ica).getData());
         nuance = weatherNuance(2, ica, change_label);
     }
 
     private void pchange(String ica) {
-        text = MessageFormat.format(ica_template.getLabels().get("case_pchange").getData(), ica_template.getLabels().get(change_label), ica_template.getLabels().get(ica));
+        text = MessageFormat.format(ica_template.getLabels().get("case_pchange").getData(), ica_template.getLabels().get(change_label), ica_template.getLabels().get(ica).getData());
         nuance = weatherNuance(2, ica, change_label);
     }
 
