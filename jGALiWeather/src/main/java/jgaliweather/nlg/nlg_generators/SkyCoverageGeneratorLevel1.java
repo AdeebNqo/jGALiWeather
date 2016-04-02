@@ -103,14 +103,14 @@ public class SkyCoverageGeneratorLevel1 {
             template.setSelectedCase(template.getCases().get(1));
 
             if (l_common == 0) {
-                template.getVariables().get("c14").setValue(coverage.getLabels().get(token1).getData());
+                template.getVariables().get("cl4").setValue(coverage.getLabels().get(token1).getData());
                 template.getTime_labels().get("p4").setData(period_labels.getLabels().get(period_partitions.getSets().get(0).getName()).getData());
-                template.getVariables().get("c15").setValue(coverage.getLabels().get(token2).getData());
+                template.getVariables().get("cl5").setValue(coverage.getLabels().get(token2).getData());
                 template.getTime_labels().get("p6").setData(period_labels.getLabels().get(period_partitions.getSets().get(1).getName()).getData());
                 template.getTime_labels().get("p7").setData(period_labels.getLabels().get(period_partitions.getSets().get(2).getName()).getData());
                 template.getOptions().get(4).setUsed(true);
             } else {
-                template.getVariables().get("c14").setValue(coverage.getLabels().get(token1).getData());
+                template.getVariables().get("cl4").setValue(coverage.getLabels().get(token1).getData());
                 template.getTime_labels().get("p4").setData(period_labels.getLabels().get(period_partitions.getSets().get(0).getName()).getData());
 
                 int n_index = 1;
@@ -133,11 +133,11 @@ public class SkyCoverageGeneratorLevel1 {
             }
         } else {
             template.setSelectedCase(template.getCases().get(0));
-            template.getVariables().get("c14").setValue(coverage.getLabels().get(token1).getData());
+            template.getVariables().get("cl1").setValue(coverage.getLabels().get(token1).getData());
             template.getTime_labels().get("p1").setData(period_labels.getLabels().get(period_partitions.getSets().get(0).getName()).getData());
-            template.getVariables().get("c12").setValue(coverage.getLabels().get(token2).getData());
+            template.getVariables().get("cl2").setValue(coverage.getLabels().get(token2).getData());
             template.getTime_labels().get("p2").setData(period_labels.getLabels().get(period_partitions.getSets().get(1).getName()).getData());
-            template.getVariables().get("c13").setValue(coverage.getLabels().get(token3).getData());
+            template.getVariables().get("cl3").setValue(coverage.getLabels().get(token3).getData());
             template.getTime_labels().get("p3").setData(period_labels.getLabels().get(period_partitions.getSets().get(2).getName()).getData());
             template.getOptions().get(1).setUsed(true);
         }
