@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 import jgaliweather.configuration.template_reader.LabelSet;
-import jgaliweather.configuration.template_reader.template_components.Time;
+import jgaliweather.configuration.template_reader.Time;
 import jgaliweather.nlg_simpleNLG.wind_nlg.WindChange;
 import jgaliweather.nlg_simpleNLG.wind_nlg.WindEpisode;
 import jgaliweather.nlg_simpleNLG.wind_nlg.WindEpisodeGroup;

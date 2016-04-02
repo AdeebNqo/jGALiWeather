@@ -64,70 +64,17 @@
 		</case>
 	</template>
 
-    <template id="C1" name="Cobertura Nivel 1">
-		<case id="1">
-			<part>
-				<static>There will be</static>
-				<space/>
-				<variable id="cl1"></variable>
-				<space/>
-                <static>skies</static>
-                <space/>
-                        <option id="1">
-                            <period id="p1"/>
-                            <static>,</static>
-                            <space/>
-                            <variable id="cl2"></variable>
-                            <space/>
-                            <period id="p2"/>
-                            <space/>
-                            <static>and</static>
-                            <space/>
-                            <variable id="cl3"></variable>
-                            <space/>
-                            <period id="p3"/>
-                            <space/>
-                            <static>of this term</static>
-                        </option>
-				<option id="2">
-                            <static>in general during the whole period</static>
-				</option>
-				<static>.</static>
-			</part>
-		</case>
-		<case id="2">
-			<part>
-				<static>There will be</static>
-				<space/>
-				<variable id="cl4"></variable>
-				<space/>
-                <static>skies</static>
-                <space/>
-				<period id="p4"/>
-				<space/>
-                        <option id="3">
-                            <static>and</static>
-                            <space/>
-                            <period id="p5"/>
-                            <space/>
-                        </option>
-				<static>of the term, although</static>
-				<space/>
-				<period id="p6"/>
-				<space/>
-                        <option id="4">
-                            <static>and</static>
-                            <space/>
-                            <period id="p7"/>
-                            <space/>
-                        </option>
-				<static>they will be</static>
-				<space/>
-				<variable id="cl5"></variable>
-				<static>.</static>
-			</part>
-		</case>
-	</template>
+    <labelset id="C1" name="Cobertura Nivel 1">
+    	<label name="subject">there</label>
+    	<label name="verb">be</label>
+    	<label name="object">sky</label>
+    	<label name="of">of</label>
+    	<label name="the">the</label>
+    	<label name="term">term</label>
+    	<label name="although">although</label>
+    	<label name="subject2">they</label>
+    	<label name="this">this</label>
+	</labelset>
 
     <template id="C2" name="Cobertura Nivel 2">
         <case id="1">

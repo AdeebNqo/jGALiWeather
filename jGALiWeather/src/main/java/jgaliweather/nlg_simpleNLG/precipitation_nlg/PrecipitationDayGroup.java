@@ -6,8 +6,10 @@ import java.util.LinkedHashMap;
 import jgaliweather.configuration.template_reader.LabelSet;
 import org.javatuples.Pair;
 import simplenlg.features.Feature;
+import simplenlg.features.NumberAgreement;
 import simplenlg.framework.CoordinatedPhraseElement;
 import simplenlg.framework.NLGFactory;
+import simplenlg.phrasespec.NPPhraseSpec;
 import simplenlg.phrasespec.PPPhraseSpec;
 import simplenlg.phrasespec.SPhraseSpec;
 
@@ -203,8 +205,8 @@ public class PrecipitationDayGroup {
         }
 
         SPhraseSpec text = nlgFactory.createClause(template_labels.get("RNLGE").getLabels().get("subject").getData(),
-                template_labels.get("RNLGE").getLabels().get("verb").getData(),
-                template_labels.get("RNLGE").getLabels().get("object").getData());
+                template_labels.get("RNLGE").getLabels().get("verb").getData());
+        text.setFeature(Feature.NUMBER, NumberAgreement.PLURAL);
 
         if (days.size() == 1) {
             text.addPostModifier(nlgFactory.createPrepositionPhrase(template_labels.get("RNLGE").getLabels().get("single_period").getData(),
@@ -234,8 +236,7 @@ public class PrecipitationDayGroup {
             text.addPostModifier(days_list);
         }
         if (recurring_time > 0 && days.size() > 0) {
-            PPPhraseSpec day = nlgFactory.createPrepositionPhrase(template_labels.get("RNLGE").getLabels().get("single_period").getData(),
-                    template_labels.get("PD").getLabels().get(recurring_time - 1 + "").getData());
+            NPPhraseSpec day = nlgFactory.createNounPhrase(template_labels.get("PD").getLabels().get(recurring_time - 1 + "").getData());
             text.addPostModifier(day);
             mode = "D";
         }

@@ -13,7 +13,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-/* Tests SkyStateA operators */
+/* Tests SkyStateB operators */
 public class CP13 {
 
     public CP13() {

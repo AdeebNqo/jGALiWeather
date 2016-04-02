@@ -2,7 +2,7 @@ package jgaliweather.nlg_simpleNLG.wind_nlg;
 
 import java.util.ArrayList;
 import jgaliweather.configuration.template_reader.LabelSet;
-import jgaliweather.configuration.template_reader.template_components.Time;
+import jgaliweather.configuration.template_reader.Time;
 import org.javatuples.Pair;
 import simplenlg.framework.NLGFactory;
 import simplenlg.phrasespec.PPPhraseSpec;

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import jgaliweather.configuration.template_reader.LabelSet;
 import simplenlg.features.Feature;
+import simplenlg.features.NumberAgreement;
 import simplenlg.framework.CoordinatedPhraseElement;
 import simplenlg.framework.NLGFactory;
 import simplenlg.phrasespec.SPhraseSpec;
@@ -81,8 +82,8 @@ public class PrecipitationEpisodeGroup {
     public SPhraseSpec generateReport(HashMap<String, LabelSet> template_labels) {
 
         SPhraseSpec text = nlgFactory.createClause(template_labels.get("RNLGE").getLabels().get("subject").getData(),
-                template_labels.get("RNLGE").getLabels().get("verb").getData(),
-                template_labels.get("RNLGE").getLabels().get("object").getData());
+                template_labels.get("RNLGE").getLabels().get("verb").getData());
+        text.setFeature(Feature.NUMBER, NumberAgreement.PLURAL);
 
         CoordinatedPhraseElement episodes_list = nlgFactory.createCoordinatedPhrase();
 

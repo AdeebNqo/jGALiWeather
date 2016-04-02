@@ -1,7 +1,6 @@
 package configuration_tests;
 
 import jgaliweather.configuration.template_reader.TemplateReader;
-import jgaliweather.configuration.template_reader.template_components.Option;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -36,10 +35,6 @@ public class CP04 {
         TemplateReader tr = new TemplateReader();
 
         tr.parseFile("Configuration/Languages/espanol.xml");
-
-        Option op = (Option) tr.getTemplates().get("Temperature").getCases().get(0).getParts().get(1).getComponents().get(2);
-
-        op.setUsed(true);
 
         Assert.assertEquals("fuerte del Oeste", tr.getLabelsets().get("W").getLabels().get("323").toString());
     }

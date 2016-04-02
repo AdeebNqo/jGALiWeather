@@ -3,7 +3,7 @@ package jgaliweather.nlg_simpleNLG.precipitation_nlg;
 import java.util.ArrayList;
 import java.util.Objects;
 import jgaliweather.configuration.template_reader.LabelSet;
-import jgaliweather.configuration.template_reader.template_components.Time;
+import jgaliweather.configuration.template_reader.Time;
 import org.javatuples.Pair;
 import simplenlg.framework.NLGFactory;
 import simplenlg.phrasespec.PPPhraseSpec;
