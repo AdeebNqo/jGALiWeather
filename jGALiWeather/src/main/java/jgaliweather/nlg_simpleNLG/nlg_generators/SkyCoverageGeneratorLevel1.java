@@ -1,6 +1,5 @@
 package jgaliweather.nlg_simpleNLG.nlg_generators;
 
-import java.security.cert.PKIXRevocationChecker.Option;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -149,9 +148,9 @@ public class SkyCoverageGeneratorLevel1 {
             AdvPhraseSpec conn = nlgFactory.createAdverbPhrase(template.getLabels().get("although").getData());
             conn.setFeature(Feature.APPOSITIVE, true);
 
-            SPhraseSpec second_part = nlgFactory.createClause(template.getLabels().get("subject2").getData(),
-                    template.getLabels().get("verb").getData());
-            text.setFeature(Feature.TENSE, Tense.FUTURE);
+            SPhraseSpec second_part = nlgFactory.createClause(template.getLabels().get("subject_opt").getData(),
+                    template.getLabels().get("verb_opt").getData());
+            second_part.setFeature(Feature.TENSE, Tense.FUTURE);
 
             if (l_common == 0) {
                 second_part.addComplement(nlgFactory.createAdjectivePhrase(coverage.getLabels().get(token2).getData()));
@@ -195,7 +194,7 @@ public class SkyCoverageGeneratorLevel1 {
             text.setFeature(Feature.TENSE, Tense.FUTURE);
 
             NPPhraseSpec state = nlgFactory.createNounPhrase(template.getLabels().get("object").getData());
-            state.setFeature(Feature.NUMBER, NumberAgreement.PLURAL); 
+            state.setFeature(Feature.NUMBER, NumberAgreement.PLURAL);
 
             CoordinatedPhraseElement period_list = nlgFactory.createCoordinatedPhrase();
 
@@ -213,7 +212,7 @@ public class SkyCoverageGeneratorLevel1 {
 
             period_list.addPostModifier(nlgFactory.createPrepositionPhrase(template.getLabels().get("of").getData(),
                     nlgFactory.createNounPhrase(template.getLabels().get("this").getData(), template.getLabels().get("term").getData())));
-            
+
             state.addModifier(period_list);
             text.setObject(state);
         }

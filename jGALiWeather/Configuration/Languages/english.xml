@@ -64,7 +64,7 @@
 		</case>
 	</template>
 
-    <labelset id="C1" name="Cobertura Nivel 1">
+    <labelset name="C1" value="Cobertura Nivel 1">
     	<label name="subject">there</label>
     	<label name="verb">be</label>
     	<label name="object">sky</label>
@@ -76,65 +76,35 @@
     	<label name="this">this</label>
 	</labelset>
 
-    <template id="C2" name="Cobertura Nivel 2">
-        <case id="1">
-            <part>
-                <variable id="pred1"/>
-                <space/>
-                <static>skies in general for the next days</static>
-                <option id="1">
-                    <static>, although they will occasionally be</static>
-                    <space/>
-                    <variable id="pred2"/>
-                </option>
-                <static>.</static>
-            </part>
-        </case>
-        <case id="2">
-            <part>
-                <static>We expect an alternance of</static>
-                <space/>
-                <variable id="rel1"/>
-                <space/>
-                <static>sky periods with others</static>
-                <space/>
-                <variable id="rel2"/>
-                <space/>
-                <static>for the next days</static>
-                <option id="2">
-                    <static>, although they will occasionally be</static>
-                    <space/>
-                    <variable id="rel3"/>
-                </option>
-                <static>.</static>
-            </part>
-        </case>
-        <case id="3">
-            <part>
-                <static>There will be</static>
-                <space/>
-                <variable id="rel4"/>
-                <space/>
-                <static>skies with</static>
-                <space/>
-                <variable id="rel5"/>
-                <option id="3">
-                    <space/>
-                    <static>or</static>
-                    <space/>
-                    <variable id="rel6"/>
-                </option>
-                <space/>
-                <static>moments</static>
-                <static>.</static>
-            </part>
-        </case>
-        <case id="4">
-            <part>
-                <static>The sky state will be very variable for the whole term.</static>
-            </part>
-        </case>
-    </template>
+    <labelset name="C2" value="Cobertura Nivel 2">
+    	<label name="noun">sky</label>
+    	<label name="in">in</label>
+    	<label name="general">general</label>
+    	<label name="for">for</label>
+    	<label name="period">the next few days</label>
+    	<label name="subject_opt">they</label>
+    	<label name="verb_opt">be</label>
+    	<label name="occasionally">occasionally</label>
+
+    	<label name="subject2">we</label>
+    	<label name="verb2">expect</label>
+    	<label name="article">a</label>
+    	<label name="alternance">alternance</label>
+    	<label name="of">of</label>
+    	<label name="period">period</label>
+    	<label name="with">with</label>
+    	<label name="other">other</label>
+
+    	<label name="subject3">there</label>
+    	<label name="moment">moment</label>
+
+    	<label name="the">the</label>
+    	<label name="state">state</label>
+    	<label name="very">very</label>
+    	<label name="variable">variable</label>
+    	<label name="whole">whole</label>
+    	<label name="term">term</label>
+    </labelset>
 	
 	<labelset name="C" value="Cloud Coverage">
 	    <label name="C">clear</label>
