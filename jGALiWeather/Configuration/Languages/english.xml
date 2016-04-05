@@ -1,68 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <language id="EN" name="English">
-	<template id="T" name="Temperature">
-		<case id="1">
-			<part>
-				<static>The temperatures</static>
-                    <space/>
-                    <static>will be</static>
-                    <space/>
-				<option id="1">
-					<variable id="norT"></variable>
-					<space/>
-					<static>for this period of the year,</static>
-				</option>
-				<option id="2">
-					<variable id="minT"></variable>
-					<space/>
-					<static>for the minimums and</static>
-					<space/>
-					<variable id="maxT"></variable>
-					<space/>				
-					<static>for the maximums compared
-                        to the expected for this time of the year,
-                    </static>
-				</option>
-				<space/>
-			</part>
-			<part>
-                <option id="3">
-                <static>which globally will be</static>
-                <space/>
-					<variable id="norV"></variable>
-                </option>
-				<option id="4">
-                    <space/>
-                    <static>although they</static>
-                    <space/>
-                    <variable id="norO"></variable>
-				</option>
-                <option id="5">
-					<static>with minimums</static>
-                    <space/>
-                    <variable id="minV"></variable>
-                </option>
-				<option id="6">
-                    <space/>
-                    <static>although they</static>
-                    <space/>
-                    <variable id="minO"></variable>
-                </option>
-                <option id="7">
-                    <space/>
-                    <static>and maximums</static>
-                    <space/>
-                    <variable id="maxV"></variable>
-                </option>
-                <option id="8">
-                    <static>, despite they</static>
-                    <space/>
-                    <variable id="maxO"></variable>
-                </option>
-                <static>.</static>
-			</part>
-		</case>
-	</template>
+	<labelset name="T" value="Temperature">
+		<label name="the">the</label>
+		<label name="noun">temperature</label>
+		<label name="verb">be</label>
+		<label name="for">for</label>
+		<label name="this">this</label>
+		<label name="period">period</label>
+		<label name="of">of</label>
+		<label name="year">year</label>
+		<label name="minimum">minimum</label>
+		<label name="maximum">maximum</label>
+		<label name="and">and</label>
+		<label name="compare">compare</label>
+		<label name="to">to</label>
+		<label name="expected">expected</label>
+		<label name="which">which</label>
+		<label name="globally">globally</label>
+		<label name="although">although</label>
+		<label name="they">they</label>
+		<label name="despite">despite</label>
+	</labelset>
 
     <labelset name="C1" value="Cobertura Nivel 1">
     	<label name="subject">there</label>
@@ -75,7 +33,6 @@
     	<label name="subject2">they</label>
     	<label name="this">this</label>
 	</labelset>
-
     <labelset name="C2" value="Cobertura Nivel 2">
     	<label name="noun">sky</label>
     	<label name="in">in</label>
@@ -104,8 +61,7 @@
     	<label name="variable">variable</label>
     	<label name="whole">whole</label>
     	<label name="term">term</label>
-    </labelset>
-	
+    </labelset>	
 	<labelset name="C" value="Cloud Coverage">
 	    <label name="C">clear</label>
 	    <label name="CL">cloudy</label>
