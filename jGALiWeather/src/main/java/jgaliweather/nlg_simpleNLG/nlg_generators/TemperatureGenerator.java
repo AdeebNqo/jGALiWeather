@@ -104,7 +104,7 @@ public class TemperatureGenerator {
         }
         if(second_part != null){
             if(aux != null) {
-                second_part.addPostModifier(second_part);
+                second_part.addPostModifier(aux);
             }
             second_part.setFeature(Feature.APPOSITIVE, true);
             text.addPostModifier(second_part);

@@ -8,6 +8,7 @@
 		<label name="this">this</label>
 		<label name="period">period</label>
 		<label name="of">of</label>
+		<label name="with">with</label>
 		<label name="year">year</label>
 		<label name="minimum">minimum</label>
 		<label name="maximum">maximum</label>
@@ -86,7 +87,7 @@
 		<label name="NI">in notable increase</label>
 		<label name="EI">in extreme increase</label>
 	</labelset>
-	<labelset name="T" value="Climate Temperature">
+	<labelset name="CT" value="Climate Temperature">
 		<label name="VL">very low</label>
 		<label name="L">low</label>
 		<label name="N">normal</label>
