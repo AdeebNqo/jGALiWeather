@@ -54,19 +54,12 @@ public class CP08 {
 
         Partition max_climate_partition = partitions.get("T");
         Partition min_climate_partition = partitions.get("T");
-        
-        /*for (int i = 0; i < partitions.get("T").getSets().size(); i++) {
-            CrispInterval min = (CrispInterval)min_climate_partition.getSets().get(i);
-            CrispInterval max = (CrispInterval)max_climate_partition.getSets().get(i);
-            
-            min.setA(i);
-            
-        }*/
 
         TemperatureOperator top = new TemperatureOperator(partitions.get("V"), max_climate_partition, min_climate_partition, partitions.get("VAR"), curr_var);
         
         Temperature salida = top.applyOperator();
         
-        System.out.println(salida.getClim_eval() + ", " + salida.getVariability_eval() + ", " + salida.getVariation_eval());
+        System.out.println(salida.getClim_eval() + ", " + salida.getVariation_eval() + ", " + salida.getVariability_eval() + ", " + salida.getMxlist() + ", " + salida.getMnlist());
+        
     }
 }

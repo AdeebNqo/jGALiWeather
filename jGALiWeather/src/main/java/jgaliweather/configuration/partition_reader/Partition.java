@@ -53,7 +53,8 @@ public class Partition {
 
     public int bestEvaluatedIndex(double value) {
         ArrayList<Double> res = new ArrayList(Collections.nCopies(sets.size(), 0));
-        int best_label = 0, max = -9999;
+        int best_label = 0;
+        double max = -9999;
 
         for (int i = 0; i < sets.size(); i++) {
             res.set(i, sets.get(i).apply(value));
@@ -62,6 +63,7 @@ public class Partition {
         for (int i = 0; i < res.size(); i++) {
             if (res.get(i) > max) {
                 best_label = i;
+                max = res.get(i);
             }
         }
 

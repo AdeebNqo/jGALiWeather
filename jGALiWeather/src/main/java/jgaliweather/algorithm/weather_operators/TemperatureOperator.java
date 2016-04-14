@@ -97,7 +97,7 @@ public class TemperatureOperator {
         double curr_diff;
 
         for (int i = 0; i < data.size() - 1; i++) {
-            curr_diff = data.get(i + 1) - data.get(i + 1);
+            curr_diff = data.get(i + 1) - data.get(i);
 
             if (curr_diff > 0) {
                 ups += 1;
@@ -175,7 +175,7 @@ public class TemperatureOperator {
 
         for (int i = 0; i < maxms.size() - 1; i++) {
             double currmax = maxms.get(i + 1) - maxms.get(i);
-            double currmin = maxms.get(i + 1) - maxms.get(i);
+            double currmin = minms.get(i + 1) - minms.get(i);
             mxlist.add(diff_part.bestEvaluatedIndex(currmax));
             mnlist.add(diff_part.bestEvaluatedIndex(currmin));
         }
