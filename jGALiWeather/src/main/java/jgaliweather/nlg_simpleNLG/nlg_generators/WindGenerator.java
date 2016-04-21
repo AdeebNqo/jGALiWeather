@@ -1,4 +1,3 @@
-
 package jgaliweather.nlg_simpleNLG.nlg_generators;
 
 import java.util.ArrayList;
@@ -13,9 +12,8 @@ import jgaliweather.nlg_simpleNLG.wind_nlg.WindEpisodeGroup;
 import jgaliweather.nlg_simpleNLG.wind_nlg.WindPeriod;
 import org.javatuples.Pair;
 import simplenlg.framework.CoordinatedPhraseElement;
+import simplenlg.framework.DocumentElement;
 import simplenlg.framework.NLGFactory;
-import simplenlg.lexicon.Lexicon;
-import simplenlg.realiser.english.Realiser;
 
 /*
     Implements a natural language text generator
@@ -28,7 +26,6 @@ public class WindGenerator {
     private Calendar date;
     private ArrayList<WindEpisode> episodes;
     private NLGFactory nlgFactory;
-    private Realiser realiser;
 
     /*
         Initializes a WindGenerator object
@@ -40,15 +37,13 @@ public class WindGenerator {
 
         :return: A new WindGenerator object
      */
-    public WindGenerator(HashMap<String, LabelSet> template, Calendar date, ArrayList<String> result_strings) {
+    public WindGenerator(HashMap<String, LabelSet> template, Calendar date, ArrayList<String> result_strings, NLGFactory nlgFactory) {
         this.template = template;
         this.result_strings = result_strings;
         this.date = date;
         this.episodes = new ArrayList();
-        
-        Lexicon lexicon = Lexicon.getDefaultLexicon();
-        this.nlgFactory = new NLGFactory(lexicon);
-        this.realiser = new Realiser(lexicon);
+
+        this.nlgFactory = nlgFactory;
     }
 
     /*
@@ -59,7 +54,7 @@ public class WindGenerator {
         :return: A natural language description of the
         wind variable forecast
      */
-    public String parseAndGenerate() {
+    public DocumentElement parseAndGenerate() {
         for (String rs : result_strings) {
             StringTokenizer st = new StringTokenizer(rs);
 
@@ -83,7 +78,9 @@ public class WindGenerator {
 
         if (weg.validateGroup()) {
             CoordinatedPhraseElement output = weg.generateReport(template);
-            return realiser.realiseSentence(output).replaceAll("\\s+", " ");
+
+            DocumentElement salida = nlgFactory.createSentence(output);
+            return salida;
         } else {
             return null;
         }
@@ -136,7 +133,7 @@ public class WindGenerator {
         } else if (dayOfWeek == -1) {
             dayOfWeek = 5;
         }
-        
+
         int d = (dayOfWeek + index / 3) % 7;
 
         return new Pair(d, new_index);

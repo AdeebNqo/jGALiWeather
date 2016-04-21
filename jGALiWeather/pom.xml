@@ -51,9 +51,7 @@
         <dependency>
             <groupId>simpleNLG</groupId>
             <artifactId>simpleNLG</artifactId>
-            <scope>system</scope>
             <version>4.4.3</version>
-            <systemPath>${basedir}\src\lib\simplenlg-v4.4.3.jar</systemPath>
         </dependency>
     </dependencies>
     

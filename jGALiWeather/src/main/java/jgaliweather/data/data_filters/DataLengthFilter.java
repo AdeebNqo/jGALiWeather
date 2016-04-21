@@ -62,7 +62,7 @@ public class DataLengthFilter {
         the actual input data length is not supported, an
         InvalidDataLengthException is raised.
      */
-    private void filter() throws InvalidDataLengthException {
+    public void filter() throws InvalidDataLengthException {
 
         boolean length_validation = false;
 

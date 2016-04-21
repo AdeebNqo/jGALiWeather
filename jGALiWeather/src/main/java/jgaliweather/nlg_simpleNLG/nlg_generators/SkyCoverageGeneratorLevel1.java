@@ -10,14 +10,13 @@ import simplenlg.features.Feature;
 import simplenlg.features.NumberAgreement;
 import simplenlg.features.Tense;
 import simplenlg.framework.CoordinatedPhraseElement;
+import simplenlg.framework.DocumentElement;
 import simplenlg.framework.NLGFactory;
-import simplenlg.lexicon.Lexicon;
 import simplenlg.phrasespec.AdjPhraseSpec;
 import simplenlg.phrasespec.AdvPhraseSpec;
 import simplenlg.phrasespec.NPPhraseSpec;
 import simplenlg.phrasespec.PPPhraseSpec;
 import simplenlg.phrasespec.SPhraseSpec;
-import simplenlg.realiser.english.Realiser;
 
 /*
     Implements a natural language text generator
@@ -34,7 +33,6 @@ public class SkyCoverageGeneratorLevel1 {
     private SPhraseSpec text;
     private boolean second_approach;
     private NLGFactory nlgFactory;
-    private Realiser realiser;
 
     /*
         Initializes a SkyCoverageGeneratorLevel1 object
@@ -47,7 +45,7 @@ public class SkyCoverageGeneratorLevel1 {
 
         :return: A new SkyCoverageGeneratorLevel1 object
      */
-    public SkyCoverageGeneratorLevel1(LabelSet template, LabelSet coverage, Partition period_partitions, LabelSet period_labels, String result_string) {
+    public SkyCoverageGeneratorLevel1(LabelSet template, LabelSet coverage, Partition period_partitions, LabelSet period_labels, String result_string, NLGFactory nlgFactory) {
         this.template = template;
         this.coverage = coverage;
         this.period_partitions = period_partitions;
@@ -56,9 +54,7 @@ public class SkyCoverageGeneratorLevel1 {
         this.text = null;
         this.second_approach = false;
 
-        Lexicon lexicon = Lexicon.getDefaultLexicon();
-        this.nlgFactory = new NLGFactory(lexicon);
-        this.realiser = new Realiser(lexicon);
+        this.nlgFactory = nlgFactory;
     }
 
     /*
@@ -69,7 +65,7 @@ public class SkyCoverageGeneratorLevel1 {
         :return: A natural language description of the
         cloud coverage variable forecast
      */
-    public String parseAndGenerate() {
+    public DocumentElement parseAndGenerate() {
 
         StringTokenizer st = new StringTokenizer(result_string);
         if (st.countTokens() == 1) {
@@ -79,7 +75,8 @@ public class SkyCoverageGeneratorLevel1 {
         }
 
         if (!second_approach) {
-            return realiser.realiseSentence(text);
+            DocumentElement salida = nlgFactory.createSentence(text);
+            return salida;
         } else {
             return null;
         }

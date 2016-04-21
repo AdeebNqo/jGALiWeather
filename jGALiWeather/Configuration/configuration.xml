@@ -2,8 +2,8 @@
 <configuration>
 
     <inpaths>
-        <inpath name="variables">../Configuration/variables.xml</inpath>
-        <inpath name="partitions">../Configuration/partitions.xml</inpath>
+        <inpath name="variables">Configuration/variables.xml</inpath>
+        <inpath name="partitions">Configuration/partitions.xml</inpath>
     </inpaths>
 
     <outpaths>
@@ -11,28 +11,23 @@
     </outpaths>
 
     <languages>
-	    <language name="2">
-            <alternative>../Configuration/Languages/galego.xml</alternative>
-            <alternative>../Configuration/Languages/galego2.xml</alternative>
-        </language>
 	    <language name="1">
-            <alternative>../Configuration/Languages/espanol.xml</alternative>
-            <alternative>../Configuration/Languages/espanol2.xml</alternative>
+            <alternative>Configuration/Languages/english.xml</alternative>
         </language>
     </languages>
 
     <connections>
         <database name="prediccion">
-            <driver>SQL Server Native Client 11.0</driver>
+            <driver>x</driver>
             <host>127.0.0.1</host>
-            <dbname>Predicion</dbname>
+            <dbname>D:/OneDrive/Clase/TFG/jGALiWeather/jGALiWeather/estudio6-6.db</dbname>
             <user>Predicion_USC</user>
             <pass>Alejandro,USC</pass>
         </database>
         <database name="ica">
             <driver>SQL Server Native Client 11.0</driver>
             <host>127.0.0.1</host>
-            <dbname>CalidadeAire</dbname>
+            <dbname>C:/Users/Difma/OneDrive/Clase/TFG/jGALiWeather/jGALiWeather/estudio6-6.db</dbname>
             <user>CalidadeAire_TextosICA</user>
             <pass>,Fresc05,O2</pass>
         </database>

@@ -7,13 +7,12 @@ import simplenlg.features.Feature;
 import simplenlg.features.NumberAgreement;
 import simplenlg.features.Tense;
 import simplenlg.framework.CoordinatedPhraseElement;
+import simplenlg.framework.DocumentElement;
 import simplenlg.framework.NLGFactory;
-import simplenlg.lexicon.Lexicon;
 import simplenlg.phrasespec.AdjPhraseSpec;
 import simplenlg.phrasespec.AdvPhraseSpec;
 import simplenlg.phrasespec.NPPhraseSpec;
 import simplenlg.phrasespec.SPhraseSpec;
-import simplenlg.realiser.english.Realiser;
 
 /*
     Implements a natural language text generator
@@ -27,7 +26,6 @@ public class SkyCoverageGeneratorLevel2 {
     private Partition cov_partition;
     private double[][] l_description;
     private NLGFactory nlgFactory;
-    private Realiser realiser;
 
     /*
         Initializes a SkyCoverageGeneratorLevel2 object
@@ -37,15 +35,13 @@ public class SkyCoverageGeneratorLevel2 {
         :param l_description: A cloud coverage linguistic description
         :return: A new SkyCoverageGeneratorLevel2 object
      */
-    public SkyCoverageGeneratorLevel2(LabelSet template, LabelSet coverage, Partition cov_partition, double[][] l_description) {
+    public SkyCoverageGeneratorLevel2(LabelSet template, LabelSet coverage, Partition cov_partition, double[][] l_description, NLGFactory nlgFactory) {
         this.template = template;
         this.coverage = coverage;
         this.cov_partition = cov_partition;
         this.l_description = l_description;
-
-        Lexicon lexicon = Lexicon.getDefaultLexicon();
-        this.nlgFactory = new NLGFactory(lexicon);
-        this.realiser = new Realiser(lexicon);
+        
+        this.nlgFactory = nlgFactory;
     }
 
     /*
@@ -54,7 +50,7 @@ public class SkyCoverageGeneratorLevel2 {
         :return: A natural language description of the
         cloud coverage variable forecast
      */
-    public String generate() {
+    public DocumentElement generate() {
 
         double[] aux1 = {2.0, 0.0, 0.0};
         double[] aux2 = {1.0, 1.0, 0.0};
@@ -81,7 +77,7 @@ public class SkyCoverageGeneratorLevel2 {
                 conn.setFeature(Feature.APPOSITIVE, true);
 
                 SPhraseSpec second_part = nlgFactory.createClause(template.getLabels().get("subject2").getData(),
-                        template.getLabels().get("verb").getData());
+                        template.getLabels().get("verb2").getData());
                 second_part.setFeature(Feature.TENSE, Tense.FUTURE);
 
                 second_part.addComplement(nlgFactory.createAdjectivePhrase(coverage.getLabels().get(cov_partition.getSets().get((int) l_description[1][optional]).getName()).getData()));
@@ -93,8 +89,9 @@ public class SkyCoverageGeneratorLevel2 {
                 text.addPostModifier(conn);
 
             }
-
-            return realiser.realiseSentence(text);
+            
+            DocumentElement salida = nlgFactory.createSentence(text);
+            return salida;
 
         } else if (Arrays.equals(l_description[0], aux2)) {
 
@@ -102,10 +99,12 @@ public class SkyCoverageGeneratorLevel2 {
                     template.getLabels().get("verb2").getData());
             text.setObject(nlgFactory.createNounPhrase(template.getLabels().get("article").getData(), template.getLabels().get("alternance").getData()));
 
-            NPPhraseSpec state1 = nlgFactory.createNounPhrase(template.getLabels().get("period").getData());
-            state1.setFeature(Feature.NUMBER, NumberAgreement.PLURAL);
-            state1.addPreModifier(nlgFactory.createNounPhrase(template.getLabels().get("noun").getData()));
+            NPPhraseSpec state1 = nlgFactory.createNounPhrase(template.getLabels().get("noun").getData());
+            state1.setFeature(Feature.NUMBER, NumberAgreement.PLURAL); 
             state1.addModifier(nlgFactory.createAdjectivePhrase(coverage.getLabels().get(cov_partition.getSets().get((int) l_description[1][0]).getName()).getData()));
+            NPPhraseSpec dep = nlgFactory.createNounPhrase(template.getLabels().get("period").getData());
+            dep.setFeature(Feature.NUMBER, NumberAgreement.PLURAL); 
+            state1.addModifier(dep);
 
             text.addComplement(nlgFactory.createPrepositionPhrase(template.getLabels().get("of").getData(), state1));
 
@@ -119,20 +118,21 @@ public class SkyCoverageGeneratorLevel2 {
                 AdvPhraseSpec conn = nlgFactory.createAdverbPhrase(template.getLabels().get("although").getData());
                 conn.setFeature(Feature.APPOSITIVE, true);
 
-                SPhraseSpec second_part = nlgFactory.createClause(template.getLabels().get("subject2").getData(),
-                        template.getLabels().get("verb").getData());
+                SPhraseSpec second_part = nlgFactory.createClause(template.getLabels().get("subject4").getData(),
+                        template.getLabels().get("verb_opt").getData());
                 second_part.setFeature(Feature.TENSE, Tense.FUTURE);
 
                 second_part.addComplement(nlgFactory.createAdjectivePhrase(coverage.getLabels().get(cov_partition.getSets().get((int) l_description[1][2]).getName()).getData()));
 
-                second_part.addPostModifier(nlgFactory.createAdverbPhrase(template.getLabels().get("occasionally").getData()));
+                second_part.addModifier(nlgFactory.createAdverbPhrase(template.getLabels().get("occasionally").getData()));
 
                 conn.addPostModifier(second_part);
 
                 text.addPostModifier(conn);
             }
 
-            return realiser.realiseSentence(text);
+            DocumentElement salida = nlgFactory.createSentence(text);
+            return salida;
 
         } else if (Arrays.equals(l_description[0], aux3)) {
 
@@ -174,7 +174,8 @@ public class SkyCoverageGeneratorLevel2 {
 
             text.setObject(state);
 
-            return realiser.realiseSentence(text);
+            DocumentElement salida = nlgFactory.createSentence(text);
+            return salida;
 
         } else {
 
@@ -195,7 +196,8 @@ public class SkyCoverageGeneratorLevel2 {
 
             text.addPostModifier(nlgFactory.createPrepositionPhrase(template.getLabels().get("for").getData(), term));
 
-            return realiser.realiseSentence(text);
+            DocumentElement salida = nlgFactory.createSentence(text);
+            return salida;
 
         }
     }

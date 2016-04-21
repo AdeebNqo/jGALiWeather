@@ -13,6 +13,7 @@ import jgaliweather.nlg_simpleNLG.precipitation_nlg.PrecipitationNuance;
 import jgaliweather.nlg_simpleNLG.precipitation_nlg.PrecipitationPeriod;
 import jgaliweather.nlg_simpleNLG.precipitation_nlg.PrecipitationTermGroup;
 import org.javatuples.Pair;
+import simplenlg.framework.DocumentElement;
 import simplenlg.framework.NLGFactory;
 import simplenlg.lexicon.Lexicon;
 import simplenlg.phrasespec.SPhraseSpec;
@@ -30,7 +31,6 @@ public class RainGenerator {
     private Calendar date;
     private ArrayList<PrecipitationEpisode> episodes;
     private NLGFactory nlgFactory;
-    private Realiser realiser;
 
     /*
         Initializes a RainGenerator object
@@ -42,16 +42,14 @@ public class RainGenerator {
 
         :return: A new RainGenerator object
      */
-    public RainGenerator(HashMap<String, LabelSet> template, Calendar date, int term_length, ArrayList<String> result_strings) {
+    public RainGenerator(HashMap<String, LabelSet> template, Calendar date, int term_length, ArrayList<String> result_strings, NLGFactory nlgFactory) {
         this.template = template;
         this.term_length = term_length;
         this.result_strings = result_strings;
         this.date = date;
         this.episodes = new ArrayList();
         
-        Lexicon lexicon = Lexicon.getDefaultLexicon();
-        this.nlgFactory = new NLGFactory(lexicon);
-        this.realiser = new Realiser(lexicon);
+        this.nlgFactory = nlgFactory;
     }
 
     /*
@@ -62,7 +60,7 @@ public class RainGenerator {
         :return: A natural language description of the
         precipitation variable forecast
      */
-    public String parseAndGenerate() {
+    public DocumentElement parseAndGenerate() {
 
         if (result_strings.size() > 0) {
             for (String rs : result_strings) {
@@ -95,7 +93,8 @@ public class RainGenerator {
                 final_forecast = peg.generateReport(template);
             }
 
-            return realiser.realiseSentence(final_forecast);
+            DocumentElement salida = nlgFactory.createSentence(final_forecast);
+            return salida;
 
         } else {
             return null;

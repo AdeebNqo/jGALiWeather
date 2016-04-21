@@ -10,13 +10,12 @@ import jgaliweather.configuration.template_reader.LabelSet;
 import simplenlg.features.Feature;
 import simplenlg.features.Tense;
 import simplenlg.framework.CoordinatedPhraseElement;
+import simplenlg.framework.DocumentElement;
 import simplenlg.framework.NLGFactory;
-import simplenlg.lexicon.Lexicon;
 import simplenlg.phrasespec.AdvPhraseSpec;
 import simplenlg.phrasespec.NPPhraseSpec;
 import simplenlg.phrasespec.PPPhraseSpec;
 import simplenlg.phrasespec.SPhraseSpec;
-import simplenlg.realiser.english.Realiser;
 
 public class FogGenerator {
 
@@ -27,7 +26,6 @@ public class FogGenerator {
     private Calendar curr_date;
     private int term_length;
     private NLGFactory nlgFactory;
-    private Realiser realiser;
 
     /*
         Initializes a FogGenerator object
@@ -41,7 +39,7 @@ public class FogGenerator {
 
         :return: A new FogGenerator object
      */
-    public FogGenerator(HashMap<Integer, ArrayList<ArrayList<Integer>>> fog_data, LabelSet fog_expr, LabelSet parts_day, LabelSet days_week, Calendar curr_date, int term_length) {
+    public FogGenerator(HashMap<Integer, ArrayList<ArrayList<Integer>>> fog_data, LabelSet fog_expr, LabelSet parts_day, LabelSet days_week, Calendar curr_date, int term_length, NLGFactory nlgFactory) {
         this.fog_data = fog_data;
         this.fog_expr = fog_expr;
         this.parts_day = parts_day;
@@ -49,9 +47,7 @@ public class FogGenerator {
         this.curr_date = curr_date;
         this.term_length = term_length;
 
-        Lexicon lexicon = Lexicon.getDefaultLexicon();
-        this.nlgFactory = new NLGFactory(lexicon);
-        this.realiser = new Realiser(lexicon);
+        this.nlgFactory = nlgFactory;
     }
 
     /*
@@ -61,7 +57,7 @@ public class FogGenerator {
         :return: A natural language description of the
         fog variable forecast
      */
-    public String generate() {
+    public DocumentElement generate() {
 
         LinkedHashMap<Integer, NPPhraseSpec> parts = new LinkedHashMap();
         Map<Integer, ArrayList<ArrayList<Integer>>> fog_data_sorted = new TreeMap(fog_data);
@@ -90,7 +86,8 @@ public class FogGenerator {
             
             text.addPostModifier(part_list);
 
-            return realiser.realiseSentence(text).replaceAll("\\s+", " ");
+            DocumentElement salida = nlgFactory.createSentence(text);
+            return salida;
         } else {
             return null;
         }

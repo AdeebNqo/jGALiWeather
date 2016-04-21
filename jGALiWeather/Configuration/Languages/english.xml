@@ -52,6 +52,8 @@
     	<label name="period">period</label>
     	<label name="with">with</label>
     	<label name="other">other</label>
+    	<label name="although">although</label>
+    	<label name="subject4">they</label>
 
     	<label name="subject3">there</label>
     	<label name="moment">moment</label>
