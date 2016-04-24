@@ -39,33 +39,30 @@ public class VariableReader {
 
        :param file_name: The path string to the variable configuration file
      */
-    public void parseFile(String file_name) {
-        try {
-            String name, valid_lengths;
-            int start, end;
-            Element v;
+    public void parseFile(String file_name) throws Exception {
 
-            File inputFile = new File(file_name);
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            xmlData = dBuilder.parse(inputFile);
-            xmlData.getDocumentElement().normalize();
+        String name, valid_lengths;
+        int start, end;
+        Element v;
 
-            NodeList vs = xmlData.getElementsByTagName("variable");
-            for (int i = 0; i < vs.getLength(); i++) {
-                v = (Element) vs.item(i);
+        File inputFile = new File(file_name);
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+        xmlData = dBuilder.parse(inputFile);
+        xmlData.getDocumentElement().normalize();
 
-                name = v.getElementsByTagName("name").item(0).getFirstChild().getTextContent();
-                start = Integer.parseInt(v.getElementsByTagName("start").item(0).getFirstChild().getTextContent());
-                end = Integer.parseInt(v.getElementsByTagName("end").item(0).getFirstChild().getTextContent());
-                valid_lengths = v.getElementsByTagName("valid_lengths").item(0).getFirstChild().getTextContent();
+        NodeList vs = xmlData.getElementsByTagName("variable");
+        for (int i = 0; i < vs.getLength(); i++) {
+            v = (Element) vs.item(i);
 
-                variables.put(name, new XMLVariable(name, start, end, valid_lengths));
-            }
+            name = v.getElementsByTagName("name").item(0).getFirstChild().getTextContent();
+            start = Integer.parseInt(v.getElementsByTagName("start").item(0).getFirstChild().getTextContent());
+            end = Integer.parseInt(v.getElementsByTagName("end").item(0).getFirstChild().getTextContent());
+            valid_lengths = v.getElementsByTagName("valid_lengths").item(0).getFirstChild().getTextContent();
 
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            variables.put(name, new XMLVariable(name, start, end, valid_lengths));
         }
+
     }
 
     @Override

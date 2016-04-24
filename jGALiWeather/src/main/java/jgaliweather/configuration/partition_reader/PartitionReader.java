@@ -48,52 +48,49 @@ public class PartitionReader {
         :param file_name: The path string for the partition
         definition XML file
      */
-    public void parseFile(String file_name) {
-        try {
-            File inputFile = new File(file_name);
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            xmlData = dBuilder.parse(inputFile);
-            xmlData.getDocumentElement().normalize();
+    public void parseFile(String file_name) throws Exception {
+        File inputFile = new File(file_name);
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+        xmlData = dBuilder.parse(inputFile);
+        xmlData.getDocumentElement().normalize();
 
-            String name;
-            Partition new_partition;
-            Set nset;
-            Element v, c;
-            NodeList vs = xmlData.getElementsByTagName("partition");
+        String name;
+        Partition new_partition;
+        Set nset;
+        Element v, c;
+        NodeList vs = xmlData.getElementsByTagName("partition");
 
-            for (int i = 0; i < vs.getLength(); i++) {
-                v = (Element) vs.item(i);
+        for (int i = 0; i < vs.getLength(); i++) {
+            v = (Element) vs.item(i);
 
-                name = v.getAttribute("name");
-                new_partition = new Partition(name);
+            name = v.getAttribute("name");
+            new_partition = new Partition(name);
 
-                NodeList childs = v.getElementsByTagName("*");
-                for (int j = 0; j < childs.getLength(); j++) {
-                    c = (Element) childs.item(j);
+            NodeList childs = v.getElementsByTagName("*");
+            for (int j = 0; j < childs.getLength(); j++) {
+                c = (Element) childs.item(j);
 
-                    switch (c.getNodeName()) {
-                        case "CrispInterval":
-                            nset = parseCrispInterval(c);
-                            new_partition.getSets().add(nset);
-                            break;
+                switch (c.getNodeName()) {
+                    case "CrispInterval":
+                        nset = parseCrispInterval(c);
+                        new_partition.getSets().add(nset);
+                        break;
 
-                        case "ObjectSet":
-                            nset = parseObjectSet(c);
-                            new_partition.getSets().add(nset);
-                            break;
+                    case "ObjectSet":
+                        nset = parseObjectSet(c);
+                        new_partition.getSets().add(nset);
+                        break;
 
-                        case "FuzzySet":
-                            nset = parseFuzzySet(c);
-                            new_partition.getSets().add(nset);
-                            break;
-                    }
+                    case "FuzzySet":
+                        nset = parseFuzzySet(c);
+                        new_partition.getSets().add(nset);
+                        break;
                 }
-                partitions.put(new_partition.getName(), new_partition);
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            partitions.put(new_partition.getName(), new_partition);
         }
+
     }
 
     public CrispInterval parseCrispInterval(Element c) {

@@ -78,20 +78,18 @@ public class ConfigurationReader {
     
        :param file_name: The path string for the configuration file
      */
-    public void parseFile(String file_name) {
-        try {
-            File inputFile = new File(file_name);
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            xmlData = dBuilder.parse(inputFile);
-            xmlData.getDocumentElement().normalize();
+    public void parseFile(String file_name) throws Exception {
 
-            this.setPaths();
-            this.setDatabaseData();
-            this.setLanguageData();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        File inputFile = new File(file_name);
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+        xmlData = dBuilder.parse(inputFile);
+        xmlData.getDocumentElement().normalize();
+
+        this.setPaths();
+        this.setDatabaseData();
+        this.setLanguageData();
+
     }
 
     /* Loads input and output directory paths from the configuration parsed tree */

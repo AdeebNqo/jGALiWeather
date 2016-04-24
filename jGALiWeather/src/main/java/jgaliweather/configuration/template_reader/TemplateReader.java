@@ -44,18 +44,16 @@ public class TemplateReader {
 
        :param file_name: The string path to the template file
      */
-    public void parseFile(String file_name) {
-        try {
-            File inputFile = new File(file_name);
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            xmlData = dBuilder.parse(inputFile);
-            xmlData.getDocumentElement().normalize();
+    public void parseFile(String file_name) throws Exception {
 
-            this.parseLabelSets();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        File inputFile = new File(file_name);
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+        xmlData = dBuilder.parse(inputFile);
+        xmlData.getDocumentElement().normalize();
+
+        this.parseLabelSets();
+
     }
 
     /* Extracts the label sets contained in a language template

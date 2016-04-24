@@ -5,7 +5,6 @@
 package jgaliweather;
 
 import fuzzy4j.sets.TrapezoidalFunction;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -23,7 +22,9 @@ import jgaliweather.algorithm.weather_operators.WindOperator;
 import jgaliweather.configuration.configuration_reader.ConfigurationReader;
 import jgaliweather.configuration.configuration_reader.DatabaseConfiguration;
 import jgaliweather.configuration.configuration_reader.LanguageConfiguration;
+import jgaliweather.configuration.configuration_reader.TemperatureReader;
 import jgaliweather.configuration.logger.GALiLogger;
+import jgaliweather.configuration.partition_reader.CrispInterval;
 import jgaliweather.configuration.partition_reader.FuzzySet;
 import jgaliweather.configuration.partition_reader.Partition;
 import jgaliweather.configuration.partition_reader.PartitionReader;
@@ -67,9 +68,10 @@ public class PredictionSummarizer {
     private Pair<Integer, Integer> WIND_INTERVAL;
     private String config_file;
     private String log_directory;
-    private String current_date;
+    private Calendar current_date;
     private HashMap<String, Location> locations;
     private ConfigurationReader configuration;
+    private TemperatureReader temperatures;
     private HashMap<String, XMLVariable> variables;
     private DatabaseConfiguration conn_data;
     private TemplateReader templates;
@@ -84,11 +86,11 @@ public class PredictionSummarizer {
         this.config_file = config_file;
         this.log_directory = log_directory;
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date now = new Date();
-        this.current_date = sdf.format(now);
+        this.current_date = Calendar.getInstance();
+        this.current_date.setTime(new Date());
         this.locations = new HashMap();
         this.configuration = null;
+        this.temperatures = null;
         this.variables = null;
         this.conn_data = null;
         this.partitions = null;
@@ -160,9 +162,12 @@ public class PredictionSummarizer {
         }
 
         try {
-            ArrayList<Integer> locations = dbc.retrieveLocations();
+            int month = current_date.get(Calendar.MONTH) + 1;
+            temperatures = new TemperatureReader();
+            temperatures.parseFile(this.configuration.getInpaths().get("temperatures"));
+            ArrayList<Integer> db_locations = dbc.retrieveLocations();
 
-            for (Integer l : locations) {
+            for (Integer l : db_locations) {
                 Location new_loc = new Location("", l);
 
                 ArrayList<String> dates = new ArrayList();
@@ -177,7 +182,7 @@ public class PredictionSummarizer {
                 while (it.hasNext()) {
                     Map.Entry pair = (Map.Entry) it.next();
                     XMLVariable aux = (XMLVariable) pair.getValue();
-                    
+
                     Map.Entry pair1 = (Map.Entry) it1.next();
                     ArrayList<Integer> data = (ArrayList<Integer>) pair1.getValue();
 
@@ -186,7 +191,7 @@ public class PredictionSummarizer {
                         curr_var.getValues().add(new Value(data.get(i), i));
                     }
                     new_loc.getVariables().put(curr_var.getName(), curr_var);
-                    //new_loc.setClimatic_data(climatic_data);
+                    new_loc.setClimatic_data(temperatures.retrieveClimaticDataForLocation(new_loc.getLid(), month)); // Muy lento
                     this.locations.put(new_loc.getLid() + "", new_loc); // Cambiar esto por new_loc.getName()
                 }
             }
@@ -203,7 +208,7 @@ public class PredictionSummarizer {
         Filters erroneous data, sets up both climatic temperature and cloud coverage temporal partitions. Generates the air quality linguistic descriptions and converts these descriptions into natural
      */
     private void applyAlgorithm() {
-        
+
         // Data filtering, climatic partition creation and cloud coverage temporal partition creation
         Iterator it = this.locations.entrySet().iterator();
         while (it.hasNext()) {
@@ -232,9 +237,20 @@ public class PredictionSummarizer {
                 System.exit(1);
             }
 
-            // Sustituir por calculos originales
             l.setMax_climate_partition(partitions.get("T"));
             l.setMin_climate_partition(partitions.get("T"));
+
+            for (int i = 0; i < partitions.get("T").getSets().size(); i++) {
+                CrispInterval min = (CrispInterval) l.getMin_climate_partition().getSets().get(i);
+                CrispInterval max = (CrispInterval) l.getMax_climate_partition().getSets().get(i);
+                CrispInterval partition = (CrispInterval) partitions.get("T").getSets().get(i);
+
+                min.setA(l.getClimatic_data().getAverageMin() + l.getClimatic_data().getDeviationMin() * partition.getA());
+                min.setB(l.getClimatic_data().getAverageMin() + l.getClimatic_data().getDeviationMin() * partition.getB());
+                max.setA(l.getClimatic_data().getAverageMax() + l.getClimatic_data().getDeviationMax() * partition.getA());
+                max.setB(l.getClimatic_data().getAverageMax() + l.getClimatic_data().getDeviationMax() * partition.getB());
+
+            }
         }
 
         // Definition of term-length dependant partitions
@@ -259,7 +275,7 @@ public class PredictionSummarizer {
         Lexicon lexicon = Lexicon.getDefaultLexicon();
         NLGFactory nlgFactory = new NLGFactory(lexicon);
         Realiser realiser = new Realiser(lexicon);
-        
+
         // Execution of linguistic description operators
         Iterator it3 = this.locations.entrySet().iterator();
         while (it3.hasNext()) {
@@ -301,8 +317,8 @@ public class PredictionSummarizer {
             FogGenerator fg = new FogGenerator(f_output, templates.getLabelsets().get("FOG"), templates.getLabelsets().get("PD"), templates.getLabelsets().get("DW"),
                     Calendar.getInstance(), variables.get("Meteoro").getActual_data_length(), nlgFactory);
             DocumentElement f_nlg = fg.generate();
-            
-            l.getSummaries().put("eng",new DescriptionAggregator(nss_nlg, r_nlg, t_nlg, w_nlg, f_nlg, nlgFactory, realiser));
+
+            l.getSummaries().put("eng", new DescriptionAggregator(nss_nlg, r_nlg, t_nlg, w_nlg, f_nlg, nlgFactory, realiser));
             System.out.println(l.getSummaries().get("eng").mergeDescription());
 
         }

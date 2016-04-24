@@ -2,38 +2,38 @@ package jgaliweather.configuration.partition_reader;
 
 public class CrispInterval implements Set {
 
-    private float a;
-    private float b;
+    private double a;
+    private double b;
     private String name;
     private String mode;
 
-    public CrispInterval(float a, float b) {
+    public CrispInterval(double a, double b) {
         this.a = a;
         this.b = b;
         this.name = null;
         this.mode = "Closed";
     }
 
-    public CrispInterval(float a, float b, String name, String mode) {
+    public CrispInterval(double a, double b, String name, String mode) {
         this.a = a;
         this.b = b;
         this.name = name;
         this.mode = mode;
     }
 
-    public float getA() {
+    public double getA() {
         return a;
     }
 
-    public void setA(float a) {
+    public void setA(double a) {
         this.a = a;
     }
 
-    public float getB() {
+    public double getB() {
         return b;
     }
 
-    public void setB(float b) {
+    public void setB(double b) {
         this.b = b;
     }
 

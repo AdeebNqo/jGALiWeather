@@ -4,6 +4,7 @@
     <inpaths>
         <inpath name="variables">Configuration/variables.xml</inpath>
         <inpath name="partitions">Configuration/partitions.xml</inpath>
+        <inpath name="temperatures">Configuration/temperatures.xml</inpath>
     </inpaths>
 
     <outpaths>

@@ -13,18 +13,18 @@ public class Location {
 
     private String name;
     private int lid;
-    private String[][] climatic_data;
     private HashMap<String, Variable> variables;
     private HashMap<String, DescriptionAggregator> summaries;
+    private HistoricalTemperature climatic_data;
     private Partition max_climate_partition;
     private Partition min_climate_partition;
 
     public Location(String name, int lid) {
         this.name = name;
         this.lid = lid;
-        this.climatic_data = null;
         this.variables = new HashMap();
         this.summaries = new HashMap();
+        this.climatic_data = null;
     }
 
     public String getName() {
@@ -59,11 +59,11 @@ public class Location {
         return lid;
     }
 
-    public String[][] getClimatic_data() {
+    public HistoricalTemperature getClimatic_data() {
         return climatic_data;
     }
 
-    public void setClimatic_data(String[][] climatic_data) {
+    public void setClimatic_data(HistoricalTemperature climatic_data) {
         this.climatic_data = climatic_data;
     }
 
