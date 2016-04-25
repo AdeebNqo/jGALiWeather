@@ -1,0 +1,87 @@
+body {
+    background-color: white;
+    font-family: "Helvetica","Arial","Verdana", sans-serif;
+    font-size: 80%;
+    width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    padding-top: 2px;
+}
+
+.headerPrincipal {
+    height: 150px;
+    clear: both;
+    background: url(../images/banner.png) no-repeat;
+    margin-bottom: 15px;
+}
+
+#forecast {
+    overflow: hidden;
+    background: url(../images/cabecera.jpg) no-repeat;
+    height: 43px;
+    margin-bottom: 5px;
+    border-bottom: 2px solid #C2CE73;
+}
+
+h1 {
+    padding-left: 100px;
+    color: #474D17;
+    float: left;
+    font-weight: normal;
+}
+
+h2 {
+    float: left;
+    clear: left;
+    display: block;
+    width: 100%;
+    -webkit-margin-before: 0.83em;
+    -webkit-margin-after: 0.83em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    font-size: 1.2em;
+    font-weight: 700;
+    text-align: left;
+    border: 1px dashed #9F9F9F;
+    background-color: #F2F2F2;
+    padding: 0 0 0 8px;
+    margin-bottom: 10px;
+    color: #29446F;
+}
+
+h3 {
+    font-size: 0.95em;
+    font-weight: bold;
+}
+
+aside {
+    width: 22%;
+    float: left;
+    display: block;
+}
+
+.anotherCouncil {
+    margin-bottom: 0px;
+}
+
+section {
+    display: block;
+}
+
+a {
+    float: left;
+    clear: left;
+    color: #796A0E;
+    text-decoration: none;
+    border: none;
+}
+
+a:hover {
+    font-weight: 700;
+}
+
+form {
+    float: left;
+    clear: left;
+}

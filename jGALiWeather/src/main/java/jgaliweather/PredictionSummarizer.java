@@ -205,7 +205,8 @@ public class PredictionSummarizer {
     }
 
     /*
-        Filters erroneous data, sets up both climatic temperature and cloud coverage temporal partitions. Generates the air quality linguistic descriptions and converts these descriptions into natural
+        Filters erroneous data, sets up both climatic temperature and cloud coverage temporal partitions. 
+        Generates the air quality linguistic descriptions and converts these descriptions into natural
      */
     private void applyAlgorithm() {
 
