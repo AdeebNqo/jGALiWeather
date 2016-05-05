@@ -320,7 +320,6 @@ public class PredictionSummarizer {
             DocumentElement f_nlg = fg.generate();
 
             l.getSummaries().put("eng", new DescriptionAggregator(nss_nlg, r_nlg, t_nlg, w_nlg, f_nlg, nlgFactory, realiser));
-            System.out.println(l.getSummaries().get("eng").mergeDescription());
 
         }
 
@@ -328,7 +327,24 @@ public class PredictionSummarizer {
 
     private void exportSummaries() {
 
-        System.out.println("Texto");
+        DatabaseConnector dbc = null;
+
+        try {
+            dbc = new DatabaseConnector(this.conn_data);
+        } catch (Exception e) {
+            GALiLogger.getLogger().log(Level.SEVERE, "\nForecast database connection with %s could not be established: %s\nExiting...", this.conn_data.getHost());
+            System.exit(1);
+        }
+        
+        Iterator it = this.locations.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            Location l = (Location) pair.getValue();
+
+            dbc.saveData(l.getLid() + "", current_date.getTime(), l.getSummaries().get("eng").mergeDescription());
+            
+            System.out.println(l.getSummaries().get("eng").mergeDescription());
+        }
     }
 
     public void generateTextualForecasts() {

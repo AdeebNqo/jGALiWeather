@@ -6,11 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import jgaliweather.configuration.configuration_reader.DatabaseConfiguration;
 import jgaliweather.configuration.logger.GALiLogger;
+import jgaliweather.data.data_structures.Location;
 
 /* Implements a database connection manager. */
 public class DatabaseConnector {
@@ -62,6 +64,25 @@ public class DatabaseConnector {
         return locations;
     }
 
+    public void saveData(String id, Date d, String comment) {
+
+        Statement stmt = null;
+
+        String sql = "INSERT INTO Comentarios VALUES ('"+ id +"', '"+ d +"', '"+ comment +"')";
+        
+        try {
+            stmt = conn.createStatement();
+            
+            stmt.executeUpdate(sql);
+            
+            stmt.close();
+
+        } catch (SQLException e) {
+            GALiLogger.getLogger().log(Level.SEVERE, "Error guardando los comentarios");
+        }
+
+    }
+
     /*
         Retrieves the forecast values of any location.
     
@@ -91,22 +112,22 @@ public class DatabaseConnector {
                 stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(query);
                 while (rs.next()) {
-                    st = new StringTokenizer(rs.getString("CIELO_MG"), ","); 
+                    st = new StringTokenizer(rs.getString("CIELO_MG"), ",");
                     while (st.hasMoreTokens()) {
                         cielo.add(Integer.parseInt(st.nextToken()));
                     }
-                    
+
                     st = new StringTokenizer(rs.getString("VIENTO_MG"), ",");
                     while (st.hasMoreTokens()) {
                         viento.add(Integer.parseInt(st.nextToken()));
                     }
-                    
+
                     st = new StringTokenizer(rs.getString("TEMPERATURA_MG"), ",");
                     while (st.hasMoreTokens()) {
                         temperatura.add(Integer.parseInt(st.nextToken()));
                     }
                 }
-                
+
                 data.put("Viento", viento);
                 data.put("Temperatura", temperatura);
                 data.put("Meteoro", cielo);
