@@ -64,11 +64,11 @@ public class DatabaseConnector {
         return locations;
     }
 
-    public void saveData(String id, Date d, String comment) {
+    public void saveData(String id, String date, String comment) {
 
         Statement stmt = null;
 
-        String sql = "INSERT INTO Comentarios VALUES ('"+ id +"', '"+ d +"', '"+ comment +"')";
+        String sql = "INSERT INTO Comentarios VALUES ('"+ id +"', '"+ date +"', '"+ comment +"')";
         
         try {
             stmt = conn.createStatement();

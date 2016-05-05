@@ -5,6 +5,7 @@
 package jgaliweather;
 
 import fuzzy4j.sets.TrapezoidalFunction;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -336,12 +337,14 @@ public class PredictionSummarizer {
             System.exit(1);
         }
         
+        SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
+        
         Iterator it = this.locations.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry) it.next();
             Location l = (Location) pair.getValue();
 
-            dbc.saveData(l.getLid() + "", current_date.getTime(), l.getSummaries().get("eng").mergeDescription());
+            dbc.saveData(l.getLid() + "", sdt.format(current_date.getTime()), l.getSummaries().get("eng").mergeDescription());
             
             System.out.println(l.getSummaries().get("eng").mergeDescription());
         }

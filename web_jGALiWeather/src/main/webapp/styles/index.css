@@ -70,8 +70,10 @@ section {
 }
 
 a {
+    margin-left: 50px;
     float: left;
     clear: left;
+    
     color: #796A0E;
     text-decoration: none;
     border: none;
@@ -84,4 +86,27 @@ a:hover {
 form {
     float: left;
     clear: left;
+}
+
+
+td {
+    border: 1px solid black;
+}
+
+.min_label {
+    float: left;
+    width: 50%;
+}
+.max_label {
+    float: right;
+    width: 50%;
+}
+
+.min {
+    float: left;
+    width: 50%;
+}
+.max {
+    float: right;
+    width: 50%;
 }
