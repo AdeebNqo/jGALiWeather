@@ -1,4 +1,10 @@
-
+function changeColorBackground(t, value) {
+    if (value >= 0) {
+        t.addClass("t" + value);
+    } else {
+        t.addClass("m" + Math.abs(value));
+    }
+}
 
 $(function () {
     window.onload = function () {
@@ -9,52 +15,60 @@ $(function () {
             success: function (data, textStatus, response) {
 
                 // SkyState
-                $("#skMorning1").append(data.sky[0]);
-                $("#skAfternoon1").append(data.sky[1]);
-                $("#skNight1").append(data.sky[2]);
+                $("#skMorning1").attr('src', 'images/meteors/sky/' + data.sky[0] + '.png');
+                $("#skAfternoon1").attr('src', 'images/meteors/sky/' + data.sky[1] + '.png');
+                $("#skNight1").attr('src', 'images/meteors/sky/' + (data.sky[2] + 100) + '_fondo.png');
 
-                $("#skMorning2").append(data.sky[3]);
-                $("#skAfternoon2").append(data.sky[4]);
-                $("#skNight2").append(data.sky[5]);
+                $("#skMorning2").attr('src', 'images/meteors/sky/' + data.sky[3] + '.png');
+                $("#skAfternoon2").attr('src', 'images/meteors/sky/' + data.sky[4] + '.png');
+                $("#skNight2").attr('src', 'images/meteors/sky/' + (data.sky[5] + 100) + '_fondo.png');
 
-                $("#skMorning3").append(data.sky[6]);
-                $("#skAfternoon3").append(data.sky[7]);
-                $("#skNight3").append(data.sky[8]);
+                $("#skMorning3").attr('src', 'images/meteors/sky/' + data.sky[6] + '.png');
+                $("#skAfternoon3").attr('src', 'images/meteors/sky/' + data.sky[7] + '.png');
+                $("#skNight3").attr('src', 'images/meteors/sky/' + (data.sky[8] + 100) + '_fondo.png');
 
-                $("#skMorning4").append(data.sky[9]);
-                $("#skAfternoon4").append(data.sky[10]);
-                $("#skNight4").append(data.sky[11]);
+                $("#skMorning4").attr('src', 'images/meteors/sky/' + data.sky[9] + '.png');
+                $("#skAfternoon4").attr('src', 'images/meteors/sky/' + data.sky[10] + '.png');
+                $("#skNight4").attr('src', 'images/meteors/sky/' + (data.sky[11] + 100) + '_fondo.png');
 
                 // WIND
-                $("#windMorning1").append(data.wind[0]);
-                $("#windAfternoon1").append(data.wind[1]);
-                $("#windNight1").append(data.wind[2]);
+                $("#windMorning1").attr('src', 'images/meteors/wind/' + data.wind[0] + '.png');
+                $("#windAfternoon1").attr('src', 'images/meteors/wind/' + data.wind[1] + '.png');
+                $("#windNight1").attr('src', 'images/meteors/wind/' + data.wind[2] + '.png');
 
-                $("#windMorning2").append(data.wind[3]);
-                $("#windAfternoon2").append(data.wind[4]);
-                $("#windNight2").append(data.wind[5]);
+                $("#windMorning2").attr('src', 'images/meteors/wind/' + data.wind[3] + '.png');
+                $("#windAfternoon2").attr('src', 'images/meteors/wind/' + data.wind[4] + '.png');
+                $("#windNight2").attr('src', 'images/meteors/wind/' + data.wind[5] + '.png');
 
-                $("#windMorning3").append(data.wind[6]);
-                $("#windAfternoon3").append(data.wind[7]);
-                $("#windNight3").append(data.wind[8]);
+                $("#windMorning3").attr('src', 'images/meteors/wind/' + data.wind[6] + '.png');
+                $("#windAfternoon3").attr('src', 'images/meteors/wind/' + data.wind[7] + '.png');
+                $("#windNight3").attr('src', 'images/meteors/wind/' + data.wind[8] + '.png');
 
-                $("#windMorning4").append(data.wind[9]);
-                $("#windAfternoon4").append(data.wind[10]);
-                $("#windNight4").append(data.wind[11]);
+                $("#windMorning4").attr('src', 'images/meteors/wind/' + data.wind[9] + '.png');
+                $("#windAfternoon4").attr('src', 'images/meteors/wind/' + data.wind[10] + '.png');
+                $("#windNight4").attr('src', 'images/meteors/wind/' + data.wind[11] + '.png');
 
                 //Temperature
-                $("#tempMin1").append(data.temp[0]);
-                $("#tempMax1").append(data.temp[1]);
+                $("#tempMin1").append(data.temp[0] + "&deg;"); 
+                $("#tempMax1").append(data.temp[1] + "&deg;");
+                changeColorBackground($("#tempMin1"), data.temp[0]);
+                changeColorBackground($("#tempMax1"), data.temp[1]);
 
-                $("#tempMin2").append(data.temp[2]);
-                $("#tempMax2").append(data.temp[3]);
+                $("#tempMin2").append(data.temp[2] + "&deg;");
+                $("#tempMax2").append(data.temp[3] + "&deg;");
+                changeColorBackground($("#tempMin2"), data.temp[2]);
+                changeColorBackground($("#tempMax2"), data.temp[3]);
 
-                $("#tempMin3").append(data.temp[4]);
-                $("#tempMax3").append(data.temp[5]);
+                $("#tempMin3").append(data.temp[4] + "&deg;");
+                $("#tempMax3").append(data.temp[5] + "&deg;");
+                changeColorBackground($("#tempMin3"), data.temp[4]);
+                changeColorBackground($("#tempMax3"), data.temp[5]);
 
-                $("#tempMin4").append(data.temp[6]);
-                $("#tempMax4").append(data.temp[7]);
-                
+                $("#tempMin4").append(data.temp[6] + "&deg;");
+                $("#tempMax4").append(data.temp[7] + "&deg;");
+                changeColorBackground($("#tempMin4"), data.temp[6]);
+                changeColorBackground($("#tempMax4"), data.temp[7]);
+
                 //Comment
                 $("#comment").append(data.comment);
 
