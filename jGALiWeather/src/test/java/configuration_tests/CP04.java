@@ -1,5 +1,7 @@
 package configuration_tests;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import jgaliweather.configuration.template_reader.TemplateReader;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -32,10 +34,14 @@ public class CP04 {
 
     @Test
     public void test() {
-        TemplateReader tr = new TemplateReader();
-
-        tr.parseFile("Configuration/Languages/espanol.xml");
-
-        Assert.assertEquals("fuerte del Oeste", tr.getLabelsets().get("W").getLabels().get("323").toString());
+        try {
+            TemplateReader tr = new TemplateReader();
+            
+            tr.parseFile("Configuration/Languages/espanol.xml");
+            
+            Assert.assertEquals("fuerte del Oeste", tr.getLabelsets().get("W").getLabels().get("323").toString());
+        } catch (Exception ex) {
+            Logger.getLogger(CP04.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import jgaliweather.configuration.configuration_reader.DatabaseConfiguration;
 import jgaliweather.configuration.logger.GALiLogger;
 import jgaliweather.database.DatabaseConnector;
+import org.javatuples.Pair;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -43,7 +44,7 @@ public class CP25 {
         
         DatabaseConnector conn = new DatabaseConnector(dc);
         
-        ArrayList<Integer> salida = conn.retrieveLocations();
+        ArrayList<Pair<Integer, String>> salida = conn.retrieveLocations();
 
         Assert.assertEquals(316, salida.size());
     }

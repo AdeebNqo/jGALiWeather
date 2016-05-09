@@ -1,5 +1,7 @@
 package configuration_tests;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import jgaliweather.configuration.partition_reader.PartitionReader;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -35,12 +37,16 @@ public class CP07 {
 
     @Test
     public void test() {
-        PartitionReader pr = new PartitionReader();
-
-        pr.parseFile("Configuration/partitions.xml");
-
-        Assert.assertEquals("ObjectSet P: 107, 108, 111, 120", pr.getPartitions().get("R").getSets().get(1).toString());
-        Assert.assertEquals("CrispInterval MD: LeftClosed {-6.0, -2.0}", pr.getPartitions().get("V").getSets().get(2).toString());
-        Assert.assertEquals("FuzzySet REL: _/¯\\_(0.2, 0.4, 0.6, 0.2)", pr.getPartitions().get("CP").getSets().get(1).toString());
+        try {
+            PartitionReader pr = new PartitionReader();
+            
+            pr.parseFile("Configuration/partitions.xml");
+            
+            Assert.assertEquals("ObjectSet P: 107, 108, 111, 120", pr.getPartitions().get("R").getSets().get(1).toString());
+            Assert.assertEquals("CrispInterval MD: LeftClosed {-6.0, -2.0}", pr.getPartitions().get("V").getSets().get(2).toString());
+            Assert.assertEquals("FuzzySet REL: _/¯\\_(0.2, 0.4, 0.6, 0.2)", pr.getPartitions().get("CP").getSets().get(1).toString());
+        } catch (Exception ex) {
+            Logger.getLogger(CP07.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

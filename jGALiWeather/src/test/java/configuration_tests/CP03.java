@@ -1,5 +1,7 @@
 package configuration_tests;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import jgaliweather.configuration.template_reader.TemplateReader;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -31,14 +33,18 @@ public class CP03 {
 
     @Test
     public void test() {
-        TemplateReader tr = new TemplateReader();
-
-        tr.parseFile("Configuration/Languages/espanol.xml");
-
-        //Option op = (Option) tr.getTemplates().get("Temperature").getCases().get(0).getParts().get(1).getComponents().get(2);
-
-        //op.setUsed(true);
-
-        //Assert.assertEquals("con mínimas ", tr.getTemplates().get("Temperature").getCases().get(0).getParts().get(1).getComponents().get(2).toString());
+        try {
+            TemplateReader tr = new TemplateReader();
+            
+            tr.parseFile("Configuration/Languages/espanol.xml");
+            
+            //Option op = (Option) tr.getTemplates().get("Temperature").getCases().get(0).getParts().get(1).getComponents().get(2);
+            
+            //op.setUsed(true);
+            
+            //Assert.assertEquals("con mínimas ", tr.getTemplates().get("Temperature").getCases().get(0).getParts().get(1).getComponents().get(2).toString());
+        } catch (Exception ex) {
+            Logger.getLogger(CP03.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

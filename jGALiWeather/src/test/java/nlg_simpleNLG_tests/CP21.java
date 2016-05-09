@@ -8,6 +8,8 @@ package nlg_simpleNLG_tests;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import jgaliweather.algorithm.weather_operators.WindOperator;
 import jgaliweather.configuration.partition_reader.Partition;
 import jgaliweather.configuration.partition_reader.PartitionReader;
@@ -23,6 +25,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import simplenlg.framework.NLGFactory;
+import simplenlg.lexicon.Lexicon;
+import simplenlg.realiser.english.Realiser;
 
 /* Tests method that generates sentences describing wind predictions*/
 public class CP21 {
@@ -49,40 +54,48 @@ public class CP21 {
     @Test
     public void test() {
 
-        TemplateReader tr = new TemplateReader();
-        tr.parseFile("Configuration/Languages/english.xml");
-
-        VariableReader vr = new VariableReader();
-        vr.parseFile("Configuration/variables.xml");
-
-        PartitionReader pr = new PartitionReader();
-        pr.parseFile("Configuration/partitions.xml");
-        HashMap<String, Partition> partitions = pr.getPartitions();
-
-        Variable curr_var = new Variable("Meteoro");
-
-        curr_var.getValues().add(new Value(320, 0));
-        curr_var.getValues().add(new Value(320, 1));
-        curr_var.getValues().add(new Value(320, 2));
-        curr_var.getValues().add(new Value(320, 3));
-        curr_var.getValues().add(new Value(320, 4));
-        curr_var.getValues().add(new Value(301, 5));
-        curr_var.getValues().add(new Value(332, 6));
-        curr_var.getValues().add(new Value(317, 7));
-        curr_var.getValues().add(new Value(332, 8));
-        curr_var.getValues().add(new Value(302, 9));
-        curr_var.getValues().add(new Value(317, 10));
-        curr_var.getValues().add(new Value(332, 11));
-
-        Pair<Integer, Integer> WIND_INTERVAL = new Pair(317, 332);
-        WindOperator w_op = new WindOperator(WIND_INTERVAL, curr_var);
-
-        ArrayList<String> w_output = w_op.applyOperator();
-
-        WindGenerator nssg = new WindGenerator(tr.getLabelsets(), Calendar.getInstance(), w_output);
-
-        String salida = nssg.parseAndGenerate();
-
-        Assert.assertEquals("Strong Southeast wind from Sunday morning to Monday afternoon, very strong Northwest from Tuesday morning, changing to strong North on Tuesday afternoon and to very strong Northwest on Tuesday night, and strong North from Wednesday afternoon, changing to very strong Northwest on Wednesday night.", salida);
+        try {
+            TemplateReader tr = new TemplateReader();
+            tr.parseFile("Configuration/Languages/english.xml");
+            
+            VariableReader vr = new VariableReader();
+            vr.parseFile("Configuration/variables.xml");
+            
+            PartitionReader pr = new PartitionReader();
+            pr.parseFile("Configuration/partitions.xml");
+            HashMap<String, Partition> partitions = pr.getPartitions();
+            
+            Variable curr_var = new Variable("Meteoro");
+            
+            curr_var.getValues().add(new Value(320, 0));
+            curr_var.getValues().add(new Value(320, 1));
+            curr_var.getValues().add(new Value(320, 2));
+            curr_var.getValues().add(new Value(320, 3));
+            curr_var.getValues().add(new Value(320, 4));
+            curr_var.getValues().add(new Value(301, 5));
+            curr_var.getValues().add(new Value(332, 6));
+            curr_var.getValues().add(new Value(317, 7));
+            curr_var.getValues().add(new Value(332, 8));
+            curr_var.getValues().add(new Value(302, 9));
+            curr_var.getValues().add(new Value(317, 10));
+            curr_var.getValues().add(new Value(332, 11));
+            
+            Pair<Integer, Integer> WIND_INTERVAL = new Pair(317, 332);
+            WindOperator w_op = new WindOperator(WIND_INTERVAL, curr_var);
+            
+            ArrayList<String> w_output = w_op.applyOperator();
+            
+            Lexicon lexicon = Lexicon.getDefaultLexicon();
+            NLGFactory nlgFactory = new NLGFactory(lexicon);
+            Realiser realiser = new Realiser(lexicon);
+            
+            WindGenerator nssg = new WindGenerator(tr.getLabelsets(), Calendar.getInstance(), w_output, nlgFactory);
+            
+            String salida = realiser.realiseSentence(nssg.parseAndGenerate()).replaceAll("\\s+", " ").trim();
+            
+            Assert.assertEquals("Strong Southeast wind from Sunday morning to Monday afternoon, very strong Northwest from Tuesday morning, changing to strong North on Tuesday afternoon and to very strong Northwest on Tuesday night, and strong North from Wednesday afternoon, changing to very strong Northwest on Wednesday night.", salida);
+        } catch (Exception ex) {
+            Logger.getLogger(CP21.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

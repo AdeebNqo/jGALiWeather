@@ -11,6 +11,7 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import jgaliweather.configuration.configuration_reader.DatabaseConfiguration;
 import jgaliweather.configuration.logger.GALiLogger;
+import org.javatuples.Pair;
 
 /* Implements a database connection manager. */
 public class DatabaseConnector {
@@ -42,16 +43,16 @@ public class DatabaseConnector {
 
         :return: A list containing location identifiers.
      */
-    public ArrayList<Integer> retrieveLocations() {
+    public ArrayList<Pair<Integer, String>> retrieveLocations() {
 
         Statement stmt = null;
-        ArrayList<Integer> locations = new ArrayList();
+        ArrayList<Pair<Integer, String>> locations = new ArrayList();
 
         try {
             stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT DISTINCT ID_MG FROM METEO");
+            ResultSet rs = stmt.executeQuery("SELECT id, name FROM Location");
             while (rs.next()) {
-                locations.add(Integer.parseInt(rs.getString(1)));
+                locations.add(new Pair(Integer.parseInt(rs.getString(1)), rs.getString(2)));
             }
             rs.close();
             stmt.close();

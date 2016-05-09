@@ -166,17 +166,17 @@ public class PredictionSummarizer {
             int month = current_date.get(Calendar.MONTH) + 1;
             temperatures = new TemperatureReader();
             temperatures.parseFile(this.configuration.getInpaths().get("temperatures"));
-            ArrayList<Integer> db_locations = dbc.retrieveLocations();
+            ArrayList<Pair<Integer, String>> db_locations = dbc.retrieveLocations();
 
-            for (Integer l : db_locations) {
-                Location new_loc = new Location("", l);
+            for (Pair<Integer, String> l : db_locations) {
+                Location new_loc = new Location(l.getValue1(), l.getValue0());
 
                 ArrayList<String> dates = new ArrayList();
                 dates.add("2015-07-25");
                 dates.add("2015-07-26");
                 dates.add("2015-07-27");
                 dates.add("2015-07-28");
-                HashMap<String, ArrayList<Integer>> values = dbc.retrieveVariableDataForLocation(l, dates);
+                HashMap<String, ArrayList<Integer>> values = dbc.retrieveVariableDataForLocation(l.getValue0(), dates);
 
                 Iterator it = this.variables.entrySet().iterator();
                 Iterator it1 = values.entrySet().iterator();
@@ -193,7 +193,7 @@ public class PredictionSummarizer {
                     }
                     new_loc.getVariables().put(curr_var.getName(), curr_var);
                     new_loc.setClimatic_data(temperatures.retrieveClimaticDataForLocation(new_loc.getLid(), month)); // Muy lento
-                    this.locations.put(new_loc.getLid() + "", new_loc); // Cambiar esto por new_loc.getName()
+                    this.locations.put(new_loc.getName(), new_loc);
                 }
             }
 

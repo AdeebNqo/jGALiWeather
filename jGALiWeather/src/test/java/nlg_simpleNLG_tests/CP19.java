@@ -1,6 +1,8 @@
 package nlg_simpleNLG_tests;
 
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import jgaliweather.algorithm.weather_operators.SkyStateBOperator;
 import jgaliweather.configuration.partition_reader.Partition;
 import jgaliweather.configuration.partition_reader.PartitionReader;
@@ -15,6 +17,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import simplenlg.framework.NLGFactory;
+import simplenlg.lexicon.Lexicon;
+import simplenlg.realiser.english.Realiser;
 
 /* Tests SkyCoverageGeneratorLevel2*/
 public class CP19 {
@@ -41,39 +46,47 @@ public class CP19 {
     @Test
     public void test() {
 
-        TemplateReader tr = new TemplateReader();
-        tr.parseFile("Configuration/Languages/english.xml");
-
-        VariableReader vr = new VariableReader();
-        vr.parseFile("Configuration/variables.xml");
-
-        PartitionReader pr = new PartitionReader();
-        pr.parseFile("Configuration/partitions.xml");
-        HashMap<String, Partition> partitions = pr.getPartitions();
-
-        Variable curr_var = new Variable("Meteoro");
-
-        curr_var.getValues().add(new Value(102, 0));
-        curr_var.getValues().add(new Value(101, 1));
-        curr_var.getValues().add(new Value(113, 2));
-        curr_var.getValues().add(new Value(104, 3));
-        curr_var.getValues().add(new Value(117, 4));
-        curr_var.getValues().add(new Value(111, 5));
-        curr_var.getValues().add(new Value(108, 6));
-        curr_var.getValues().add(new Value(108, 7));
-        curr_var.getValues().add(new Value(108, 8));
-        curr_var.getValues().add(new Value(107, 9));
-        curr_var.getValues().add(new Value(118, 10));
-        curr_var.getValues().add(new Value(104, 11));
-
-        SkyStateBOperator nssb_op = new SkyStateBOperator(partitions.get("C"), partitions.get("CP"), curr_var);
-
-        double[][] nssb_otuput = nssb_op.applyOperator();
-
-        SkyCoverageGeneratorLevel2 nssg = new SkyCoverageGeneratorLevel2(tr.getLabelsets().get("C2"), tr.getLabelsets().get("C"), partitions.get("C"), nssb_otuput);
-
-        String salida = nssg.generate();
-
-        Assert.assertEquals("There will be cloudy skies with covered or clear moments.", salida);
+        try {
+            TemplateReader tr = new TemplateReader();
+            tr.parseFile("Configuration/Languages/english.xml");
+            
+            VariableReader vr = new VariableReader();
+            vr.parseFile("Configuration/variables.xml");
+            
+            PartitionReader pr = new PartitionReader();
+            pr.parseFile("Configuration/partitions.xml");
+            HashMap<String, Partition> partitions = pr.getPartitions();
+            
+            Variable curr_var = new Variable("Meteoro");
+            
+            curr_var.getValues().add(new Value(102, 0));
+            curr_var.getValues().add(new Value(101, 1));
+            curr_var.getValues().add(new Value(113, 2));
+            curr_var.getValues().add(new Value(104, 3));
+            curr_var.getValues().add(new Value(117, 4));
+            curr_var.getValues().add(new Value(111, 5));
+            curr_var.getValues().add(new Value(108, 6));
+            curr_var.getValues().add(new Value(108, 7));
+            curr_var.getValues().add(new Value(108, 8));
+            curr_var.getValues().add(new Value(107, 9));
+            curr_var.getValues().add(new Value(118, 10));
+            curr_var.getValues().add(new Value(104, 11));
+            
+            SkyStateBOperator nssb_op = new SkyStateBOperator(partitions.get("C"), partitions.get("CP"), curr_var);
+            
+            double[][] nssb_otuput = nssb_op.applyOperator();
+            
+            Lexicon lexicon = Lexicon.getDefaultLexicon();
+            NLGFactory nlgFactory = new NLGFactory(lexicon);
+            Realiser realiser = new Realiser(lexicon);
+            
+            SkyCoverageGeneratorLevel2 nssg = new SkyCoverageGeneratorLevel2(tr.getLabelsets().get("C2"), tr.getLabelsets().get("C"), partitions.get("C"), nssb_otuput, nlgFactory);
+            
+            String salida = realiser.realiseSentence(nssg.generate()).replaceAll("\\s+", " ").trim();
+            
+            Assert.assertEquals("There will be cloudy skies with covered or clear moments.", salida);
+        } catch (Exception ex) {
+            Logger.getLogger(CP19.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

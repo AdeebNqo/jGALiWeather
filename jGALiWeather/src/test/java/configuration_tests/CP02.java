@@ -1,5 +1,7 @@
 package configuration_tests;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import jgaliweather.configuration.template_reader.TemplateReader;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -31,10 +33,14 @@ public class CP02 {
 
     @Test
     public void test() {
-        TemplateReader tr = new TemplateReader();
-
-        tr.parseFile("Configuration/Languages/espanol.xml");
-
-        //Assert.assertEquals("del mismo tenderán a estar", tr.getLabelsets().get("Cobertura Nivel 1").getCases().get(1).getParts().get(0).getComponents().get(12).toString());
+        try {
+            TemplateReader tr = new TemplateReader();
+            
+            tr.parseFile("Configuration/Languages/espanol.xml");
+            
+            //Assert.assertEquals("del mismo tenderán a estar", tr.getLabelsets().get("Cobertura Nivel 1").getCases().get(1).getParts().get(0).getComponents().get(12).toString());
+        } catch (Exception ex) {
+            Logger.getLogger(CP02.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
