@@ -6,13 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import jgaliweather.configuration.configuration_reader.DatabaseConfiguration;
 import jgaliweather.configuration.logger.GALiLogger;
-import jgaliweather.data.data_structures.Location;
 
 /* Implements a database connection manager. */
 public class DatabaseConnector {

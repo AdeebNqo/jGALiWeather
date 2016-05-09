@@ -15,9 +15,7 @@ import jgaliweather.nlg_simpleNLG.precipitation_nlg.PrecipitationTermGroup;
 import org.javatuples.Pair;
 import simplenlg.framework.DocumentElement;
 import simplenlg.framework.NLGFactory;
-import simplenlg.lexicon.Lexicon;
 import simplenlg.phrasespec.SPhraseSpec;
-import simplenlg.realiser.english.Realiser;
 
 /*
     Implements a natural language text generator

@@ -1,10 +1,8 @@
 package configuration_tests;
 
 import jgaliweather.configuration.template_reader.TemplateReader;
-import jgaliweather.configuration.template_reader.template_components.Option;
 import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
