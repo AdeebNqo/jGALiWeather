@@ -1,10 +1,11 @@
 
-package com.diego.VOs;
+package com.diego.jgaliweather_rest.VOs;
 
 import java.util.ArrayList;
 
 public class MeteorologicalDataDay {
     
+    private String name;
     private ArrayList<Integer> sky;
     private ArrayList<Integer> wind;
     private ArrayList<Integer> temp;
@@ -19,6 +20,14 @@ public class MeteorologicalDataDay {
         this.temp = temp;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
     public ArrayList<Integer> getSky() {
         return sky;
     }

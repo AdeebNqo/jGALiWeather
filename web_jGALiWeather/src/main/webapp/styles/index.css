@@ -23,9 +23,9 @@ div {
 }
 
 .headerPrincipal {
-    height: 150px;
+    height: 151px;
     background: url(../images/banner.png) no-repeat;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
 }
 
 #forecast {
@@ -121,6 +121,7 @@ a {
     color: #796A0E;
     text-decoration: none;
     border: none;
+    cursor: pointer;
 }
 
 a:hover {

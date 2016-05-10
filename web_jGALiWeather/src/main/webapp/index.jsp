@@ -2,29 +2,29 @@
 <html>
     <head>
         <meta charset=utf-8>
-        <title>Concellos - MeteoGalicia</title>
-        <meta name="Keywords" content="concellos, ayuntamientos, curto prazo, medio prazo, meteorología, meteoroloxía, predicción,predición" />
-        <meta name="Description" content="Predición meteorolóxica terrestre a curto e medio prazo para concellos elaborada por MeteoGalicia" />
+        <title>Councils - jGALiWeather</title>
+        <meta name="Keywords" content="councils, short term, mid term, meteorology, meteorologic, forecast, jGALiWeather, Meteogalicia" />
+        <meta name="Description" content="Short term and mid term forecast for galician councils elaborated by Meteogalicia and jGALiWeather" />
         <meta name="robots" content="index, follow">
         <link rel="icon"  type="image/x-icon" href="images/favicon.ico"/>
         <meta property="og:locale" content="es_ES"/>
         <meta property="og:type" content="website"/>
         <meta property="og:title" content="Concellos - MeteoGalicia"/>
-        <meta property="og:description" content="Predición meteorolóxica terrestre a curto e medio prazo para concellos elaborada por MeteoGalicia"/>
-        <meta property="og:site_name" content="Meteogalicia"/>
+        <meta property="og:description" content="Short term and mid term forecast for galician councils elaborated by Meteogalicia and jGALiWeather"/>
+        <meta property="og:site_name" content="jGALiWeather"/>
 
         <link rel="stylesheet" type="text/css" href="styles/index.css">
         <link rel="stylesheet" type="text/css" href="styles/temperatures.css">
         <script type="text/javascript" src="lib/jquery-2.2.3.min.js" ></script>
-        <script type="text/javascript" src="lib/servicios.js" ></script>
+        <script type="text/javascript" src="lib/services.js" ></script>
+        <script type="text/javascript" src="lib/searchScripts.js" ></script>
     </head>
 
     <body>
         <div id="content">
-            <header class="headerPrincipal">
-                <h1>jGALiWeather</h1>
+            <header class="headerPrincipal">              
             </header>
-
+            
             <div id="forecast">
                 <h1>Council forecast</h1>
             </div>
@@ -33,38 +33,33 @@
                 <h2>Councils</h2>
                 <nav>
                     <ul>
-                        <li><a class="menuCitiesElement" href="index.jsp">A Coruña</a></li>
-                        <li><a class="menuCitiesElement" href="documents/buscar.jsp">Ferrol</a></li>
-                        <li><a class="menuCitiesElement" href="documents/buscar.jsp">Lugo</a></li>
-                        <li><a class="menuCitiesElement" href="documents/buscar.jsp">Ourense</a></li>
-                        <li><a class="menuCitiesElement" href="documents/buscar.jsp">Pontevedra</a></li>
-                        <li><a class="menuCitiesElement" href="documents/buscar.jsp">Santiago de Compostela</a></li>
-                        <li><a class="menuCitiesElement" href="documents/buscar.jsp">Vigo</a></li>
+                        <li><a class="menuCitiesElement" onclick="getForecastData(15030)">A Coruña</a></li>
+                        <li><a class="menuCitiesElement" onclick="getForecastData(15036)">Ferrol</a></li>
+                        <li><a class="menuCitiesElement" onclick="getForecastData(27028)">Lugo</a></li>
+                        <li><a class="menuCitiesElement" onclick="getForecastData(32054)">Ourense</a></li>
+                        <li><a class="menuCitiesElement" onclick="getForecastData(36038)">Pontevedra</a></li>
+                        <li><a class="menuCitiesElement" onclick="getForecastData(15078)">Santiago de Compostela</a></li>
+                        <li><a class="menuCitiesElement" onclick="getForecastData(36057)">Vigo</a></li>
                     </ul>
                 </nav>
 
                 <h2 class="anotherCouncil">Search another council</h2>
 
-                <form name="setCouncil" action="setCouncil" method="get">
+                <form id="setCouncil" name="setCouncil" action="setCouncil" method="get">
 
                     <h3>Choose a province:</h3>
                     <div class="radioCorunaOurense">
-                        <input type="radio" name="province" id="coruna" checked><label for="coruna">A Coruña</label><br>
-                        <input type="radio" name="province" id="ourense"><label for="ourense">Ourense</label>
+                        <input type="radio" name="province" id="coruna" value="Coruna" checked><label for="coruna">A Coruña</label><br>
+                        <input type="radio" name="province" id="ourense" value="Ourense"><label for="ourense">Ourense</label>
                     </div>
                     <div class="radioPontevedraLugo">
-                        <input type="radio" name="province" id="lugo"><label for="lugo">Lugo</label><br>
-                        <input type="radio" name="province" id="pontevedra"><label for="pontevedra">Pontevedra</label>
+                        <input type="radio" name="province" id="lugo" value="Lugo"><label for="lugo">Lugo</label><br>
+                        <input type="radio" name="province" id="pontevedra" value="Pontevedra"><label for="pontevedra">Pontevedra</label>
                     </div>
 
                     <div id="chooser">
                         <h3>Choose a council in A Coruña:</h3>
-                        <select name="council" size="1">
-                            <option selected value="Muy facil">Muy fácil</option>
-                            <option value="Facil">Fácil</option>
-                            <option value="Regular">Regular</option>
-                            <option value="Dificil">Dificil</option>
-                            <option value="Muy dificil">Muy dificil</option>
+                        <select id="selectCouncil" onchange="selectChange()" name="council" size="1">
                         </select>
                     </div>
                 </form>
@@ -78,7 +73,7 @@
             <main>
                 <article>
                     <header>
-                        <h2>Short term forecast for A Coruña</h2>   
+                        <h2 id="tableTitle">Short term forecast for A Coruña</h2>   
                     </header>
 
                     <table>

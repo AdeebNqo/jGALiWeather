@@ -1,6 +1,6 @@
-package com.diego.DAOs;
+package com.diego.jgaliweather_rest.DAOs;
 
-import com.diego.VOs.MeteorologicalDataDay;
+import com.diego.jgaliweather_rest.VOs.MeteorologicalDataDay;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -71,7 +71,7 @@ public class DatabaseConnector {
             stmt = conn.createStatement();
 
             ResultSet rs = stmt.executeQuery(query);
-            while (rs.next()) {
+            while (rs.next()) {            
                 st = new StringTokenizer(rs.getString("CIELO_MG"), ",");
                 while (st.hasMoreTokens()) {
                     sky.add(Integer.parseInt(st.nextToken()));
@@ -89,6 +89,42 @@ public class DatabaseConnector {
             }
 
             data = new MeteorologicalDataDay(sky, wind, temp);
+
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException ex) {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex1) {
+                    Logger.getLogger("Logger").log(Level.SEVERE, "Error consultando los datos en la BBDD: {0}", ex.getMessage());
+                    throw new Exception(ex1);
+                }
+            }
+            Logger.getLogger("Logger").log(Level.SEVERE, "Error consultando los datos en la BBDD: {0}", ex.getMessage());
+            throw new Exception(ex);
+        }
+
+        return data;
+    }
+    
+    public String getLocationName(int location_id) throws Exception {
+
+        Connection conn = null;
+        Statement stmt = null;
+        String data = "";
+
+        String query = "SELECT name FROM Location WHERE id='" + location_id + "'";
+
+        try {
+            conn = DriverManager.getConnection(db);
+            stmt = conn.createStatement();
+
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                data = rs.getString(1);
+            }
 
             rs.close();
             stmt.close();

@@ -5,9 +5,8 @@
  */
 package com.diego.jgaliweather_rest.services;
 
-import com.diego.DAOs.DatabaseConnector;
-import com.diego.VOs.MeteorologicalDataDay;
-import com.diego.jgaliweather_rest.deploy.MyDeployListener;
+import com.diego.jgaliweather_rest.DAOs.DatabaseConnector;
+import com.diego.jgaliweather_rest.VOs.MeteorologicalDataDay;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.ws.rs.GET;
@@ -36,6 +35,7 @@ public class ForecastResource {
         try{
             
             data = DatabaseConnector.getInstance().retrieveVariableDataForLocation(id, sdf.parse("2015-07-25"));
+            data.setName(DatabaseConnector.getInstance().getLocationName(id));
             data.setComment(DatabaseConnector.getInstance().getComment(id, new Date()));
             
         } catch (Exception e) {

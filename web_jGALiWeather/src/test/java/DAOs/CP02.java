@@ -5,8 +5,8 @@
  */
 package DAOs;
 
-import com.diego.DAOs.DatabaseConnector;
-import com.diego.VOs.MeteorologicalDataDay;
+import com.diego.jgaliweather_rest.DAOs.DatabaseConnector;
+import com.diego.jgaliweather_rest.VOs.MeteorologicalDataDay;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.junit.After;
