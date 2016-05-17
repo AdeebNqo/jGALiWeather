@@ -252,7 +252,7 @@ public class ICAGenerator {
 
                     return text_nuance;
 
-                } else if (weather_info.get(w_index).equals("W")) {
+                } else if (weather_info.get(w_index).equals("RW")) {
 
                     text_nuance.addPostModifier(nlgFactory.createPrepositionPhrase(ica_template.getLabels().get("by").getData(),
                             nlgFactory.createNounPhrase(ica_template.getLabels().get("nuance_rainwind").getData())));
@@ -261,7 +261,7 @@ public class ICAGenerator {
 
                     return text_nuance;
 
-                } else if (weather_info.get(w_index).equals("RW")) {
+                } else if (weather_info.get(w_index).equals("W")) {
 
                     text_nuance.addPostModifier(nlgFactory.createPrepositionPhrase(ica_template.getLabels().get("by").getData(),
                             nlgFactory.createNounPhrase(ica_template.getLabels().get("nuance_wind").getData())));
@@ -271,7 +271,7 @@ public class ICAGenerator {
                     return text_nuance;
 
                 }
-            } else if ((ica_label.equals("I") || ica_label.equals("B") || ica_label.equals("H")) && !trend.equals(IMPROVE)) {
+            } else if ((ica_label.equals("I") || ica_label.equals("B") || ica_label.equals("H")) && (trend == null || !trend.equals(IMPROVE))) {
 
                 VPPhraseSpec text_nuance = nlgFactory.createVerbPhrase(ica_template.getLabels().get("due").getData());
                 text_nuance.setFeature(Feature.FORM, Form.INFINITIVE);

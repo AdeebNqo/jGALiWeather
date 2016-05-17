@@ -49,9 +49,9 @@
             <version>3.8.11.2</version>
         </dependency>
         <dependency>
-            <groupId>simpleNLG</groupId>
-            <artifactId>simpleNLG</artifactId>
-            <version>4.4.3</version>
+            <groupId>uk.ac.abdn</groupId>
+            <artifactId>SimpleNLG</artifactId>
+            <version>4.4.8</version>
         </dependency>
     </dependencies>
     
