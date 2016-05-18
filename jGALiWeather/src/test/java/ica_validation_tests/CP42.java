@@ -17,7 +17,6 @@ import jgaliweather.configuration.variable_reader.VariableReader;
 import jgaliweather.data.data_structures.Value;
 import jgaliweather.data.data_structures.Variable;
 import jgaliweather.nlg_simpleNLG.nlg_generators.ICAGenerator;
-import nlg_simpleNLG_tests.CP23;
 import org.javatuples.Pair;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -126,7 +125,7 @@ public class CP42 {
              */
             assertEquals(salida, "With respect to air quality state, it is expected to improve to good.");
         } catch (Exception ex) {
-            Logger.getLogger(CP23.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CP42.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

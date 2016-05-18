@@ -17,7 +17,6 @@ import jgaliweather.configuration.variable_reader.VariableReader;
 import jgaliweather.data.data_structures.Value;
 import jgaliweather.data.data_structures.Variable;
 import jgaliweather.nlg_simpleNLG.nlg_generators.ICAGenerator;
-import nlg_simpleNLG_tests.CP23;
 import static org.hamcrest.CoreMatchers.anyOf;
 import static org.hamcrest.CoreMatchers.is;
 import org.javatuples.Pair;
@@ -127,10 +126,10 @@ public class CP47 {
              *   En lo que se refiere al estado de la calidad del aire, se mantendrá muy malo en general, debido al
              *   tiempo soleado y estable de los próximos días.
              */
-            assertThat(salida, anyOf(is("With respect to air quality state, it will be to remain hazardous in general, to due the sunny and stable weather in the coming days."), 
-                    is("With respect to air quality state, it will be to remain hazardous in general, to due the sunny and stable weather in the next few days.")));
+            assertThat(salida, anyOf(is("With respect to air quality state, it will be to remain hazardous in general, because of the sunny and stable weather in the coming days."), 
+                    is("With respect to air quality state, it will be to remain hazardous in general, because of the sunny and stable weather in the next few days.")));
         } catch (Exception ex) {
-            Logger.getLogger(CP23.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CP47.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

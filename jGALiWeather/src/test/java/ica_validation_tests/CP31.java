@@ -17,13 +17,11 @@ import jgaliweather.configuration.variable_reader.VariableReader;
 import jgaliweather.data.data_structures.Value;
 import jgaliweather.data.data_structures.Variable;
 import jgaliweather.nlg_simpleNLG.nlg_generators.ICAGenerator;
-import nlg_simpleNLG_tests.CP23;
 import static org.hamcrest.CoreMatchers.anyOf;
 import static org.hamcrest.CoreMatchers.is;
 import org.javatuples.Pair;
 import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.Assert;
 import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -128,10 +126,10 @@ public class CP31 {
              *   En lo que se refiere al estado de la calidad del aire, se mantendrá admisible en general, debido al
              *   tiempo sin lluvia de los próximos días.
              */
-            assertThat(salida, anyOf(is("With respect to air quality state, it will be to remain admissible in general, to due the dry weather during the coming days."), 
-                    is("With respect to air quality state, it will be to remain admissible in general, to due the dry weather during the next few days.")));
+            assertThat(salida, anyOf(is("With respect to air quality state, it will be to remain admissible in general, because of the dry weather during the coming days."), 
+                    is("With respect to air quality state, it will be to remain admissible in general, because of the dry weather during the next few days.")));
         } catch (Exception ex) {
-            Logger.getLogger(CP23.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CP31.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

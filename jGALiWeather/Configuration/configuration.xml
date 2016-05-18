@@ -21,14 +21,14 @@
         <database name="prediccion">
             <driver>x</driver>
             <host>127.0.0.1</host>
-            <dbname>D:/OneDrive/Clase/TFG/jGALiWeather/jGALiWeather/estudio6-6.db</dbname>
+            <dbname>C:/Users/Difma/OneDrive/Clase/TFG/jGALiWeather/jGALiWeather/estudio6-6.db</dbname>
             <user>Predicion_USC</user>
             <pass>Alejandro,USC</pass>
         </database>
         <database name="ica">
             <driver>SQL Server Native Client 11.0</driver>
             <host>127.0.0.1</host>
-            <dbname>C:/Users/Difma/OneDrive/Clase/TFG/jGALiWeather/jGALiWeather/estudio6-6.db</dbname>
+            <dbname>D:/OneDrive/Clase/TFG/jGALiWeather/jGALiWeather/estudio6-6.db</dbname>
             <user>CalidadeAire_TextosICA</user>
             <pass>,Fresc05,O2</pass>
         </database>

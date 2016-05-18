@@ -17,13 +17,11 @@ import jgaliweather.configuration.variable_reader.VariableReader;
 import jgaliweather.data.data_structures.Value;
 import jgaliweather.data.data_structures.Variable;
 import jgaliweather.nlg_simpleNLG.nlg_generators.ICAGenerator;
-import nlg_simpleNLG_tests.CP23;
 import static org.hamcrest.CoreMatchers.anyOf;
 import static org.hamcrest.CoreMatchers.is;
 import org.javatuples.Pair;
 import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.Assert;
 import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -131,7 +129,7 @@ public class CP29 {
             assertThat(salida, anyOf(is("With respect to air quality state, it is expected to improve to good, favored by the precitipations during the coming days."), 
                     is("With respect to air quality state, it is expected to improve to good, favored by the precitipations during the next few days.")));
         } catch (Exception ex) {
-            Logger.getLogger(CP23.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CP29.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

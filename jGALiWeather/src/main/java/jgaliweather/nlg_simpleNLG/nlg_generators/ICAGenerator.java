@@ -8,9 +8,11 @@ import simplenlg.features.Feature;
 import simplenlg.features.Form;
 import simplenlg.features.Tense;
 import simplenlg.framework.NLGFactory;
+import simplenlg.framework.PhraseElement;
 import simplenlg.lexicon.Lexicon;
 import simplenlg.phrasespec.AdvPhraseSpec;
 import simplenlg.phrasespec.NPPhraseSpec;
+import simplenlg.phrasespec.PPPhraseSpec;
 import simplenlg.phrasespec.SPhraseSpec;
 import simplenlg.phrasespec.VPPhraseSpec;
 import simplenlg.realiser.english.Realiser;
@@ -28,7 +30,7 @@ public class ICAGenerator {
     private String ica_expr;
     private ArrayList<String> weather_info;
     private SPhraseSpec text;
-    private VPPhraseSpec nuance;
+    private PhraseElement nuance;
     private String change_label;
     private NLGFactory nlgFactory;
     private Realiser realiser;
@@ -232,7 +234,7 @@ public class ICAGenerator {
         return final_text;
     }
 
-    private VPPhraseSpec weatherNuance(int w_index, String ica_label, String trend) {
+    private PhraseElement weatherNuance(int w_index, String ica_label, String trend) {
 
         Random randomGenerator = new Random();
         int interval = randomGenerator.nextInt(2);
@@ -273,7 +275,7 @@ public class ICAGenerator {
                 }
             } else if ((ica_label.equals("I") || ica_label.equals("B") || ica_label.equals("H")) && (trend == null || !trend.equals(IMPROVE))) {
 
-                VPPhraseSpec text_nuance = nlgFactory.createVerbPhrase(ica_template.getLabels().get("due").getData());
+                PPPhraseSpec text_nuance = nlgFactory.createPrepositionPhrase(ica_template.getLabels().get("because").getData() + " " + ica_template.getLabels().get("of").getData());
                 text_nuance.setFeature(Feature.FORM, Form.INFINITIVE);
 
                 if (weather_info.get(w_index).equals("S")) {

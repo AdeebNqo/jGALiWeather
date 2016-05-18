@@ -21,7 +21,6 @@ import jgaliweather.configuration.variable_reader.VariableReader;
 import jgaliweather.data.data_structures.Value;
 import jgaliweather.data.data_structures.Variable;
 import jgaliweather.nlg_simpleNLG.nlg_generators.ICAGenerator;
-import nlg_simpleNLG_tests.CP23;
 import static org.hamcrest.CoreMatchers.anyOf;
 import static org.hamcrest.CoreMatchers.is;
 import org.javatuples.Pair;
@@ -134,7 +133,7 @@ public class CP38 {
             assertThat(salida, anyOf(is("With respect to air quality state, it will be changeable although it is expected to change to good, favored by the low pressures in the atmosphere for the coming days."), 
                     is("With respect to air quality state, it will be changeable although it is expected to change to good, favored by the low pressures in the atmosphere for the next few days.")));
         } catch (Exception ex) {
-            Logger.getLogger(CP23.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CP38.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
