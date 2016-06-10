@@ -2,6 +2,7 @@ package jgaliweather.nlg;
 
 import java.util.Arrays;
 import simplenlg.framework.DocumentElement;
+import simplenlg.framework.NLGElement;
 import simplenlg.framework.NLGFactory;
 import simplenlg.realiser.english.Realiser;
 
@@ -13,11 +14,11 @@ import simplenlg.realiser.english.Realiser;
  */
 public class DescriptionAggregator {
 
-    private DocumentElement sky;
-    private DocumentElement rain;
-    private DocumentElement temperature;
-    private DocumentElement wind;
-    private DocumentElement fog;
+    private NLGElement sky;
+    private NLGElement rain;
+    private NLGElement temperature;
+    private NLGElement wind;
+    private NLGElement fog;
     private NLGFactory nlgFactory;
     private Realiser realiser;
 
@@ -32,7 +33,7 @@ public class DescriptionAggregator {
 
         :return: A new DescriptionAggregator object
      */
-    public DescriptionAggregator(DocumentElement sky, DocumentElement rain, DocumentElement temperature, DocumentElement wind, DocumentElement fog, NLGFactory nlgFactory, Realiser realiser) {
+    public DescriptionAggregator(NLGElement sky, NLGElement rain, NLGElement temperature, NLGElement wind, NLGElement fog, NLGFactory nlgFactory, Realiser realiser) {
         this.sky = sky;
         this.rain = rain;
         this.temperature = temperature;
@@ -42,43 +43,43 @@ public class DescriptionAggregator {
         this.nlgFactory = nlgFactory;
     }
 
-    public DocumentElement getSky() {
+    public NLGElement getSky() {
         return sky;
     }
 
-    public void setSky(DocumentElement sky) {
+    public void setSky(NLGElement sky) {
         this.sky = sky;
     }
 
-    public DocumentElement getRain() {
+    public NLGElement getRain() {
         return rain;
     }
 
-    public void setRain(DocumentElement rain) {
+    public void setRain(NLGElement rain) {
         this.rain = rain;
     }
 
-    public DocumentElement getTemperature() {
+    public NLGElement getTemperature() {
         return temperature;
     }
 
-    public void setTemperature(DocumentElement temperature) {
+    public void setTemperature(NLGElement temperature) {
         this.temperature = temperature;
     }
 
-    public DocumentElement getWind() {
+    public NLGElement getWind() {
         return wind;
     }
 
-    public void setWind(DocumentElement wind) {
+    public void setWind(NLGElement wind) {
         this.wind = wind;
     }
 
-    public DocumentElement getFog() {
+    public NLGElement getFog() {
         return fog;
     }
 
-    public void setFog(DocumentElement fog) {
+    public void setFog(NLGElement fog) {
         this.fog = fog;
     }
 
@@ -91,7 +92,12 @@ public class DescriptionAggregator {
      */
     public String mergeDescription() {
 
-        DocumentElement text = nlgFactory.createParagraph(Arrays.asList(sky, fog, rain, temperature, wind));
+        DocumentElement text = nlgFactory.createParagraph();
+        text.addComponent(sky);
+        text.addComponent(fog);
+        text.addComponent(rain);
+        text.addComponent(temperature);
+        text.addComponent(wind);
 
         return realiser.realiseSentence(text).replaceAll("\\s+", " ").trim();
     }

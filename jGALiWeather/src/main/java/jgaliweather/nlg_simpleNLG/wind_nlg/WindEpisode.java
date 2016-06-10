@@ -5,6 +5,7 @@ import jgaliweather.configuration.template_reader.LabelSet;
 import simplenlg.features.Feature;
 import simplenlg.features.Form;
 import simplenlg.framework.CoordinatedPhraseElement;
+import simplenlg.framework.NLGElement;
 import simplenlg.framework.NLGFactory;
 import simplenlg.framework.PhraseElement;
 import simplenlg.phrasespec.PPPhraseSpec;
@@ -72,9 +73,9 @@ public class WindEpisode {
 
         :return: A list containing phrases describing this object
      */
-    public ArrayList<PhraseElement> toText(LabelSet expresion_template, LabelSet label_template, LabelSet day_template, LabelSet time_template) {
+    public ArrayList<NLGElement> toText(LabelSet expresion_template, LabelSet label_template, LabelSet day_template, LabelSet time_template) {
 
-        ArrayList<PhraseElement> phrases = new ArrayList();
+        ArrayList<NLGElement> phrases = new ArrayList();
 
         if (!changes.isEmpty()) {
             phrases.add(nlgFactory.createAdjectivePhrase(label_template.getLabels().get(label).getData()));

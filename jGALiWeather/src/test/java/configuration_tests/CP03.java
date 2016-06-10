@@ -3,8 +3,10 @@ package configuration_tests;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jgaliweather.configuration.template_reader.TemplateReader;
+import jgaliweather.configuration.template_reader.template_components.Option;
 import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -38,11 +40,7 @@ public class CP03 {
             
             tr.parseFile("Configuration/Languages/espanol.xml");
             
-            //Option op = (Option) tr.getTemplates().get("Temperature").getCases().get(0).getParts().get(1).getComponents().get(2);
-            
-            //op.setUsed(true);
-            
-            //Assert.assertEquals("con mínimas ", tr.getTemplates().get("Temperature").getCases().get(0).getParts().get(1).getComponents().get(2).toString());
+            Assert.assertEquals("poco nubosos o despejados", tr.getLabelsets().get("C").getLabels().get("C").getData());
         } catch (Exception ex) {
             Logger.getLogger(CP03.class.getName()).log(Level.SEVERE, null, ex);
         }

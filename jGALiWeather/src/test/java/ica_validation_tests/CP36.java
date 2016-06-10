@@ -17,8 +17,6 @@ import jgaliweather.configuration.variable_reader.VariableReader;
 import jgaliweather.data.data_structures.Value;
 import jgaliweather.data.data_structures.Variable;
 import jgaliweather.nlg_simpleNLG.nlg_generators.ICAGenerator;
-import static org.hamcrest.CoreMatchers.anyOf;
-import static org.hamcrest.CoreMatchers.is;
 import org.javatuples.Pair;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -52,7 +50,7 @@ public class CP36 {
     public void tearDown() {
     }
 
-   @Test
+    @Test
     public void test() {
 
         try {
@@ -73,10 +71,10 @@ public class CP36 {
             wind_var.getValues().add(new Value(304, 2));
             wind_var.getValues().add(new Value(303, 3));
             wind_var.getValues().add(new Value(303, 4));
-            wind_var.getValues().add(new Value(311, 5));
-            wind_var.getValues().add(new Value(310, 6));
-            wind_var.getValues().add(new Value(318, 7));
-            wind_var.getValues().add(new Value(310, 8));
+            wind_var.getValues().add(new Value(305, 5));
+            wind_var.getValues().add(new Value(300, 6));
+            wind_var.getValues().add(new Value(300, 7));
+            wind_var.getValues().add(new Value(300, 8));
             
             Pair<Integer, Integer> WIND_INTERVAL = new Pair(309, 332);
             
@@ -86,15 +84,15 @@ public class CP36 {
             
             Variable sky_var = new Variable("Meteoro");
             
-            sky_var.getValues().add(new Value(107, 0));
-            sky_var.getValues().add(new Value(107, 1));
-            sky_var.getValues().add(new Value(107, 2));
+            sky_var.getValues().add(new Value(104, 0));
+            sky_var.getValues().add(new Value(103, 1));
+            sky_var.getValues().add(new Value(104, 2));
             sky_var.getValues().add(new Value(103, 3));
-            sky_var.getValues().add(new Value(103, 4));
-            sky_var.getValues().add(new Value(102, 5));
-            sky_var.getValues().add(new Value(103, 6));
-            sky_var.getValues().add(new Value(103, 7));
-            sky_var.getValues().add(new Value(102, 8));
+            sky_var.getValues().add(new Value(102, 4));
+            sky_var.getValues().add(new Value(103, 5));
+            sky_var.getValues().add(new Value(104, 6));
+            sky_var.getValues().add(new Value(116, 7));
+            sky_var.getValues().add(new Value(116, 8));
             
             ICASkyStateOperator ss_op = new ICASkyStateOperator(partitions.get("C"), sky_var, 9);
             
@@ -110,7 +108,7 @@ public class CP36 {
             
             Variable curr_var = new Variable("Meteoro");
             
-            curr_var.getValues().add(new Value(1, 0));
+            curr_var.getValues().add(new Value(3, 0));
             curr_var.getValues().add(new Value(3, 1));
             curr_var.getValues().add(new Value(1, 2));
             
@@ -123,11 +121,9 @@ public class CP36 {
             String salida = nssg.generate();
             
             /*
-             *   En lo que se refiere al estado de la calidad del aire, será variable aunque se espera que mejore a
-             *   bueno, favorecido por el viento esperado para los próximos días.
+             *   En lo que se refiere al estado de la calidad del aire, se espera que mejore a bueno.
              */
-            assertThat(salida, anyOf(is("With respect to air quality state, it will be changeable although it is expected to change to good, favored by the wind expected during the coming days."), 
-                    is("With respect to air quality state, it will be changeable although it is expected to change to good, favored by the wind expected during the next few days.")));
+            assertEquals(salida, "With respect to air quality state, it is expected to improve to good.");
         } catch (Exception ex) {
             Logger.getLogger(CP36.class.getName()).log(Level.SEVERE, null, ex);
         }

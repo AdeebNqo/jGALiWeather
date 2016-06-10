@@ -44,7 +44,7 @@ public class CP07 {
             
             Assert.assertEquals("ObjectSet P: 107, 108, 111, 120", pr.getPartitions().get("R").getSets().get(1).toString());
             Assert.assertEquals("CrispInterval MD: LeftClosed {-6.0, -2.0}", pr.getPartitions().get("V").getSets().get(2).toString());
-            Assert.assertEquals("FuzzySet REL: _/¯\\_(0.2, 0.4, 0.6, 0.2)", pr.getPartitions().get("CP").getSets().get(1).toString());
+            Assert.assertEquals("FuzzySet REL: _/¯\\_(0.2, 0.4, 0.6, 0.8)", pr.getPartitions().get("CP").getSets().get(1).toString());
         } catch (Exception ex) {
             Logger.getLogger(CP07.class.getName()).log(Level.SEVERE, null, ex);
         }

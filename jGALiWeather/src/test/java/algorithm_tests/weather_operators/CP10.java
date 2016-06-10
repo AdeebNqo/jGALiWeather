@@ -57,9 +57,9 @@ public class CP10 {
         WindOperator w_op = new WindOperator(WIND_INTERVAL, curr_var);
 
         ArrayList<String> salida_esperada = new ArrayList();
-        salida_esperada.add("0-4 320.0 320.0 320.0 320.0 320.0");
-        salida_esperada.add("6-8 332.0 317.0 332.0");
-        salida_esperada.add("10-11 317.0 332.0");
+        salida_esperada.add("0-4 320 320 320 320 320");
+        salida_esperada.add("6-8 332 317 332");
+        salida_esperada.add("10-11 317 332");
 
         ArrayList<String> salida = w_op.applyOperator();
 

@@ -62,6 +62,26 @@ public class DatabaseConnector {
 
         return locations;
     }
+    
+    public ArrayList<Pair<Integer, String>> retrieveLocation(String id) {
+
+        Statement stmt = null;
+        ArrayList<Pair<Integer, String>> locations = new ArrayList();
+
+        try {
+            stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT id, name FROM Location WHERE id = '" + id + "'");
+            while (rs.next()) {
+                locations.add(new Pair(Integer.parseInt(rs.getString(1)), rs.getString(2)));
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            GALiLogger.getLogger().log(Level.SEVERE, "Error consultando las localizaciones en la BBDD: {0}", e.getMessage());
+        }
+
+        return locations;
+    }
 
     public void saveData(String id, String date, String comment) {
 

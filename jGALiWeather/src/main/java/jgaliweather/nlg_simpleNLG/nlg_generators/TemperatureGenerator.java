@@ -8,7 +8,7 @@ import simplenlg.features.Form;
 import simplenlg.features.NumberAgreement;
 import simplenlg.features.Tense;
 import simplenlg.framework.CoordinatedPhraseElement;
-import simplenlg.framework.DocumentElement;
+import simplenlg.framework.NLGElement;
 import simplenlg.framework.NLGFactory;
 import simplenlg.phrasespec.AdjPhraseSpec;
 import simplenlg.phrasespec.AdvPhraseSpec;
@@ -31,8 +31,6 @@ public class TemperatureGenerator {
     private String t_string;
     private String var_string;
     private SPhraseSpec text;
-    private boolean temp1;
-    private boolean temp5;
     private NLGFactory nlgFactory;
 
     /*
@@ -56,8 +54,6 @@ public class TemperatureGenerator {
         this.cl_string = cl_string;
         this.t_string = t_string;
         this.var_string = var_string;
-        this.temp1 = false;
-        this.temp5 = false;
 
         this.nlgFactory = nlgFactory;
     }
@@ -69,10 +65,9 @@ public class TemperatureGenerator {
         :return: A natural language description of the
         temperature variable forecast
      */
-    public DocumentElement parseAndGenerate() {
+    public NLGElement parseAndGenerate() {
 
         SPhraseSpec second_part = null;
-        AdvPhraseSpec aux = null;
 
         text = nlgFactory.createClause(template.getLabels().get("noun").getData(), template.getLabels().get("verb").getData());
         text.setFeature(Feature.NUMBER, NumberAgreement.PLURAL);
@@ -92,22 +87,12 @@ public class TemperatureGenerator {
             second_part = temperatureAlternative2(t_st.nextToken(), t_st.nextToken());
         }
 
-        StringTokenizer var_st = new StringTokenizer(var_string);
-        if (var_st.countTokens() == 1) {
-            aux = variabilityAlternative1(var_st.nextToken());
-        } else if (var_st.countTokens() == 2) {
-            aux = variabilityAlternative2(var_st.nextToken(), var_st.nextToken());
-        }
         if (second_part != null) {
-            if (aux != null) {
-                second_part.addPostModifier(aux);
-            }
             second_part.setFeature(Feature.APPOSITIVE, true);
             text.addPostModifier(second_part);
         }
 
-        DocumentElement salida = nlgFactory.createSentence(text);
-        return salida;
+        return text;
     }
 
     private void climateAlternative1(String token) {
@@ -164,7 +149,35 @@ public class TemperatureGenerator {
         option1.addPreModifier(nlgFactory.createAdverbPhrase(template.getLabels().get("globally").getData()));
         option1.addPostModifier(nlgFactory.createPrepositionPhrase(t_var.getLabels().get(token).getData()));
 
-        temp1 = true;
+        AdvPhraseSpec conn = nlgFactory.createAdverbPhrase(template.getLabels().get("although").getData());
+
+        StringTokenizer var_st = new StringTokenizer(var_string);
+        if (var_st.countTokens() == 1) {
+
+            String var_token = var_st.nextToken();
+            
+            if (!var_token.equals("C")) {
+                conn.addPostModifier(nlgFactory.createClause(template.getLabels().get("they").getData(), var_var.getLabels().get(var_token).getData()));
+                option1.addPostModifier(conn);
+            }
+
+        } else if (var_st.countTokens() == 2) {
+
+            String var_token1 = var_st.nextToken();
+            String var_token2 = var_st.nextToken();
+
+            if (!var_token1.equals("C")) {
+
+                conn.addPostModifier(nlgFactory.createClause(template.getLabels().get("they").getData(), var_var.getLabels().get(var_token1).getData()));
+
+            } else {
+
+                conn.addPostModifier(nlgFactory.createClause(template.getLabels().get("they").getData(), var_var.getLabels().get(var_token2).getData()));
+
+            }
+            
+            option1.addPostModifier(conn);
+        }
 
         return option1;
 
@@ -185,6 +198,44 @@ public class TemperatureGenerator {
         NPPhraseSpec maxV = nlgFactory.createNounPhrase(maximums);
         maxV.addPostModifier(t_var.getLabels().get(token1).getData());
 
+        StringTokenizer var_st = new StringTokenizer(var_string);
+        if (var_st.countTokens() == 1) {
+
+            String var_token = var_st.nextToken();
+
+            if (!var_token.equals("C")) {
+                AdvPhraseSpec var_min = nlgFactory.createAdverbPhrase(template.getLabels().get("although").getData());
+                var_min.addPostModifier(nlgFactory.createClause(template.getLabels().get("they").getData(), var_var.getLabels().get(var_token).getData()));
+                minV.addPostModifier(var_min);
+
+                PPPhraseSpec var_max = nlgFactory.createPrepositionPhrase(template.getLabels().get("despite").getData(),
+                        nlgFactory.createClause(template.getLabels().get("they").getData(), var_var.getLabels().get(var_token).getData()));
+                var_max.setFeature(Feature.APPOSITIVE, true);
+                maxV.addPostModifier(var_max);
+            }
+
+        } else if (var_st.countTokens() == 2) {
+            String var_token1 = var_st.nextToken();
+            String var_token2 = var_st.nextToken();
+
+            if (!var_token1.equals("C")) {
+                
+                PPPhraseSpec var_max = nlgFactory.createPrepositionPhrase(template.getLabels().get("despite").getData(),
+                        nlgFactory.createClause(template.getLabels().get("they").getData(), var_var.getLabels().get(var_token1).getData()));
+                var_max.setFeature(Feature.APPOSITIVE, true);
+                maxV.addPostModifier(var_max);
+
+                
+            }          
+            if (!var_token2.equals("C")) {
+                
+                AdvPhraseSpec var_min = nlgFactory.createAdverbPhrase(template.getLabels().get("although").getData());
+                var_min.addPostModifier(nlgFactory.createClause(template.getLabels().get("they").getData(), var_var.getLabels().get(var_token2).getData()));
+                minV.addPostModifier(var_min);
+  
+            }
+        }
+
         temp_list.addCoordinate(minV);
         temp_list.addCoordinate(maxV);
 
@@ -192,72 +243,7 @@ public class TemperatureGenerator {
 
         option2.addPostModifier(temp_list);
 
-        temp5 = true;
-
         return option2;
 
-    }
-
-    private AdvPhraseSpec variabilityAlternative1(String token) {
-
-        AdvPhraseSpec conn = nlgFactory.createAdverbPhrase(template.getLabels().get("although").getData());
-
-        if (!token.equals("C")) {
-            if (temp1) {
-
-                conn.addPostModifier(nlgFactory.createClause(template.getLabels().get("they").getData(), var_var.getLabels().get(token).getData()));
-
-            } else {
-
-                SPhraseSpec aux = nlgFactory.createClause(template.getLabels().get("they").getData(), var_var.getLabels().get(token).getData());
-
-                PPPhraseSpec aux1 = nlgFactory.createPrepositionPhrase(template.getLabels().get("despite").getData(),
-                        nlgFactory.createClause(template.getLabels().get("they").getData(), var_var.getLabels().get(token).getData()));
-                aux1.setFeature(Feature.APPOSITIVE, true);
-
-                aux.addPostModifier(aux1);
-
-                conn.addPostModifier(aux);
-
-            }
-        }
-
-        return conn;
-
-    }
-
-    private AdvPhraseSpec variabilityAlternative2(String token1, String token2) {
-
-        AdvPhraseSpec conn = nlgFactory.createAdverbPhrase(template.getLabels().get("although").getData());
-
-        if (temp1) {
-            if (!token1.equals("C")) {
-
-                conn.addPostModifier(nlgFactory.createClause(template.getLabels().get("they").getData(), var_var.getLabels().get(token1).getData()));
-
-            } else {
-
-                conn.addPostModifier(nlgFactory.createClause(template.getLabels().get("they").getData(), var_var.getLabels().get(token2).getData()));
-
-            }
-        } else {
-            if (!token2.equals("C") && temp5) {
-
-                SPhraseSpec aux = nlgFactory.createClause(template.getLabels().get("they").getData(), var_var.getLabels().get(token2).getData());
-
-            }
-            if (!token1.equals("C") && temp5) {
-
-                PPPhraseSpec aux1 = nlgFactory.createPrepositionPhrase(template.getLabels().get("despite").getData(),
-                        nlgFactory.createClause(template.getLabels().get("they").getData(), var_var.getLabels().get(token1).getData()));
-                aux1.setFeature(Feature.APPOSITIVE, true);
-
-                conn = nlgFactory.createAdverbPhrase();
-
-                conn.addPostModifier(aux1);
-            }
-        }
-
-        return conn;
     }
 }

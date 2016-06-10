@@ -22,10 +22,12 @@ import static org.hamcrest.CoreMatchers.is;
 import org.javatuples.Pair;
 import org.junit.After;
 import org.junit.AfterClass;
-import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.anyOf;
+import static org.hamcrest.CoreMatchers.is;
 
 /**
  *
@@ -86,20 +88,20 @@ public class CP27 {
             
             Variable sky_var = new Variable("Meteoro");
             
-            sky_var.getValues().add(new Value(111, 0));
-            sky_var.getValues().add(new Value(111, 1));
-            sky_var.getValues().add(new Value(111, 2));
-            sky_var.getValues().add(new Value(107, 3));
-            sky_var.getValues().add(new Value(107, 4));
-            sky_var.getValues().add(new Value(107, 5));
-            sky_var.getValues().add(new Value(103, 6));
-            sky_var.getValues().add(new Value(103, 7));
-            sky_var.getValues().add(new Value(108, 8));
+            sky_var.getValues().add(new Value(101, 0));
+            sky_var.getValues().add(new Value(102, 1));
+            sky_var.getValues().add(new Value(101, 2));
+            sky_var.getValues().add(new Value(104, 3));
+            sky_var.getValues().add(new Value(104, 4));
+            sky_var.getValues().add(new Value(103, 5));
+            sky_var.getValues().add(new Value(107, 6));
+            sky_var.getValues().add(new Value(108, 7));
+            sky_var.getValues().add(new Value(107, 8));
             
             ICASkyStateOperator ss_op = new ICASkyStateOperator(partitions.get("C"), sky_var, 9);
             
             ArrayList<HashMap<String, Double>> sky_salida = ss_op.applyOperator();
-
+            
             ICARainOperator r_op = new ICARainOperator(partitions.get("R"), sky_var, 9);
             
             ArrayList<Double> rain_salida = r_op.applyOperator();
@@ -110,8 +112,8 @@ public class CP27 {
             
             Variable curr_var = new Variable("Meteoro");
             
-            curr_var.getValues().add(new Value(1, 0));
-            curr_var.getValues().add(new Value(1, 1));
+            curr_var.getValues().add(new Value(5, 0));
+            curr_var.getValues().add(new Value(3, 1));
             curr_var.getValues().add(new Value(1, 2));
             
             ICAOperator ica_op = new ICAOperator(partitions.get("ICA"), curr_var);
@@ -123,11 +125,11 @@ public class CP27 {
             String salida = nssg.generate();
             
             /*
-             *   En lo que se refiere al estado de la calidad del aire, se mantendrá bueno en general, favorecido
-             *   por las precipitaciones de los próximos días.
+             *   En lo que se refiere al estado de la calidad del aire, se espera que mejore progresivamente a
+             *   bueno, favorecido por las precipitaciones de los próximos días.
              */
-            assertThat(salida, anyOf(is("With respect to air quality state, it will be to remain good in general, favored by the precitipations during the coming days."), 
-                    is("With respect to air quality state, it will be to remain good in general, favored by the precitipations during the next few days.")));
+            assertThat(salida, anyOf(is("With respect to air quality state, it is expected to improve progressively to good, favored by the precitipations during the coming days."), 
+                    is("With respect to air quality state, it is expected to improve progressively to good, favored by the precitipations during the next few days.")));
         } catch (Exception ex) {
             Logger.getLogger(CP27.class.getName()).log(Level.SEVERE, null, ex);
         }

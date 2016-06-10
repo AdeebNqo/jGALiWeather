@@ -1,6 +1,8 @@
 package jgaliweather.configuration.partition_reader;
 
-public class CrispInterval implements Set {
+import java.io.Serializable;
+
+public class CrispInterval implements Set, Serializable {
 
     private double a;
     private double b;
@@ -52,6 +54,10 @@ public class CrispInterval implements Set {
 
     public void setMode(String mode) {
         this.mode = mode;
+    }
+    
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
     @Override

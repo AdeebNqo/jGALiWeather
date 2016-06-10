@@ -4,7 +4,7 @@
  */
 package jgaliweather;
 
-import fuzzy4j.sets.TrapezoidalFunction;
+import com.fuzzylite.term.Trapezoid;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -12,7 +12,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.StringTokenizer;
 import java.util.logging.Level;
 import jgaliweather.algorithm.weather_operators.FogOperator;
 import jgaliweather.algorithm.weather_operators.RainOperator;
@@ -47,8 +46,9 @@ import jgaliweather.nlg_simpleNLG.nlg_generators.SkyCoverageGeneratorLevel1;
 import jgaliweather.nlg_simpleNLG.nlg_generators.SkyCoverageGeneratorLevel2;
 import jgaliweather.nlg_simpleNLG.nlg_generators.TemperatureGenerator;
 import jgaliweather.nlg_simpleNLG.nlg_generators.WindGenerator;
+import org.apache.commons.lang3.SerializationUtils;
 import org.javatuples.Pair;
-import simplenlg.framework.DocumentElement;
+import simplenlg.framework.NLGElement;
 import simplenlg.framework.NLGFactory;
 import simplenlg.lexicon.Lexicon;
 import simplenlg.realiser.english.Realiser;
@@ -151,7 +151,7 @@ public class PredictionSummarizer {
             - The forecast data
             - Temperature climatic data for each municipality
      */
-    private void extractData() {
+    private void extractData(String id, ArrayList<String> dates) {
 
         DatabaseConnector dbc = null;
 
@@ -166,16 +166,22 @@ public class PredictionSummarizer {
             int month = current_date.get(Calendar.MONTH) + 1;
             temperatures = new TemperatureReader();
             temperatures.parseFile(this.configuration.getInpaths().get("temperatures"));
-            ArrayList<Pair<Integer, String>> db_locations = dbc.retrieveLocations();
+
+            ArrayList<Pair<Integer, String>> db_locations;
+            if (id == null) {
+                db_locations = dbc.retrieveLocations();
+            } else {
+                db_locations = dbc.retrieveLocation(id);
+            }
 
             for (Pair<Integer, String> l : db_locations) {
                 Location new_loc = new Location(l.getValue1(), l.getValue0());
 
-                ArrayList<String> dates = new ArrayList();
+                /*ArrayList<String> dates = new ArrayList();
                 dates.add("2015-07-25");
                 dates.add("2015-07-26");
                 dates.add("2015-07-27");
-                dates.add("2015-07-28");
+                dates.add("2015-07-28");*/
                 HashMap<String, ArrayList<Integer>> values = dbc.retrieveVariableDataForLocation(l.getValue0(), dates);
 
                 Iterator it = this.variables.entrySet().iterator();
@@ -239,8 +245,8 @@ public class PredictionSummarizer {
                 System.exit(1);
             }
 
-            l.setMax_climate_partition(partitions.get("T"));
-            l.setMin_climate_partition(partitions.get("T"));
+            l.setMax_climate_partition(SerializationUtils.clone(partitions.get("T")));
+            l.setMin_climate_partition(SerializationUtils.clone(partitions.get("T")));
 
             for (int i = 0; i < partitions.get("T").getSets().size(); i++) {
                 CrispInterval min = (CrispInterval) l.getMin_climate_partition().getSets().get(i);
@@ -252,6 +258,8 @@ public class PredictionSummarizer {
                 max.setA(l.getClimatic_data().getAverageMax() + l.getClimatic_data().getDeviationMax() * partition.getA());
                 max.setB(l.getClimatic_data().getAverageMax() + l.getClimatic_data().getDeviationMax() * partition.getB());
 
+                l.getMin_climate_partition().getSets().set(i, min);
+                l.getMax_climate_partition().getSets().set(i, max);
             }
         }
 
@@ -259,19 +267,17 @@ public class PredictionSummarizer {
         for (int i = 0; i < this.partitions.get("SSFTP").getSets().size(); i++) {
 
             FuzzySet fs = (FuzzySet) this.partitions.get("SSFTP").getSets().get(i);
-            StringTokenizer st = new StringTokenizer(fs.getFunction().toString(), "(), ");
-            st.nextToken();
-            double a = Double.parseDouble(st.nextToken());
-            double b = Double.parseDouble(st.nextToken());
-            double c = Double.parseDouble(st.nextToken());
-            double d = Double.parseDouble(st.nextToken());
+            double a = fs.getFunction().getVertexA();
+            double b = fs.getFunction().getVertexB();
+            double c = fs.getFunction().getVertexC();
+            double d = fs.getFunction().getVertexD();
 
             a = (double) Math.round(a * (this.variables.get("Meteoro").getActual_data_length() - 1) * 100) / 100;
             b = (double) Math.round(b * (this.variables.get("Meteoro").getActual_data_length() - 1) * 100) / 100;
             c = (double) Math.round(c * (this.variables.get("Meteoro").getActual_data_length() - 1) * 100) / 100;
             d = (double) Math.round(d * (this.variables.get("Meteoro").getActual_data_length() - 1) * 100) / 100;
 
-            this.partitions.get("SSFTP").getSets().set(i, new FuzzySet(fs.getName(), new TrapezoidalFunction(a, b, c, d)));
+            this.partitions.get("SSFTP").getSets().set(i, new FuzzySet(fs.getName(), new Trapezoid(fs.getName(), a, b, c, d)));
         }
 
         Lexicon lexicon = Lexicon.getDefaultLexicon();
@@ -299,26 +305,26 @@ public class PredictionSummarizer {
 
             // Conversion of linguistic descriptions into natural language texts
             SkyCoverageGeneratorLevel1 nssg = new SkyCoverageGeneratorLevel1(templates.getLabelsets().get("C1"), templates.getLabelsets().get("C"), partitions.get("SSFTP"), templates.getLabelsets().get("SSFTP"), nssa_output, nlgFactory);
-            DocumentElement nss_nlg = nssg.parseAndGenerate();
+            NLGElement nss_nlg = nssg.parseAndGenerate();
 
             if (nss_nlg == null) {
                 SkyCoverageGeneratorLevel2 anssg = new SkyCoverageGeneratorLevel2(templates.getLabelsets().get("C2"), templates.getLabelsets().get("C"), partitions.get("C"), nssb_op.applyOperator(), nlgFactory);
                 nss_nlg = anssg.generate();
             }
 
-            RainGenerator rg = new RainGenerator(templates.getLabelsets(), Calendar.getInstance(), variables.get("Meteoro").getActual_data_length(), r_output, nlgFactory);
-            DocumentElement r_nlg = rg.parseAndGenerate();
+            RainGenerator rg = new RainGenerator(templates.getLabelsets(), current_date, variables.get("Meteoro").getActual_data_length(), r_output, nlgFactory);
+            NLGElement r_nlg = rg.parseAndGenerate();
 
             TemperatureGenerator tg = new TemperatureGenerator(templates.getLabelsets().get("T"), templates.getLabelsets().get("CT"), templates.getLabelsets().get("V"),
                     templates.getLabelsets().get("VAR"), partitions.get("VAR"), t_output.getClim_eval(), t_output.getVariation_eval(), t_output.getVariability_eval(), nlgFactory);
-            DocumentElement t_nlg = tg.parseAndGenerate();
+            NLGElement t_nlg = tg.parseAndGenerate();
 
-            WindGenerator wg = new WindGenerator(templates.getLabelsets(), Calendar.getInstance(), w_output, nlgFactory);
-            DocumentElement w_nlg = wg.parseAndGenerate();
+            WindGenerator wg = new WindGenerator(templates.getLabelsets(), current_date, w_output, nlgFactory);
+            NLGElement w_nlg = wg.parseAndGenerate();
 
             FogGenerator fg = new FogGenerator(f_output, templates.getLabelsets().get("FOG"), templates.getLabelsets().get("PD"), templates.getLabelsets().get("DW"),
-                    Calendar.getInstance(), variables.get("Meteoro").getActual_data_length(), nlgFactory);
-            DocumentElement f_nlg = fg.generate();
+                    current_date, variables.get("Meteoro").getActual_data_length(), nlgFactory);
+            NLGElement f_nlg = fg.generate();
 
             l.getSummaries().put("eng", new DescriptionAggregator(nss_nlg, r_nlg, t_nlg, w_nlg, f_nlg, nlgFactory, realiser));
 
@@ -336,28 +342,33 @@ public class PredictionSummarizer {
             GALiLogger.getLogger().log(Level.SEVERE, "\nForecast database connection with %s could not be established: %s\nExiting...", this.conn_data.getHost());
             System.exit(1);
         }
-        
+
         SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
-        
+
         Iterator it = this.locations.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry) it.next();
             Location l = (Location) pair.getValue();
 
             dbc.saveData(l.getLid() + "", sdt.format(current_date.getTime()), l.getSummaries().get("eng").mergeDescription());
-            
+
             System.out.println(l.getSummaries().get("eng").mergeDescription());
         }
     }
 
-    public void generateTextualForecasts() {
+    public String generateTextualForecasts() {
 
         GALiLogger.getLogger().info("GALiWeather Short-Term Forecast Description Generation");
         GALiLogger.getLogger().info("Loading configuration data...");
         configure();
 
         GALiLogger.getLogger().info("Retrieving input forecast data...");
-        extractData();
+        ArrayList<String> dates = new ArrayList();
+        dates.add("2015-07-15");
+        dates.add("2015-07-16");
+        dates.add("2015-07-17");
+        dates.add("2015-07-18");
+        extractData(null, dates);
 
         GALiLogger.getLogger().info("Generating natural language forecasts...");
         applyAlgorithm();
@@ -366,6 +377,44 @@ public class PredictionSummarizer {
         exportSummaries();
 
         GALiLogger.getLogger().info("All forecasts have been generated.");
+
+        Iterator it = this.locations.entrySet().iterator();
+        Location l = null;
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            l = (Location) pair.getValue();
+        }
+
+        return l.getSummaries().get("eng").mergeDescription();
+    }
+
+    public String generateTextualForecastsTest(String id, ArrayList<String> dates, Calendar date) {
+
+        current_date = date;
+
+        GALiLogger.getLogger().info("GALiWeather Short-Term Forecast Description Generation");
+        GALiLogger.getLogger().info("Loading configuration data...");
+        configure();
+
+        GALiLogger.getLogger().info("Retrieving input forecast data...");
+        extractData(id, dates);
+
+        GALiLogger.getLogger().info("Generating natural language forecasts...");
+        applyAlgorithm();
+
+        GALiLogger.getLogger().info("Exporting forecast text files...");
+        exportSummaries();
+
+        GALiLogger.getLogger().info("All forecasts have been generated.");
+
+        Iterator it = this.locations.entrySet().iterator();
+        Location l = null;
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            l = (Location) pair.getValue();
+        }
+
+        return l.getSummaries().get("eng").mergeDescription();
     }
 
 }

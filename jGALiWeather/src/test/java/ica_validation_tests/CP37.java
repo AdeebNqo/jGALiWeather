@@ -17,8 +17,6 @@ import jgaliweather.configuration.variable_reader.VariableReader;
 import jgaliweather.data.data_structures.Value;
 import jgaliweather.data.data_structures.Variable;
 import jgaliweather.nlg_simpleNLG.nlg_generators.ICAGenerator;
-import static org.hamcrest.CoreMatchers.anyOf;
-import static org.hamcrest.CoreMatchers.is;
 import org.javatuples.Pair;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -68,15 +66,15 @@ public class CP37 {
             
             Variable wind_var = new Variable("Viento");
             
-            wind_var.getValues().add(new Value(307, 0));
-            wind_var.getValues().add(new Value(307, 1));
-            wind_var.getValues().add(new Value(307, 2));
-            wind_var.getValues().add(new Value(314, 3));
-            wind_var.getValues().add(new Value(315, 4));
-            wind_var.getValues().add(new Value(323, 5));
-            wind_var.getValues().add(new Value(323, 6));
-            wind_var.getValues().add(new Value(322, 7));
-            wind_var.getValues().add(new Value(313, 8));
+            wind_var.getValues().add(new Value(302, 0));
+            wind_var.getValues().add(new Value(302, 1));
+            wind_var.getValues().add(new Value(304, 2));
+            wind_var.getValues().add(new Value(303, 3));
+            wind_var.getValues().add(new Value(303, 4));
+            wind_var.getValues().add(new Value(305, 5));
+            wind_var.getValues().add(new Value(300, 6));
+            wind_var.getValues().add(new Value(300, 7));
+            wind_var.getValues().add(new Value(300, 8));
             
             Pair<Integer, Integer> WIND_INTERVAL = new Pair(309, 332);
             
@@ -86,15 +84,15 @@ public class CP37 {
             
             Variable sky_var = new Variable("Meteoro");
             
-            sky_var.getValues().add(new Value(103, 0));
-            sky_var.getValues().add(new Value(104, 1));
+            sky_var.getValues().add(new Value(104, 0));
+            sky_var.getValues().add(new Value(116, 1));
             sky_var.getValues().add(new Value(116, 2));
-            sky_var.getValues().add(new Value(102, 3));
-            sky_var.getValues().add(new Value(107, 4));
-            sky_var.getValues().add(new Value(107, 5));
+            sky_var.getValues().add(new Value(103, 3));
+            sky_var.getValues().add(new Value(108, 4));
+            sky_var.getValues().add(new Value(103, 5));
             sky_var.getValues().add(new Value(110, 6));
-            sky_var.getValues().add(new Value(110, 7));
-            sky_var.getValues().add(new Value(108, 8));
+            sky_var.getValues().add(new Value(103, 7));
+            sky_var.getValues().add(new Value(103, 8));
             
             ICASkyStateOperator ss_op = new ICASkyStateOperator(partitions.get("C"), sky_var, 9);
             
@@ -110,9 +108,9 @@ public class CP37 {
             
             Variable curr_var = new Variable("Meteoro");
             
-            curr_var.getValues().add(new Value(3, 0));
+            curr_var.getValues().add(new Value(1, 0));
             curr_var.getValues().add(new Value(1, 1));
-            curr_var.getValues().add(new Value(1, 2));
+            curr_var.getValues().add(new Value(3, 2));
             
             ICAOperator ica_op = new ICAOperator(partitions.get("ICA"), curr_var);
             
@@ -123,11 +121,9 @@ public class CP37 {
             String salida = nssg.generate();
             
             /*
-             *   En lo que se refiere al estado de la calidad del aire, se espera que mejore a bueno, favorecido por
-             *   la situación de bajas presiones de los próximos días.
+             *   En lo que se refiere al estado de la calidad del aire, se espera que cambie a admisible.
              */
-            assertThat(salida, anyOf(is("With respect to air quality state, it is expected to improve to good, favored by the low pressures in the atmosphere for the coming days."), 
-                    is("With respect to air quality state, it is expected to improve to good, favored by the low pressures in the atmosphere for the next few days.")));
+            assertEquals(salida, "With respect to air quality state, it is expected to change to admissible.");
         } catch (Exception ex) {
             Logger.getLogger(CP37.class.getName()).log(Level.SEVERE, null, ex);
         }

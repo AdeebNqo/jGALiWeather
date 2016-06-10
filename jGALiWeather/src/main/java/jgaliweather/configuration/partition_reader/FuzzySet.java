@@ -1,18 +1,18 @@
 package jgaliweather.configuration.partition_reader;
 
-import fuzzy4j.sets.TrapezoidalFunction;
+import com.fuzzylite.term.Trapezoid;
 
 public class FuzzySet implements Set {
 
     private String name;
-    private TrapezoidalFunction function;
+    private Trapezoid function;
 
     public FuzzySet() {
         this.name = null;
         this.function = null;
     }
 
-    public FuzzySet(String name, TrapezoidalFunction function) {
+    public FuzzySet(String name, Trapezoid function) {
         this.name = name;
         this.function = function;
     }
@@ -26,17 +26,17 @@ public class FuzzySet implements Set {
         this.name = name;
     }
 
-    public TrapezoidalFunction getFunction() {
+    public Trapezoid getFunction() {
         return function;
     }
 
-    public void setFunction(TrapezoidalFunction function) {
+    public void setFunction(Trapezoid function) {
         this.function = function;
     }
 
     @Override
     public double apply(double value) {
-        return function.apply(value);
+        return function.membership(value);
     }
 
     @Override

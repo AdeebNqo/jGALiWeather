@@ -22,10 +22,12 @@ import static org.hamcrest.CoreMatchers.is;
 import org.javatuples.Pair;
 import org.junit.After;
 import org.junit.AfterClass;
-import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.anyOf;
+import static org.hamcrest.CoreMatchers.is;
 
 /**
  *
@@ -68,15 +70,15 @@ public class CP29 {
             
             Variable wind_var = new Variable("Viento");
             
-            wind_var.getValues().add(new Value(307, 0));
-            wind_var.getValues().add(new Value(307, 1));
-            wind_var.getValues().add(new Value(307, 2));
-            wind_var.getValues().add(new Value(307, 3));
-            wind_var.getValues().add(new Value(307, 4));
-            wind_var.getValues().add(new Value(305, 5));
-            wind_var.getValues().add(new Value(307, 6));
-            wind_var.getValues().add(new Value(307, 7));
-            wind_var.getValues().add(new Value(306, 8));
+            wind_var.getValues().add(new Value(318, 0));
+            wind_var.getValues().add(new Value(309, 1));
+            wind_var.getValues().add(new Value(309, 2));
+            wind_var.getValues().add(new Value(317, 3));
+            wind_var.getValues().add(new Value(316, 4));
+            wind_var.getValues().add(new Value(315, 5));
+            wind_var.getValues().add(new Value(310, 6));
+            wind_var.getValues().add(new Value(318, 7));
+            wind_var.getValues().add(new Value(310, 8));
             
             Pair<Integer, Integer> WIND_INTERVAL = new Pair(309, 332);
             
@@ -88,13 +90,13 @@ public class CP29 {
             
             sky_var.getValues().add(new Value(103, 0));
             sky_var.getValues().add(new Value(104, 1));
-            sky_var.getValues().add(new Value(116, 2));
-            sky_var.getValues().add(new Value(102, 3));
-            sky_var.getValues().add(new Value(107, 4));
-            sky_var.getValues().add(new Value(107, 5));
-            sky_var.getValues().add(new Value(110, 6));
-            sky_var.getValues().add(new Value(110, 7));
-            sky_var.getValues().add(new Value(108, 8));
+            sky_var.getValues().add(new Value(102, 2));
+            sky_var.getValues().add(new Value(103, 3));
+            sky_var.getValues().add(new Value(103, 4));
+            sky_var.getValues().add(new Value(102, 5));
+            sky_var.getValues().add(new Value(103, 6));
+            sky_var.getValues().add(new Value(103, 7));
+            sky_var.getValues().add(new Value(102, 8));
             
             ICASkyStateOperator ss_op = new ICASkyStateOperator(partitions.get("C"), sky_var, 9);
             
@@ -110,7 +112,7 @@ public class CP29 {
             
             Variable curr_var = new Variable("Meteoro");
             
-            curr_var.getValues().add(new Value(3, 0));
+            curr_var.getValues().add(new Value(1, 0));
             curr_var.getValues().add(new Value(1, 1));
             curr_var.getValues().add(new Value(1, 2));
             
@@ -123,11 +125,11 @@ public class CP29 {
             String salida = nssg.generate();
             
             /*
-             *   En lo que se refiere al estado de la calidad del aire, se espera que mejore a bueno, favorecido por
-             *   las precipitaciones de los próximos días.
+             *   En lo que se refiere al estado de la calidad del aire, se mantendrá bueno en general, favorecido
+             *   por el viento esperado para los próximos días.
              */
-            assertThat(salida, anyOf(is("With respect to air quality state, it is expected to improve to good, favored by the precitipations during the coming days."), 
-                    is("With respect to air quality state, it is expected to improve to good, favored by the precitipations during the next few days.")));
+            assertThat(salida, anyOf(is("With respect to air quality state, it will be to remain good in general, favored by the wind expected during the coming days."), 
+                    is("With respect to air quality state, it will be to remain good in general, favored by the wind expected during the next few days.")));
         } catch (Exception ex) {
             Logger.getLogger(CP29.class.getName()).log(Level.SEVERE, null, ex);
         }

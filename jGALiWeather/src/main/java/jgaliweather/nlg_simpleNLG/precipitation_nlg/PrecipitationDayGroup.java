@@ -209,51 +209,73 @@ public class PrecipitationDayGroup {
         text.setFeature(Feature.NUMBER, NumberAgreement.PLURAL);
 
         if (days.size() == 1) {
-            text.addPostModifier(nlgFactory.createPrepositionPhrase(template_labels.get("RNLGE").getLabels().get("single_period").getData(),
-                    template_labels.get("DW").getLabels().get(ord_days.get(0)).getData()));
-
+            
+            PPPhraseSpec day = nlgFactory.createPrepositionPhrase(template_labels.get("RNLGE").getLabels().get("single_period").getData(),
+                    template_labels.get("DW").getLabels().get(ord_days.get(0)).getData());
+                    
+            if (recurring_time > 0) {
+                NPPhraseSpec part = nlgFactory.createNounPhrase(template_labels.get("PD").getLabels().get(recurring_time - 1 + "").getData());
+                day.addPostModifier(part);
+                mode = "D";
+            }
+            
+            text.addPostModifier(day);
+            
         } else if (days.size() == 2) {
             CoordinatedPhraseElement days_list = nlgFactory.createCoordinatedPhrase();
-            
+
             PPPhraseSpec day1 = nlgFactory.createPrepositionPhrase(template_labels.get("RNLGE").getLabels().get("single_period").getData(),
                     template_labels.get("DW").getLabels().get(ord_days.get(0)).getData());
             days_list.addCoordinate(day1);
-            
+
             PPPhraseSpec day2 = nlgFactory.createPrepositionPhrase(template_labels.get("RNLGE").getLabels().get("single_period").getData(),
-                    template_labels.get("DW").getLabels().get(ord_days.get(1)).getData());    
-            days_list.addCoordinate(day2);
+                    template_labels.get("DW").getLabels().get(ord_days.get(1)).getData());
             
+            if (recurring_time > 0) {
+                NPPhraseSpec part = nlgFactory.createNounPhrase(template_labels.get("PD").getLabels().get(recurring_time - 1 + "").getData());
+                day2.addPostModifier(part);
+                mode = "D";
+            }
+            
+            days_list.addCoordinate(day2);
+
             text.addPostModifier(days_list);
 
         } else {
-            CoordinatedPhraseElement days_list = nlgFactory.createCoordinatedPhrase(); 
+            CoordinatedPhraseElement days_list = nlgFactory.createCoordinatedPhrase();
+
+            PPPhraseSpec aux = nlgFactory.createPrepositionPhrase(template_labels.get("RNLGE").getLabels().get("single_period").getData());
 
             for (int i = 0; i < ord_days.size(); i++) {
-                days_list.addCoordinate(nlgFactory.createPrepositionPhrase(template_labels.get("RNLGE").getLabels().get("single_period").getData(),
-                    template_labels.get("DW").getLabels().get(ord_days.get(i)).getData()));
+                NPPhraseSpec day = nlgFactory.createNounPhrase(template_labels.get("DW").getLabels().get(ord_days.get(i)).getData());
+
+                if(recurring_time > 0 && i == ord_days.size() - 1) {
+                    NPPhraseSpec part = nlgFactory.createNounPhrase(template_labels.get("PD").getLabels().get(recurring_time - 1 + "").getData());
+                    day.addPostModifier(part);
+                    mode = "D";
+                }
+                
+                days_list.addCoordinate(day);
             }
             
-            text.addPostModifier(days_list);
+            aux.addPostModifier(days_list);
+            text.addPostModifier(aux);
         }
-        if (recurring_time > 0 && days.size() > 0) {
-            NPPhraseSpec day = nlgFactory.createNounPhrase(template_labels.get("PD").getLabels().get(recurring_time - 1 + "").getData());
-            text.addPostModifier(day);
-            mode = "D";
-        }
+
         if (nuances.size() > 0) {
             SPhraseSpec main_nuance = nlgFactory.createClause(template_labels.get("RNLGE").getLabels().get("nuance_subject").getData(),
                     template_labels.get("RNLGE").getLabels().get("nuance_verb").getData());
             main_nuance.setFeature(Feature.MODAL, template_labels.get("RNLGE").getLabels().get("nuance_modal").getData());
             main_nuance.setFeature(Feature.APPOSITIVE, true);
 
-           CoordinatedPhraseElement nuances_list = nlgFactory.createCoordinatedPhrase();
+            CoordinatedPhraseElement nuances_list = nlgFactory.createCoordinatedPhrase();
 
             for (int i = 0; i < nuances.size(); i++) {
                 nuances_list.addCoordinate(nuances.get(i).toText(template_labels.get("RNLGE"), template_labels.get("R"), template_labels.get("DW"), template_labels.get("PD"), mode));
             }
-            
+
             main_nuance.addComplement(nuances_list);
-            
+
             text.addPostModifier(main_nuance);
         }
 

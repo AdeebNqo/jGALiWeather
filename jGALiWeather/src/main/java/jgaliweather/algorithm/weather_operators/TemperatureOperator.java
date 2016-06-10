@@ -147,13 +147,9 @@ public class TemperatureOperator {
         ArrayList<Integer> minms = new ArrayList();
 
         for (int i = 0; i < data.getValues().size(); i++) {
-            if (i % 2 == 0) {
-                maxms.add(data.getValues().get(i).getData());
-            }
-        }
-
-        for (int i = 0; i < data.getValues().size(); i++) {
             if (i % 2 == 1) {
+                maxms.add(data.getValues().get(i).getData());
+            } else {
                 minms.add(data.getValues().get(i).getData());
             }
         }

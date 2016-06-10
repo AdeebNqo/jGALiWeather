@@ -26,6 +26,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.anyOf;
+import static org.hamcrest.CoreMatchers.is;
 
 /**
  *
@@ -68,15 +70,15 @@ public class CP34 {
             
             Variable wind_var = new Variable("Viento");
             
-            wind_var.getValues().add(new Value(299, 0));
-            wind_var.getValues().add(new Value(299, 1));
-            wind_var.getValues().add(new Value(299, 2));
-            wind_var.getValues().add(new Value(299, 3));
-            wind_var.getValues().add(new Value(299, 4));
-            wind_var.getValues().add(new Value(299, 5));
-            wind_var.getValues().add(new Value(299, 6));
-            wind_var.getValues().add(new Value(299, 7));
-            wind_var.getValues().add(new Value(299, 8));
+            wind_var.getValues().add(new Value(302, 0));
+            wind_var.getValues().add(new Value(302, 1));
+            wind_var.getValues().add(new Value(304, 2));
+            wind_var.getValues().add(new Value(303, 3));
+            wind_var.getValues().add(new Value(303, 4));
+            wind_var.getValues().add(new Value(312, 5));
+            wind_var.getValues().add(new Value(300, 6));
+            wind_var.getValues().add(new Value(300, 7));
+            wind_var.getValues().add(new Value(300, 8));
             
             Pair<Integer, Integer> WIND_INTERVAL = new Pair(309, 332);
             
@@ -86,11 +88,11 @@ public class CP34 {
             
             Variable sky_var = new Variable("Meteoro");
             
-            sky_var.getValues().add(new Value(111, 0));
-            sky_var.getValues().add(new Value(110, 1));
-            sky_var.getValues().add(new Value(108, 2));
-            sky_var.getValues().add(new Value(104, 3));
-            sky_var.getValues().add(new Value(104, 4));
+            sky_var.getValues().add(new Value(102, 0));
+            sky_var.getValues().add(new Value(103, 1));
+            sky_var.getValues().add(new Value(101, 2));
+            sky_var.getValues().add(new Value(103, 3));
+            sky_var.getValues().add(new Value(108, 4));
             sky_var.getValues().add(new Value(103, 5));
             sky_var.getValues().add(new Value(102, 6));
             sky_var.getValues().add(new Value(101, 7));
@@ -110,7 +112,7 @@ public class CP34 {
             
             Variable curr_var = new Variable("Meteoro");
             
-            curr_var.getValues().add(new Value(1, 0));
+            curr_var.getValues().add(new Value(5, 0));
             curr_var.getValues().add(new Value(3, 1));
             curr_var.getValues().add(new Value(5, 2));
             
@@ -123,11 +125,11 @@ public class CP34 {
             String salida = nssg.generate();
             
             /*
-             *   En lo que se refiere al estado de la calidad del aire, se espera que cambie progresivamente a
+             *   En lo que se refiere al estado de la calidad del aire, será variable aunque se espera que cambie a
              *   malo, debido al tiempo soleado y estable de los próximos días.
              */
-            assertThat(salida, anyOf(is("With respect to air quality state, it is expected to change progressively to bad, because of the sunny and stable weather in the coming days."), 
-                    is("With respect to air quality state, it is expected to change progressively to bad, because of the sunny and stable weather in the next few days.")));
+            assertThat(salida, anyOf(is("With respect to air quality state, it will be changeable although it is expected to change to bad, because of the sunny and stable weather in the coming days."), 
+                    is("With respect to air quality state, it will be changeable although it is expected to change to bad, because of the sunny and stable weather in the next few days.")));
         } catch (Exception ex) {
             Logger.getLogger(CP34.class.getName()).log(Level.SEVERE, null, ex);
         }

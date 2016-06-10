@@ -3,6 +3,7 @@ package jgaliweather.nlg_simpleNLG.nlg_generators;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -10,7 +11,7 @@ import jgaliweather.configuration.template_reader.LabelSet;
 import simplenlg.features.Feature;
 import simplenlg.features.Tense;
 import simplenlg.framework.CoordinatedPhraseElement;
-import simplenlg.framework.DocumentElement;
+import simplenlg.framework.NLGElement;
 import simplenlg.framework.NLGFactory;
 import simplenlg.phrasespec.AdvPhraseSpec;
 import simplenlg.phrasespec.NPPhraseSpec;
@@ -57,7 +58,7 @@ public class FogGenerator {
         :return: A natural language description of the
         fog variable forecast
      */
-    public DocumentElement generate() {
+    public NLGElement generate() {
 
         LinkedHashMap<Integer, NPPhraseSpec> parts = new LinkedHashMap();
         Map<Integer, ArrayList<ArrayList<Integer>>> fog_data_sorted = new TreeMap(fog_data);
@@ -77,17 +78,15 @@ public class FogGenerator {
 
             CoordinatedPhraseElement part_list = nlgFactory.createCoordinatedPhrase();
 
-            for (int i = 0; i < parts.size() - 2; i++) {
-                part_list.addCoordinate(parts.get(i));
+            Iterator iter = parts.entrySet().iterator();
+            while(iter.hasNext()) {
+                Map.Entry me = (Map.Entry)iter.next();
+                part_list.addCoordinate(me.getValue());
             }
 
-            part_list.addCoordinate(""); // this puts a comma before the last 'and' (needs to delete duplicate white spaces with f.e. String.replaceAll("\\s+", " ");)
-            part_list.addCoordinate(parts.get(parts.size() - 1));
-            
             text.addPostModifier(part_list);
 
-            DocumentElement salida = nlgFactory.createSentence(text);
-            return salida;
+            return text;
         } else {
             return null;
         }
@@ -108,14 +107,10 @@ public class FogGenerator {
 
         NPPhraseSpec text = nlgFactory.createNounPhrase(fog_expr.getLabels().get("fog").getData());
         text.addModifier(nlgFactory.createAdjectivePhrase(fog_expr.getLabels().get(part + "").getData()));
-        
-        
 
         int dayOfWeek = curr_date.get(Calendar.DAY_OF_WEEK) - 2;
-        if (dayOfWeek == 0) {
+        if (dayOfWeek == -1) {
             dayOfWeek = 6;
-        } else if (dayOfWeek == -1) {
-            dayOfWeek = 5;
         }
 
         if (days.size() == term_length / 3) {
@@ -141,7 +136,7 @@ public class FogGenerator {
                 }
 
                 CoordinatedPhraseElement day_list = nlgFactory.createCoordinatedPhrase();
-                
+
                 day_list.addCoordinate(fog_expr.getLabels().get("everyday").getData());
 
                 for (int i = 0; i < p_days.size(); i++) {
@@ -150,12 +145,12 @@ public class FogGenerator {
                 }
 
                 text.addPostModifier(day_list);
-                
+
             } else {
                 text.addPostModifier(nlgFactory.createAdverbPhrase(fog_expr.getLabels().get("eveyday").getData()));
             }
         } else {
-            
+
             CoordinatedPhraseElement day_list = nlgFactory.createCoordinatedPhrase();
 
             for (int i = 0; i < days.size(); i++) {

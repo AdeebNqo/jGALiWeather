@@ -7,6 +7,7 @@
 		<label name="for">for</label>
 		<label name="this">this</label>
 		<label name="period">period</label>
+		<label name="time">time</label>
 		<label name="of">of</label>
 		<label name="with">with</label>
 		<label name="year">year</label>
@@ -32,7 +33,6 @@
     	<label name="term">term</label>
     	<label name="although">although</label>
     	<label name="subject2">they</label>
-    	<label name="this">this</label>
 	</labelset>
     <labelset name="C2" value="Cobertura Nivel 2">
     	<label name="noun">sky</label>
@@ -42,14 +42,14 @@
     	<label name="period">the next few days</label>
     	<label name="subject_opt">they</label>
     	<label name="verb_opt">be</label>
+    	<label name="expected">be expected</label>
     	<label name="occasionally">occasionally</label>
 
-    	<label name="subject2">we</label>
-    	<label name="verb2">expect</label>
+    	<label name="subject2">it</label>
     	<label name="article">a</label>
     	<label name="alternance">alternance</label>
     	<label name="of">of</label>
-    	<label name="period">period</label>
+    	<label name="period2">period</label>
     	<label name="with">with</label>
     	<label name="other">other</label>
     	<label name="although">although</label>
@@ -67,8 +67,8 @@
     </labelset>	
 	<labelset name="C" value="Cloud Coverage">
 	    <label name="C">clear</label>
-	    <label name="CL">cloudy</label>
-	    <label name="O">covered</label>
+	    <label name="CL">partly cloudy</label>
+	    <label name="O">cloudy</label>
 	    <label name="F">foggy</label>
 	</labelset>
 	<labelset name="R" value="Rain">

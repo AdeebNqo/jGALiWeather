@@ -12,8 +12,9 @@ import jgaliweather.nlg_simpleNLG.wind_nlg.WindEpisodeGroup;
 import jgaliweather.nlg_simpleNLG.wind_nlg.WindPeriod;
 import org.javatuples.Pair;
 import simplenlg.framework.CoordinatedPhraseElement;
-import simplenlg.framework.DocumentElement;
+import simplenlg.framework.NLGElement;
 import simplenlg.framework.NLGFactory;
+import simplenlg.phrasespec.NPPhraseSpec;
 
 /*
     Implements a natural language text generator
@@ -54,11 +55,11 @@ public class WindGenerator {
         :return: A natural language description of the
         wind variable forecast
      */
-    public DocumentElement parseAndGenerate() {
+    public NLGElement parseAndGenerate() {
         for (String rs : result_strings) {
             StringTokenizer st = new StringTokenizer(rs);
 
-            if (st.countTokens() == 1) {
+            if (st.countTokens() == 2) {
                 String time = st.nextToken();
                 String label = st.nextToken();
                 alternative0(time, label);
@@ -77,10 +78,12 @@ public class WindGenerator {
         WindEpisodeGroup weg = new WindEpisodeGroup(episodes, nlgFactory);
 
         if (weg.validateGroup()) {
-            CoordinatedPhraseElement output = weg.generateReport(template);
+            CoordinatedPhraseElement aux = weg.generateReport(template);
 
-            DocumentElement salida = nlgFactory.createSentence(output);
-            return salida;
+            NPPhraseSpec output = nlgFactory.createNounPhrase();
+            output.addModifier(aux);
+            
+            return output;
         } else {
             return null;
         }
@@ -128,10 +131,8 @@ public class WindGenerator {
         int new_index = index % 3;
 
         int dayOfWeek = date.get(Calendar.DAY_OF_WEEK) - 2;
-        if (dayOfWeek == 0) {
+        if (dayOfWeek == -1) {
             dayOfWeek = 6;
-        } else if (dayOfWeek == -1) {
-            dayOfWeek = 5;
         }
 
         int d = (dayOfWeek + index / 3) % 7;

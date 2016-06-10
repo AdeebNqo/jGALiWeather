@@ -41,6 +41,6 @@ public class CP06 {
         objects.add(15);
         
         ObjectSet os = new ObjectSet("os1", objects);
-        Assert.assertEquals(1, os.apply(24));
+        Assert.assertEquals(1, os.apply(24), 1e-15);
     }
 }

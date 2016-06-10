@@ -5,6 +5,7 @@ import java.util.HashMap;
 import jgaliweather.configuration.template_reader.LabelSet;
 import simplenlg.features.Feature;
 import simplenlg.framework.CoordinatedPhraseElement;
+import simplenlg.framework.NLGElement;
 import simplenlg.framework.NLGFactory;
 import simplenlg.framework.PhraseElement;
 import simplenlg.phrasespec.AdjPhraseSpec;
@@ -68,7 +69,7 @@ public class WindEpisodeGroup {
 
         NPPhraseSpec windCondition = nlgFactory.createNounPhrase(template_labels.get("WNLGE").getLabels().get("noun").getData());
 
-        ArrayList<PhraseElement> start = episodes.get(0).toText(template_labels.get("WNLGE"), template_labels.get("W"), template_labels.get("DW"), template_labels.get("PD"));
+        ArrayList<NLGElement> start = episodes.get(0).toText(template_labels.get("WNLGE"), template_labels.get("W"), template_labels.get("DW"), template_labels.get("PD"));
         windCondition.addModifier((AdjPhraseSpec) start.get(0));
         for (int i = 1; i < start.size(); i++) {
             windCondition.addComplement((PPPhraseSpec) start.get(i));
@@ -85,7 +86,7 @@ public class WindEpisodeGroup {
             for (int i = 0; i < episodes.size() - 2; i++) {
                 NPPhraseSpec windCondition_aux = nlgFactory.createNounPhrase();
 
-                ArrayList<PhraseElement> aux = episodes.get(i + 1).toText(template_labels.get("WNLGE"), template_labels.get("W"), template_labels.get("DW"), template_labels.get("PD"));
+                ArrayList<NLGElement> aux = episodes.get(i + 1).toText(template_labels.get("WNLGE"), template_labels.get("W"), template_labels.get("DW"), template_labels.get("PD"));
                 windCondition_aux.addModifier((AdjPhraseSpec) aux.get(0));
                 for (int j = 1; j < aux.size(); j++) {
                     windCondition_aux.addComplement((PPPhraseSpec) aux.get(j));
@@ -99,11 +100,11 @@ public class WindEpisodeGroup {
                 text.addCoordinate(windCondition_aux);
             }
 
-            text.addCoordinate(""); // this puts a comma before the last 'and' (needs to delete duplicate white spaces with f.e. String.replaceAll("\\s+", " ");)
+            //text.addCoordinate(""); // this puts a comma before the last 'and' (needs to delete duplicate white spaces with f.e. String.replaceAll("\\s+", " ");)
 
             NPPhraseSpec windCondition_aux = nlgFactory.createNounPhrase();
 
-            ArrayList<PhraseElement> aux = episodes.get(episodes.size() - 1).toText(template_labels.get("WNLGE"), template_labels.get("W"), template_labels.get("DW"), template_labels.get("PD"));
+            ArrayList<NLGElement> aux = episodes.get(episodes.size() - 1).toText(template_labels.get("WNLGE"), template_labels.get("W"), template_labels.get("DW"), template_labels.get("PD"));
             windCondition_aux.addModifier((AdjPhraseSpec) aux.get(0));
             for (int i = 1; i < aux.size(); i++) {
                 windCondition_aux.addComplement((PPPhraseSpec) aux.get(i));

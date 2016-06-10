@@ -10,7 +10,7 @@ import simplenlg.features.Feature;
 import simplenlg.features.NumberAgreement;
 import simplenlg.features.Tense;
 import simplenlg.framework.CoordinatedPhraseElement;
-import simplenlg.framework.DocumentElement;
+import simplenlg.framework.NLGElement;
 import simplenlg.framework.NLGFactory;
 import simplenlg.phrasespec.AdjPhraseSpec;
 import simplenlg.phrasespec.AdvPhraseSpec;
@@ -65,7 +65,7 @@ public class SkyCoverageGeneratorLevel1 {
         :return: A natural language description of the
         cloud coverage variable forecast
      */
-    public DocumentElement parseAndGenerate() {
+    public NLGElement parseAndGenerate() {
 
         StringTokenizer st = new StringTokenizer(result_string);
         if (st.countTokens() == 1) {
@@ -75,8 +75,7 @@ public class SkyCoverageGeneratorLevel1 {
         }
 
         if (!second_approach) {
-            DocumentElement salida = nlgFactory.createSentence(text);
-            return salida;
+            return text;
         } else {
             return null;
         }
@@ -93,19 +92,15 @@ public class SkyCoverageGeneratorLevel1 {
         labels.merge(token2, 1, Integer::sum);
         labels.merge(token3, 1, Integer::sum);
 
-        if (aux < labels.getOrDefault(token1, 0)) {
-            aux = labels.getOrDefault(token1, 0);
-            l_common = aux;
-        }
-        if (aux < labels.getOrDefault(token2, 0)) {
+        aux = labels.getOrDefault(token1, 0);
+        l_common = 0;
+
+        if (aux > labels.getOrDefault(token2, 0)) {
             aux = labels.getOrDefault(token2, 0);
-            l_common = aux;
-
+            l_common = 1;
         }
-        if (aux < labels.getOrDefault(token3, 0)) {
-            aux = labels.getOrDefault(token3, 0);
-            l_common = aux;
-
+        if (aux > labels.getOrDefault(token3, 0)) {
+            l_common = 2;
         }
 
         if (labels.size() == 1) {
@@ -145,22 +140,17 @@ public class SkyCoverageGeneratorLevel1 {
             AdvPhraseSpec conn = nlgFactory.createAdverbPhrase(template.getLabels().get("although").getData());
             conn.setFeature(Feature.APPOSITIVE, true);
 
-            SPhraseSpec second_part = nlgFactory.createClause(template.getLabels().get("subject_opt").getData(),
-                    template.getLabels().get("verb_opt").getData());
+            SPhraseSpec second_part = nlgFactory.createClause(template.getLabels().get("subject2").getData(),
+                    template.getLabels().get("verb").getData());
             second_part.setFeature(Feature.TENSE, Tense.FUTURE);
-
-            if (l_common == 0) {
+            
+            if(l_common == 0) {
                 second_part.addComplement(nlgFactory.createAdjectivePhrase(coverage.getLabels().get(token2).getData()));
             } else {
-                Iterator it = labels.entrySet().iterator();
-                while (it.hasNext()) {
-                    Map.Entry pair = (Map.Entry) it.next();
-                    if (l_common == (Integer) pair.getValue()) {
-                        second_part.addComplement(nlgFactory.createAdjectivePhrase(coverage.getLabels().get(pair.getKey()).getData()));
-                        break;
-                    }
-                }
+                second_part.addComplement(nlgFactory.createAdjectivePhrase(coverage.getLabels().get(token3).getData()));
             }
+            
+            
 
             CoordinatedPhraseElement period_list2 = nlgFactory.createCoordinatedPhrase();
 
@@ -189,29 +179,35 @@ public class SkyCoverageGeneratorLevel1 {
             text = nlgFactory.createClause(template.getLabels().get("subject").getData(),
                     template.getLabels().get("verb").getData());
             text.setFeature(Feature.TENSE, Tense.FUTURE);
-
-            NPPhraseSpec state = nlgFactory.createNounPhrase(template.getLabels().get("object").getData());
-            state.setFeature(Feature.NUMBER, NumberAgreement.PLURAL);
-
+            
             CoordinatedPhraseElement period_list = nlgFactory.createCoordinatedPhrase();
 
-            AdjPhraseSpec c1 = nlgFactory.createAdjectivePhrase(coverage.getLabels().get(token1).getData());
-            c1.addPostModifier(nlgFactory.createPrepositionPhrase(period_labels.getLabels().get(period_partitions.getSets().get(0).getName()).getData()));
-            period_list.addCoordinate(c1);
+            NPPhraseSpec state1 = nlgFactory.createNounPhrase(template.getLabels().get("object").getData());
+            state1.setFeature(Feature.NUMBER, NumberAgreement.PLURAL);
 
-            AdjPhraseSpec c2 = nlgFactory.createAdjectivePhrase(coverage.getLabels().get(token2).getData());
-            c2.addPostModifier(nlgFactory.createPrepositionPhrase(period_labels.getLabels().get(period_partitions.getSets().get(1).getName()).getData()));
-            period_list.addCoordinate(c2);
+            state1.addPreModifier(nlgFactory.createAdjectivePhrase(coverage.getLabels().get(token1).getData()));
+            state1.addPostModifier(nlgFactory.createPrepositionPhrase(period_labels.getLabels().get(period_partitions.getSets().get(0).getName()).getData()));
+            period_list.addCoordinate(state1);
 
-            AdjPhraseSpec c3 = nlgFactory.createAdjectivePhrase(coverage.getLabels().get(token3).getData());
-            c3.addPostModifier(nlgFactory.createPrepositionPhrase(period_labels.getLabels().get(period_partitions.getSets().get(2).getName()).getData()));
-            period_list.addCoordinate(c3);
+            NPPhraseSpec state2 = nlgFactory.createNounPhrase(template.getLabels().get("object").getData());
+            state2.setFeature(Feature.NUMBER, NumberAgreement.PLURAL);
+
+            state2.addPreModifier(nlgFactory.createAdjectivePhrase(coverage.getLabels().get(token2).getData()));
+            state2.addPostModifier(nlgFactory.createPrepositionPhrase(period_labels.getLabels().get(period_partitions.getSets().get(1).getName()).getData()));
+            period_list.addCoordinate(state2);
+
+            NPPhraseSpec state3 = nlgFactory.createNounPhrase(template.getLabels().get("object").getData());
+            state3.setFeature(Feature.NUMBER, NumberAgreement.PLURAL);
+
+            state3.addPreModifier(nlgFactory.createAdjectivePhrase(coverage.getLabels().get(token3).getData()));
+            state3.addPostModifier(nlgFactory.createPrepositionPhrase(period_labels.getLabels().get(period_partitions.getSets().get(2).getName()).getData()));
+            period_list.addCoordinate(state3);
 
             period_list.addPostModifier(nlgFactory.createPrepositionPhrase(template.getLabels().get("of").getData(),
-                    nlgFactory.createNounPhrase(template.getLabels().get("this").getData(), template.getLabels().get("term").getData())));
+                    nlgFactory.createNounPhrase(template.getLabels().get("the").getData(), template.getLabels().get("term").getData())));
 
-            state.addModifier(period_list);
-            text.setObject(state);
+            
+            text.setObject(period_list);
         }
     }
 

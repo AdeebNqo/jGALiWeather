@@ -54,7 +54,14 @@ public class WindPeriod {
         :return: The length of the period in days
      */
     public int numberOfDays() {
-        return (end.getDay() - beginning.getDay()) % 7 + 1;
+        int aux = end.getDay() - beginning.getDay();
+        
+        if(aux < 0) {
+            aux = 7 + aux;
+        } else {
+            aux = aux % 7;
+        }
+        return aux + 1;
     }
 
     /*

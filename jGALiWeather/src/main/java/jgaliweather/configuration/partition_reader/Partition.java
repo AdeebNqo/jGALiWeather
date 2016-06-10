@@ -1,9 +1,10 @@
 package jgaliweather.configuration.partition_reader;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Partition {
+public class Partition implements Serializable {
 
     private String name;
     private ArrayList<Set> sets;

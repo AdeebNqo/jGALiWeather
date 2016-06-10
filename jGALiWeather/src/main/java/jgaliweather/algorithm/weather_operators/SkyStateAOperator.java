@@ -56,8 +56,8 @@ public class SkyStateAOperator {
             evaluations.add(e);
         }
 
-        int aggr;
-        int[][] table = new int[period_partition.getSets().size()][sky_partition.getSets().size()];
+        double aggr;
+        double[][] table = new double[period_partition.getSets().size()][sky_partition.getSets().size()];
 
         for (int i = 0; i < table.length; i++) {
             Arrays.fill(table[i], 0);
@@ -67,6 +67,7 @@ public class SkyStateAOperator {
             for (int j = 0; j < evaluations.size(); j++) {
                 aggr = 0;
                 for (int k = 0; k < evaluations.get(j).length; k++) {
+                    double ap = period_partition.getSets().get(i).apply(k);
                     aggr += period_partition.getSets().get(i).apply(k) * evaluations.get(j)[k];
                 }
                 table[i][j] = aggr;
@@ -74,8 +75,8 @@ public class SkyStateAOperator {
         }
 
         int best_labels[] = new int[period_partition.getSets().size()];
-        int best_values[] = new int[period_partition.getSets().size()];
-        int max = -9999, min_value = 999999;
+        double best_values[] = new double[period_partition.getSets().size()];
+        double max = -9999, min_value = 999999;
 
         // Max value on any single row
         for (int i = 0; i < table.length; i++) {

@@ -1,6 +1,6 @@
 package jgaliweather.configuration.partition_reader;
 
-import fuzzy4j.sets.TrapezoidalFunction;
+import com.fuzzylite.term.Trapezoid;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -124,6 +124,6 @@ public class PartitionReader {
         double beta = Double.parseDouble(c.getAttribute("beta"));
         String name = c.getAttribute("name");
 
-        return new FuzzySet(name, new TrapezoidalFunction(m1 - alpha, m1, m2, m2 + beta));
+        return new FuzzySet(name, new Trapezoid(name, m1 - alpha, m1, m2, m2 + beta));
     }
 }

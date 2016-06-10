@@ -26,6 +26,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.anyOf;
+import static org.hamcrest.CoreMatchers.is;
 
 /**
  *
@@ -73,10 +75,10 @@ public class CP39 {
             wind_var.getValues().add(new Value(304, 2));
             wind_var.getValues().add(new Value(303, 3));
             wind_var.getValues().add(new Value(303, 4));
-            wind_var.getValues().add(new Value(312, 5));
-            wind_var.getValues().add(new Value(300, 6));
-            wind_var.getValues().add(new Value(300, 7));
-            wind_var.getValues().add(new Value(300, 8));
+            wind_var.getValues().add(new Value(305, 5));
+            wind_var.getValues().add(new Value(305, 6));
+            wind_var.getValues().add(new Value(301, 7));
+            wind_var.getValues().add(new Value(301, 8));
             
             Pair<Integer, Integer> WIND_INTERVAL = new Pair(309, 332);
             
@@ -86,15 +88,15 @@ public class CP39 {
             
             Variable sky_var = new Variable("Meteoro");
             
-            sky_var.getValues().add(new Value(102, 0));
-            sky_var.getValues().add(new Value(103, 1));
-            sky_var.getValues().add(new Value(103, 2));
-            sky_var.getValues().add(new Value(108, 3));
-            sky_var.getValues().add(new Value(108, 4));
-            sky_var.getValues().add(new Value(107, 5));
-            sky_var.getValues().add(new Value(103, 6));
+            sky_var.getValues().add(new Value(101, 0));
+            sky_var.getValues().add(new Value(102, 1));
+            sky_var.getValues().add(new Value(101, 2));
+            sky_var.getValues().add(new Value(101, 3));
+            sky_var.getValues().add(new Value(102, 4));
+            sky_var.getValues().add(new Value(103, 5));
+            sky_var.getValues().add(new Value(104, 6));
             sky_var.getValues().add(new Value(102, 7));
-            sky_var.getValues().add(new Value(103, 8));
+            sky_var.getValues().add(new Value(101, 8));
             
             ICASkyStateOperator ss_op = new ICASkyStateOperator(partitions.get("C"), sky_var, 9);
             
@@ -111,7 +113,7 @@ public class CP39 {
             Variable curr_var = new Variable("Meteoro");
             
             curr_var.getValues().add(new Value(3, 0));
-            curr_var.getValues().add(new Value(1, 1));
+            curr_var.getValues().add(new Value(3, 1));
             curr_var.getValues().add(new Value(3, 2));
             
             ICAOperator ica_op = new ICAOperator(partitions.get("ICA"), curr_var);
@@ -123,11 +125,11 @@ public class CP39 {
             String salida = nssg.generate();
             
             /*
-             *   En lo que se refiere al estado de la calidad del aire, será variable aunque se espera que cambie a
-             *   admisible, debido al tiempo soleado y estable de los próximos días.
+             *   En lo que se refiere al estado de la calidad del aire, se mantendrá admisible en general, debido al
+             *   tiempo soleado y estable de los próximos días.
              */
-            assertThat(salida, anyOf(is("With respect to air quality state, it will be changeable although it is expected to change to admissible, because of the sunny and stable weather in the coming days."), 
-                    is("With respect to air quality state, it will be changeable although it is expected to change to admissible, because of the sunny and stable weather in the next few days.")));
+            assertThat(salida, anyOf(is("With respect to air quality state, it will be to remain admissible in general, because of the sunny and stable weather in the coming days."), 
+                    is("With respect to air quality state, it will be to remain admissible in general, because of the sunny and stable weather in the next few days.")));
         } catch (Exception ex) {
             Logger.getLogger(CP39.class.getName()).log(Level.SEVERE, null, ex);
         }

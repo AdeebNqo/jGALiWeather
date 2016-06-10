@@ -22,10 +22,12 @@ import static org.hamcrest.CoreMatchers.is;
 import org.javatuples.Pair;
 import org.junit.After;
 import org.junit.AfterClass;
-import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.anyOf;
+import static org.hamcrest.CoreMatchers.is;
 
 /**
  *
@@ -68,15 +70,15 @@ public class CP28 {
             
             Variable wind_var = new Variable("Viento");
             
-            wind_var.getValues().add(new Value(313, 0));
-            wind_var.getValues().add(new Value(313, 1));
-            wind_var.getValues().add(new Value(314, 2));
-            wind_var.getValues().add(new Value(315, 3));
-            wind_var.getValues().add(new Value(321, 4));
-            wind_var.getValues().add(new Value(321, 5));
-            wind_var.getValues().add(new Value(321, 6));
-            wind_var.getValues().add(new Value(322, 7));
-            wind_var.getValues().add(new Value(323, 8));
+            wind_var.getValues().add(new Value(299, 0));
+            wind_var.getValues().add(new Value(299, 1));
+            wind_var.getValues().add(new Value(299, 2));
+            wind_var.getValues().add(new Value(299, 3));
+            wind_var.getValues().add(new Value(299, 4));
+            wind_var.getValues().add(new Value(299, 5));
+            wind_var.getValues().add(new Value(299, 6));
+            wind_var.getValues().add(new Value(299, 7));
+            wind_var.getValues().add(new Value(299, 8));
             
             Pair<Integer, Integer> WIND_INTERVAL = new Pair(309, 332);
             
@@ -87,14 +89,14 @@ public class CP28 {
             Variable sky_var = new Variable("Meteoro");
             
             sky_var.getValues().add(new Value(111, 0));
-            sky_var.getValues().add(new Value(111, 1));
-            sky_var.getValues().add(new Value(104, 2));
-            sky_var.getValues().add(new Value(102, 3));
-            sky_var.getValues().add(new Value(107, 4));
-            sky_var.getValues().add(new Value(107, 5));
-            sky_var.getValues().add(new Value(103, 6));
-            sky_var.getValues().add(new Value(103, 7));
-            sky_var.getValues().add(new Value(108, 8));
+            sky_var.getValues().add(new Value(110, 1));
+            sky_var.getValues().add(new Value(108, 2));
+            sky_var.getValues().add(new Value(104, 3));
+            sky_var.getValues().add(new Value(104, 4));
+            sky_var.getValues().add(new Value(103, 5));
+            sky_var.getValues().add(new Value(102, 6));
+            sky_var.getValues().add(new Value(101, 7));
+            sky_var.getValues().add(new Value(101, 8));
             
             ICASkyStateOperator ss_op = new ICASkyStateOperator(partitions.get("C"), sky_var, 9);
             
@@ -111,8 +113,8 @@ public class CP28 {
             Variable curr_var = new Variable("Meteoro");
             
             curr_var.getValues().add(new Value(1, 0));
-            curr_var.getValues().add(new Value(1, 1));
-            curr_var.getValues().add(new Value(1, 2));
+            curr_var.getValues().add(new Value(3, 1));
+            curr_var.getValues().add(new Value(5, 2));
             
             ICAOperator ica_op = new ICAOperator(partitions.get("ICA"), curr_var);
             
@@ -123,11 +125,11 @@ public class CP28 {
             String salida = nssg.generate();
             
             /*
-             *   En lo que se refiere al estado de la calidad del aire, se mantendrá bueno en general, favorecido
-             *   por la situación de bajas presiones de los próximos días.
+             *   En lo que se refiere al estado de la calidad del aire, se espera que cambie progresivamente a
+             *   malo, debido al tiempo soleado y estable de los próximos días.
              */
-            assertThat(salida, anyOf(is("With respect to air quality state, it will be to remain good in general, favored by the low pressures in the atmosphere for the coming days."), 
-                    is("With respect to air quality state, it will be to remain good in general, favored by the low pressures in the atmosphere for the next few days.")));
+            assertThat(salida, anyOf(is("With respect to air quality state, it is expected to change progressively to bad, because of the sunny and stable weather in the coming days."), 
+                    is("With respect to air quality state, it is expected to change progressively to bad, because of the sunny and stable weather in the next few days.")));
         } catch (Exception ex) {
             Logger.getLogger(CP28.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -13,7 +13,7 @@ import jgaliweather.nlg_simpleNLG.precipitation_nlg.PrecipitationNuance;
 import jgaliweather.nlg_simpleNLG.precipitation_nlg.PrecipitationPeriod;
 import jgaliweather.nlg_simpleNLG.precipitation_nlg.PrecipitationTermGroup;
 import org.javatuples.Pair;
-import simplenlg.framework.DocumentElement;
+import simplenlg.framework.NLGElement;
 import simplenlg.framework.NLGFactory;
 import simplenlg.phrasespec.SPhraseSpec;
 
@@ -46,7 +46,7 @@ public class RainGenerator {
         this.result_strings = result_strings;
         this.date = date;
         this.episodes = new ArrayList();
-        
+
         this.nlgFactory = nlgFactory;
     }
 
@@ -58,7 +58,7 @@ public class RainGenerator {
         :return: A natural language description of the
         precipitation variable forecast
      */
-    public DocumentElement parseAndGenerate() {
+    public NLGElement parseAndGenerate() {
 
         if (result_strings.size() > 0) {
             for (String rs : result_strings) {
@@ -91,8 +91,7 @@ public class RainGenerator {
                 final_forecast = peg.generateReport(template);
             }
 
-            DocumentElement salida = nlgFactory.createSentence(final_forecast);
-            return salida;
+            return final_forecast;
 
         } else {
             return null;
@@ -156,12 +155,12 @@ public class RainGenerator {
                 curr_nuance.getDuration().setEnd(new Time("", end_nuance_dt.getValue1(), end_nuance_dt.getValue0()));
                 prec_ep.getNuances().add(curr_nuance);
             }
-
-            Pair<Integer, Integer> dt1 = indexToDayTimeIndex(date, period.getValue0());
-            Pair<Integer, Integer> dt2 = indexToDayTimeIndex(date, period.getValue1());
-            prec_ep.setDuration(new PrecipitationPeriod(new Time("", dt1.getValue1(), dt1.getValue0()), new Time("", dt2.getValue1(), dt2.getValue0()), nlgFactory));
-            episodes.add(prec_ep);
         }
+
+        Pair<Integer, Integer> dt1 = indexToDayTimeIndex(date, period.getValue0());
+        Pair<Integer, Integer> dt2 = indexToDayTimeIndex(date, period.getValue1());
+        prec_ep.setDuration(new PrecipitationPeriod(new Time("", dt1.getValue1(), dt1.getValue0()), new Time("", dt2.getValue1(), dt2.getValue0()), nlgFactory));
+        episodes.add(prec_ep);
     }
 
     /*
@@ -176,14 +175,12 @@ public class RainGenerator {
     private Pair<Integer, Integer> indexToDayTimeIndex(Calendar date, int index) {
 
         int new_index = index % 3;
-
-        int dayOfWeek = date.get(Calendar.DAY_OF_WEEK) - 2;
-        if (dayOfWeek == 0) {
-            dayOfWeek = 6;
-        } else if (dayOfWeek == -1) {
-            dayOfWeek = 5;
-        }
         
+        int dayOfWeek = date.get(Calendar.DAY_OF_WEEK) - 2;
+        if (dayOfWeek == -1) {
+            dayOfWeek = 6;
+        }
+
         int d = (dayOfWeek + index / 3) % 7;
 
         return new Pair(d, new_index);

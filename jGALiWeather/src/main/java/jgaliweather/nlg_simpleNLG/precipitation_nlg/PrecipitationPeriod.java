@@ -57,7 +57,14 @@ public class PrecipitationPeriod {
         in days
      */
     public int numberOfDays() {
-        return (end.getDay() - beginning.getDay()) % 7 + 1;
+        int aux = end.getDay() - beginning.getDay();
+
+        if (aux < 0) {
+            aux = 7 + aux;
+        } else {
+            aux = aux % 7;
+        }
+        return aux + 1;
     }
 
     /*
@@ -124,20 +131,20 @@ public class PrecipitationPeriod {
 
         } else if (single() != null) {
             phrases.add(nlgFactory.createPrepositionPhrase(expresion_template.getLabels().get("single_period").getData(),
-                    day_template.getLabels().get(end.getDay() + "").getData() + " " + time_template.getLabels().get(end.getDay() + "").getData()));
+                    day_template.getLabels().get(end.getDay() + "").getData() + " " + time_template.getLabels().get(end.getTime() + "").getData()));
 
         } else if (!Objects.equals(beginning.getDay(), end.getDay())) {
             phrases.add(nlgFactory.createPrepositionPhrase(expresion_template.getLabels().get("composite_period_start").getData(),
-                    day_template.getLabels().get(beginning.getDay() + "").getData() + " " + time_template.getLabels().get(beginning.getDay() + "").getData()));
+                    day_template.getLabels().get(beginning.getDay() + "").getData() + " " + time_template.getLabels().get(beginning.getTime() + "").getData()));
 
             phrases.add(nlgFactory.createPrepositionPhrase(expresion_template.getLabels().get("composite_period_end").getData(),
-                    day_template.getLabels().get(this.end.getDay() + "").getData() + " " + time_template.getLabels().get(this.end.getDay() + "").getData()));
+                    day_template.getLabels().get(this.end.getDay() + "").getData() + " " + time_template.getLabels().get(this.end.getTime() + "").getData()));
 
         } else {
             phrases.add(nlgFactory.createPrepositionPhrase(expresion_template.getLabels().get("single_period").getData(),
                     day_template.getLabels().get(end.getDay() + "").getData()));
         }
-        
+
         return phrases;
     }
 }
