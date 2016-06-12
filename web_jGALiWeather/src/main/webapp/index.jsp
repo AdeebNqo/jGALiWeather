@@ -16,8 +16,10 @@
         <link rel="stylesheet" type="text/css" href="styles/index.css">
         <link rel="stylesheet" type="text/css" href="styles/temperatures.css">
         <script type="text/javascript" src="lib/jquery-2.2.3.min.js" ></script>
-        <script type="text/javascript" src="lib/services.js" ></script>
+        <script type="text/javascript" src="lib/moment.js" ></script>
+        <script type="text/javascript" src="lib/moment-timezone-with-data-2010-2020.js" ></script>
         <script type="text/javascript" src="lib/searchScripts.js" ></script>
+        <script type="text/javascript" src="lib/services.js" ></script>    
     </head>
 
     <body>
@@ -58,7 +60,7 @@
                     </div>
 
                     <div id="chooser">
-                        <h3>Choose a council in A Coruña:</h3>
+                        <h3>Choose a council in <span id="councilChooserTitle"></span>:</h3>
                         <select id="selectCouncil" onchange="selectChange()" name="council" size="1">
                         </select>
                     </div>
@@ -73,17 +75,17 @@
             <main>
                 <article>
                     <header>
-                        <h2 id="tableTitle">Short term forecast for A Coruña</h2>   
+                        <h2>Short term forecast for <span id="tableTitle"></span></h2>   
                     </header>
 
                     <table>
                         <thead>
                             <tr>
                                 <th class="title">Tabla</th>
-                                <th class="dayHeader" colspan=3>Thursday, 28th April</th>
-                                <th class="dayHeader" colspan=3>Friday, 29th April</th>
-                                <th class="dayHeader" colspan=3>Saturday, 30th April</th>
-                                <th class="dayHeader" colspan=3>Sunday, 1st May</th>
+                                <th class="dayHeader" id="dayHeader1" colspan=3></th>
+                                <th class="dayHeader" id="dayHeader2" colspan=3></th>
+                                <th class="dayHeader" id="dayHeader3" colspan=3></th>
+                                <th class="dayHeader" id="dayHeader4" colspan=3></th>
                             </tr>
 
                             <tr>

@@ -22,12 +22,16 @@ function updateSelect() {
     var obj;
 
     if($("input[name=province]:checked", "#setCouncil").val() == "Ourense") {
+        $("#councilChooserTitle").text("Ourense");
         obj = JSON.parse(concOurense);
     } else if ($("input[name=province]:checked", "#setCouncil").val() == "Pontevedra") {
+        $("#councilChooserTitle").text("Pontevedra");
         obj = JSON.parse(concPontevedra);
     } else if ($("input[name=province]:checked", "#setCouncil").val() == "Lugo") {
+        $("#councilChooserTitle").text("Lugo");
         obj = JSON.parse(concLugo);
     } else if ($("input[name=province]:checked", "#setCouncil").val() == "Coruna") {
+        $("#councilChooserTitle").text("A Coru\u00f1a");
         obj = JSON.parse(concCoruna);
     }
 

@@ -1,10 +1,10 @@
 
 //Changes the background color of the temperature labels
 function changeColorBackground(t, value) {
-    
+
     var classList = t.attr('class').split(/\s+/);
     t.removeClass(classList[1]);
-    
+
     if (value >= 0) {
         t.addClass("t" + value);
     } else {
@@ -19,7 +19,7 @@ function getForecastData(id) {
         url: "jgaliweather_api/v1/meteorologicalData/" + id,
         success: function (data, textStatus, response) {
 
-            $("#tableTitle").text("Short term forecast for " + data.name);
+            $("#tableTitle").text(data.name);
 
             // SkyState
             $("#skMorning1").attr('src', 'images/meteors/sky/' + data.sky[0] + '.png');
@@ -81,17 +81,96 @@ function getForecastData(id) {
 
         },
         error: function (response, textStatus, errorThrown) {
-            $("#comment").text("ERROR: " + errorThrown);
+            alert("Municipio no encontrado");
+        }
+    });
+}
+
+// It gets the address of specific coordinates from the geocoding API of Google
+function getAddress(lat, lng) {
+    $.ajax({
+        type: "GET",
+        url: "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lng + "&key=AIzaSyAEauii-d22ov-FYPdg6EgIe-4GWA30qLQ",
+        success: function (data, textStatus, response) {
+
+            var obj;
+            var name = data.results[0].address_components[2].long_name;
+
+            if (data.results[0].address_components[4].long_name === "Ourense") {
+                
+                obj = JSON.parse(concOurense);
+                
+                $.each(obj.items, function (i, item) {
+                    if(item.nome === name) {
+                        getForecastData(item.idConc);
+                    }
+                });
+
+            } else if (data.results[0].address_components[4].long_name === "Pontevedra") {
+                
+                obj = JSON.parse(concPontevedra);
+                
+                $.each(obj.items, function (i, item) {
+                    if(item.nome === name) {
+                        getForecastData(item.idConc);
+                    }
+                });
+
+            } else if (data.results[0].address_components[4].long_name === "Lugo") {
+                
+                obj = JSON.parse(concLugo);
+                
+                $.each(obj.items, function (i, item) {
+                    if(item.nome === name) {
+                        getForecastData(item.idConc);
+                    }
+                });
+
+            } else if (data.results[0].address_components[4].short_name === "C") {
+                
+                obj = JSON.parse(concCoruna);
+                
+                if(name === "La Coruña") {
+                    name = "A Coruña";
+                }
+                
+                $.each(obj.items, function (i, item) {
+                    if(item.nome === name) {
+                        getForecastData(item.idConc);
+                    }
+                });
+            } else {
+                getForecastData("15030");
+            }
+
+        },
+        error: function (response, textStatus, errorThrown) {
+            getForecastData("15030");
         }
     });
 }
 
 //Function called when detects a change in the select list
-function selectChange() {    
+function selectChange() {
     getForecastData($("#selectCouncil option:selected").val());
 }
 
 //Calls the getter when the page loads
 $(function () {
-    window.onload = getForecastData("15030");
+    window.onload = function () {
+        var date = moment().tz('Europe/Madrid');
+
+        $("#dayHeader1").text(date.format('dddd, MMMM Do'));
+        $("#dayHeader2").text(date.add(1, 'days').format('dddd, MMMM Do'));
+        $("#dayHeader3").text(date.add(1, 'days').format('dddd, MMMM Do'));
+        $("#dayHeader4").text(date.add(1, 'days').format('dddd, MMMM Do'));
+
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                getAddress(position.coords.latitude, position.coords.longitude);
+            });
+        } else {
+            getForecastData("15030");
+        }
+    };
 });
