@@ -34,7 +34,7 @@ public class ForecastResource {
         
         try{
             
-            data = DatabaseConnector.getInstance().retrieveVariableDataForLocation(id, sdf.parse("2015-07-25"));
+            data = DatabaseConnector.getInstance().retrieveVariableDataForLocation(id, sdf.parse("2015-07-15"));
             data.setName(DatabaseConnector.getInstance().getLocationName(id));
             data.setComment(DatabaseConnector.getInstance().getComment(id, new Date()));
             

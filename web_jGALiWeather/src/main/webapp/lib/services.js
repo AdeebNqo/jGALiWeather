@@ -77,8 +77,13 @@ function getForecastData(id) {
             changeColorBackground($("#tempMax4"), data.temp[7]);
 
             //Comment
-            $("#comment").text(data.comment);
+            if (data.comment !== "") {
+                $("#comment").text(data.comment);
+            } else {
+                $("#comment").text("There's no comments avaliable");
+            }
 
+            $("#collapseTables").collapsible("option", "collapsed", false);
         },
         error: function (response, textStatus, errorThrown) {
             alert("Municipio no encontrado");
@@ -97,45 +102,45 @@ function getAddress(lat, lng) {
             var name = data.results[0].address_components[2].long_name;
 
             if (data.results[0].address_components[4].long_name === "Ourense") {
-                
+
                 obj = JSON.parse(concOurense);
-                
+
                 $.each(obj.items, function (i, item) {
-                    if(item.nome === name) {
+                    if (item.nome === name) {
                         getForecastData(item.idConc);
                     }
                 });
 
             } else if (data.results[0].address_components[4].long_name === "Pontevedra") {
-                
+
                 obj = JSON.parse(concPontevedra);
-                
+
                 $.each(obj.items, function (i, item) {
-                    if(item.nome === name) {
+                    if (item.nome === name) {
                         getForecastData(item.idConc);
                     }
                 });
 
             } else if (data.results[0].address_components[4].long_name === "Lugo") {
-                
+
                 obj = JSON.parse(concLugo);
-                
+
                 $.each(obj.items, function (i, item) {
-                    if(item.nome === name) {
+                    if (item.nome === name) {
                         getForecastData(item.idConc);
                     }
                 });
 
             } else if (data.results[0].address_components[4].short_name === "C") {
-                
+
                 obj = JSON.parse(concCoruna);
-                
-                if(name === "La Coruña") {
+
+                if (name === "La Coruña") {
                     name = "A Coruña";
                 }
-                
+
                 $.each(obj.items, function (i, item) {
-                    if(item.nome === name) {
+                    if (item.nome === name) {
                         getForecastData(item.idConc);
                     }
                 });
@@ -150,14 +155,31 @@ function getAddress(lat, lng) {
     });
 }
 
+function changeCouncil(id) {
+    getForecastData(id);
+    if (document.documentElement.clientWidth <= 480) {
+        $("html, body").animate({scrollTop: $("#collapseTables").offset().top}, "slow");
+    }
+
+}
+
 //Function called when detects a change in the select list
 function selectChange() {
-    getForecastData($("#selectCouncil option:selected").val());
+    changeCouncil($("#selectCouncil option:selected").val());
 }
 
 //Calls the getter when the page loads
 $(function () {
     window.onload = function () {
+
+        if (document.documentElement.clientWidth <= 480) {
+            var script = document.createElement('script');
+            script.src = 'lib/jquery.mobile-1.4.5.min.js';
+            script.type = 'text/javascript';
+            script.id = 'jqueryMobile';
+            document.getElementsByTagName('head')[0].appendChild(script);
+        }
+
         var date = moment().tz('Europe/Madrid');
 
         $("#dayHeader1").text(date.format('dddd, MMMM Do'));
