@@ -82,8 +82,9 @@ function getForecastData(id) {
             } else {
                 $("#comment").text("There's no comments avaliable");
             }
-
-            $("#collapseTables").collapsible("option", "collapsed", false);
+            if (document.documentElement.clientWidth <= 1280) {
+                $("#collapseTables").collapsible("option", "collapsed", false);
+            }
         },
         error: function (response, textStatus, errorThrown) {
             alert("Municipio no encontrado");
@@ -156,11 +157,12 @@ function getAddress(lat, lng) {
 }
 
 function changeCouncil(id) {
+    $(".modal").fadeIn(0);
     getForecastData(id);
-    if (document.documentElement.clientWidth <= 480) {
+    if (document.documentElement.clientWidth <= 1280) {
         $("html, body").animate({scrollTop: $("#collapseTables").offset().top}, "slow");
     }
-
+    $(".modal").fadeOut("slow");
 }
 
 //Function called when detects a change in the select list
@@ -170,16 +172,16 @@ function selectChange() {
 
 //Calls the getter when the page loads
 $(function () {
-    window.onload = function () {
 
-        if (document.documentElement.clientWidth <= 480) {
+    $(document).ready(function () {
+        if (document.documentElement.clientWidth <= 1280) {
             var script = document.createElement('script');
             script.src = 'lib/jquery.mobile-1.4.5.min.js';
             script.type = 'text/javascript';
             script.id = 'jqueryMobile';
             document.getElementsByTagName('head')[0].appendChild(script);
         }
-
+        
         var date = moment().tz('Europe/Madrid');
 
         $("#dayHeader1").text(date.format('dddd, MMMM Do'));
@@ -187,12 +189,21 @@ $(function () {
         $("#dayHeader3").text(date.add(1, 'days').format('dddd, MMMM Do'));
         $("#dayHeader4").text(date.add(1, 'days').format('dddd, MMMM Do'));
 
-        if ("geolocation" in navigator) {
+        var succes = false;
+        if ('geolocation' in navigator) {
             navigator.geolocation.getCurrentPosition(function (position) {
                 getAddress(position.coords.latitude, position.coords.longitude);
-            });
+                succes = true;
+            }, function (error) {
+                if (!succes) {
+                    getForecastData("15030");
+                }
+            },
+                    {enableHighAccuracy: true, timeout: 5000, maximumAge: 0});
         } else {
             getForecastData("15030");
         }
-    };
+
+        $(".modal").fadeOut("slow");
+    });
 });

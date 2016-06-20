@@ -378,9 +378,6 @@
                                 </table>
                             </div>
                         </div>
-                        <div>
-
-                        </div>
                         <div class="divNote">
                             <img class="noteImg" width="23" src="images/users2.png" alt="Short Term forecast for councils">
                             <span class="dataSource_title">Data source:</span>
@@ -391,9 +388,13 @@
                     </div>
                 </article>
             </main>
+            
+            <div class="modal"><!-- spinner --></div>
 
             <footer>
-                <span class="design">Developed by Diego Iglesias Freire</span><span class="contact">Contact on: <a class="mail" href="mailto:diego.iglesias.freire@rai.usc.es?Subject=jGALiWeather">diego.iglesias.freire@rai.usc.es</a></span>
+                <div id="center">
+                    <span class="design">Developed by Diego Iglesias Freire</span><span class="contact">Contact on: <a class="mail" href="mailto:diego.iglesias.freire@rai.usc.es?Subject=jGALiWeather">diego.iglesias.freire@rai.usc.es</a></span>
+                </div>
             </footer>
         </div>
     </body>

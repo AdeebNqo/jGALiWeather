@@ -42,6 +42,10 @@ function updateSelect() {
             value: item.idConc,
             text : item.nome 
         }));
+        
+        if (document.getElementById('jqueryMobile') !== null) {
+            $("#selectCouncil").selectmenu("refresh");
+        }
     });
 }
 
