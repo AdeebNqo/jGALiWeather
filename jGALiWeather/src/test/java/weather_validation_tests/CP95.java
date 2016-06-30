@@ -47,16 +47,16 @@ public class CP95 {
 
         try {
 
-            String id = "27047";
+            String id = "36017";
 
             ArrayList<String> dates = new ArrayList();
-            dates.add("2015-09-24");
-            dates.add("2015-09-25");
-            dates.add("2015-09-26");
-            dates.add("2015-09-27");
+            dates.add("2015-11-13");
+            dates.add("2015-11-14");
+            dates.add("2015-11-15");
+            dates.add("2015-11-16");
 
             SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = sdt.parse("2015-09-24");
+            Date date = sdt.parse("2015-11-13");
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
@@ -65,10 +65,10 @@ public class CP95 {
             String salida = ps.generateTextualForecastsTest(id, dates, cal);
 
             /*
-             *   Cielos poco nubosos o despejados en general durante los próximos días, aunque ocasionalmente se encontrarán parcialmente nubosos. Habrá nieblas matinales el jueves. 
-             *   Las temperaturas serán normales para esta época del año, con valores que globalmente se encontrarán sin cambios.
+             *   Se espera que los cielos alternen periodos parcialmente nubosos con otros poco nubosos o despejados. Las temperaturas serán altas para las mínimas y normales para 
+             *   las máximas respecto a lo habitual en esta época del año, con mínimas en ascenso ligero y máximas en descenso ligero.
              */
-            assertEquals(salida, "Clear skies in general for the next few days, although it will occasionally be partly cloudy. There will be morning fog on Thursday. Temperature will be normal for this period of the year, which will globally be without changes.");
+            assertEquals(salida, "It is expected an alternance of partly cloudy skies periods with other clear periods. Temperature will be high for minimums and normal for maximums compared to the expected for this time of the year, with minimums in slight increase and maximums in slight decrease.");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

@@ -47,16 +47,16 @@ public class CP84 {
 
         try {
 
-            String id = "36035";
+            String id = "27034";
 
             ArrayList<String> dates = new ArrayList();
-            dates.add("2015-10-12");
-            dates.add("2015-10-13");
-            dates.add("2015-10-14");
-            dates.add("2015-10-15");
+            dates.add("2015-12-18");
+            dates.add("2015-12-19");
+            dates.add("2015-12-20");
+            dates.add("2015-12-21");
 
             SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = sdt.parse("2015-10-12");
+            Date date = sdt.parse("2015-12-18");
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
@@ -65,10 +65,11 @@ public class CP84 {
             String salida = ps.generateTextualForecastsTest(id, dates, cal);
 
             /*
-             *   Tendremos cielos parcialmente nubosos al principio del periodo, aunque hacia la mitad y al final del mismo tenderán a estar poco nubosos o despejados. Tendremos 
-             *   precipitaciones el lunes. Las temperaturas serán normales para esta época del año, con mínimas en descenso moderado y máximas sin cambios.
+             *   Cielos parcialmente nubosos en general durante los próximos días. Tendremos precipitaciones el sábado y el domingo. Las temperaturas serán muy altas para las mínimas 
+             *   y altas para las máximas respecto a lo habitual en esta época del año, con mínimas en descenso notable y máximas en descenso moderado, a pesar de que oscilarán. 
+             *   Viento fuerte del Sur del viernes por la tarde al sábado por la tarde.
              */
-            assertEquals(salida, "There will be partly cloudy skies at the beginning of the term, although they will be clear towards the middle and at the end of the term. Precipitations are expected on Monday. Temperature will be normal for this period of the year, with minimums in moderate decrease and maximums without changes.");
+            assertEquals(salida, "Partly cloudy skies in general for the next few days. Precipitations are expected on Saturday and on Sunday. Temperature will be very high for minimums and high for maximums compared to the expected for this time of the year, with minimums in notable decrease and maximums in moderate decrease, despite that they will oscillate. Strong South wind from Friday afternoon to Saturday afternoon.");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

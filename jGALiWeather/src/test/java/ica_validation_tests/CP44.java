@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package ica_validation_tests;
 
 import java.util.ArrayList;
@@ -20,9 +16,7 @@ import jgaliweather.configuration.template_reader.TemplateReader;
 import jgaliweather.configuration.variable_reader.VariableReader;
 import jgaliweather.data.data_structures.Value;
 import jgaliweather.data.data_structures.Variable;
-import jgaliweather.nlg_simpleNLG.nlg_generators.ICAGenerator;
-import static org.hamcrest.CoreMatchers.anyOf;
-import static org.hamcrest.CoreMatchers.is;
+import jgaliweather.nlg.nlg_generators.ICAGenerator;
 import org.javatuples.Pair;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -63,7 +57,7 @@ public class CP44 {
 
         try {
             TemplateReader tr = new TemplateReader();
-            tr.parseFile("Configuration/Languages/english.xml");
+            tr.parseFile("Configuration/templates.xml");
             
             VariableReader vr = new VariableReader();
             vr.parseFile("Configuration/variables.xml");
@@ -74,13 +68,13 @@ public class CP44 {
             
             Variable wind_var = new Variable("Viento");
             
-            wind_var.getValues().add(new Value(311, 0));
-            wind_var.getValues().add(new Value(311, 1));
-            wind_var.getValues().add(new Value(311, 2));
-            wind_var.getValues().add(new Value(304, 3));
-            wind_var.getValues().add(new Value(304, 4));
-            wind_var.getValues().add(new Value(304, 5));
-            wind_var.getValues().add(new Value(305, 6));
+            wind_var.getValues().add(new Value(299, 0));
+            wind_var.getValues().add(new Value(299, 1));
+            wind_var.getValues().add(new Value(299, 2));
+            wind_var.getValues().add(new Value(299, 3));
+            wind_var.getValues().add(new Value(299, 4));
+            wind_var.getValues().add(new Value(299, 5));
+            wind_var.getValues().add(new Value(299, 6));
             wind_var.getValues().add(new Value(299, 7));
             wind_var.getValues().add(new Value(299, 8));
             
@@ -92,12 +86,12 @@ public class CP44 {
             
             Variable sky_var = new Variable("Meteoro");
             
-            sky_var.getValues().add(new Value(108, 0));
-            sky_var.getValues().add(new Value(107, 1));
-            sky_var.getValues().add(new Value(104, 2));
-            sky_var.getValues().add(new Value(102, 3));
-            sky_var.getValues().add(new Value(102, 4));
-            sky_var.getValues().add(new Value(102, 5));
+            sky_var.getValues().add(new Value(101, 0));
+            sky_var.getValues().add(new Value(101, 1));
+            sky_var.getValues().add(new Value(101, 2));
+            sky_var.getValues().add(new Value(101, 3));
+            sky_var.getValues().add(new Value(101, 4));
+            sky_var.getValues().add(new Value(101, 5));
             sky_var.getValues().add(new Value(101, 6));
             sky_var.getValues().add(new Value(101, 7));
             sky_var.getValues().add(new Value(101, 8));
@@ -116,8 +110,8 @@ public class CP44 {
             
             Variable curr_var = new Variable("Meteoro");
             
-            curr_var.getValues().add(new Value(1, 0));
-            curr_var.getValues().add(new Value(5, 1));
+            curr_var.getValues().add(new Value(6, 0));
+            curr_var.getValues().add(new Value(6, 1));
             curr_var.getValues().add(new Value(6, 2));
             
             ICAOperator ica_op = new ICAOperator(partitions.get("ICA"), curr_var);
@@ -129,11 +123,11 @@ public class CP44 {
             String salida = nssg.generate();
             
             /*
-             *   En lo que se refiere al estado de la calidad del aire, se espera que cambie progresivamente a muy
-             *  malo, debido al tiempo soleado y estable de los próximos días.
+             *   En lo que se refiere al estado de la calidad del aire, se mantendrá muy malo en general, debido al
+             *   tiempo soleado y estable de los próximos días.
              */
-            assertThat(salida, anyOf(is("With respect to air quality state, it is expected to change progressively to hazardous, because of the sunny and stable weather in the coming days."), 
-                    is("With respect to air quality state, it is expected to change progressively to hazardous, because of the sunny and stable weather in the next few days.")));
+            assertThat(salida, anyOf(is("With respect to air quality state, it will be to remain hazardous in general, because of the sunny and stable weather in the coming days."), 
+                    is("With respect to air quality state, it will be to remain hazardous in general, because of the sunny and stable weather in the next few days.")));
         } catch (Exception ex) {
             Logger.getLogger(CP44.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -47,16 +47,16 @@ public class CP80 {
 
         try {
 
-            String id = "27055";
+            String id = "27034";
 
             ArrayList<String> dates = new ArrayList();
-            dates.add("2015-10-17");
-            dates.add("2015-10-18");
-            dates.add("2015-10-19");
-            dates.add("2015-10-20");
+            dates.add("2015-09-04");
+            dates.add("2015-09-05");
+            dates.add("2015-09-06");
+            dates.add("2015-09-07");
 
             SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = sdt.parse("2015-10-17");
+            Date date = sdt.parse("2015-09-04");
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
@@ -65,11 +65,10 @@ public class CP80 {
             String salida = ps.generateTextualForecastsTest(id, dates, cal);
 
             /*
-             *   Cielos parcialmente nubosos en general durante los próximos días, aunque ocasionalmente se encontrarán poco nubosos o despejados. Tendremos precipitaciones el sábado 
-             *   y el domingo por la noche. Las temperaturas serán altas para esta época del año, con mínimas sin cambios y máximas en descenso moderado. Viento fuerte del Este desde 
-             *   el sábado por la tarde, cambiando a fuerte del Sudeste el sábado por la noche; y fuerte del Nordeste del martes por la mañana al martes por la tarde.
+             *   Cielos poco nubosos o despejados en general durante los próximos días, aunque ocasionalmente se encontrarán parcialmente nubosos. Las temperaturas serán normales 
+             *   para esta época del año, con mínimas sin cambios aunque oscilarán y máximas en ascenso notable.
              */
-            assertEquals(salida, "Partly cloudy skies in general for the next few days, although it will occasionally be clear. Precipitations are expected on Saturday and on Sunday night. Temperature will be high for this period of the year, with minimums without changes and maximums in moderate decrease. Strong East wind from Saturday afternoon, changing to strong Southeast on Saturday night and strong Northeast from Tuesday morning to Tuesday afternoon.");
+            assertEquals(salida, "Clear skies in general for the next few days, although it will occasionally be partly cloudy. Temperature will be normal for this period of the year, with minimums without changes although they will oscillate and maximums in notable increase.");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

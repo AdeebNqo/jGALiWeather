@@ -16,18 +16,16 @@ import jgaliweather.configuration.template_reader.TemplateReader;
 import jgaliweather.configuration.variable_reader.VariableReader;
 import jgaliweather.data.data_structures.Value;
 import jgaliweather.data.data_structures.Variable;
-import jgaliweather.nlg_simpleNLG.nlg_generators.ICAGenerator;
-import static org.hamcrest.CoreMatchers.anyOf;
-import static org.hamcrest.CoreMatchers.is;
+import jgaliweather.nlg.nlg_generators.ICAGenerator;
 import org.javatuples.Pair;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.anyOf;
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 /**
  *
@@ -59,7 +57,7 @@ public class CP26 {
 
         try {
             TemplateReader tr = new TemplateReader();
-            tr.parseFile("Configuration/Languages/english.xml");
+            tr.parseFile("Configuration/templates.xml");
             
             VariableReader vr = new VariableReader();
             vr.parseFile("Configuration/variables.xml");
@@ -70,15 +68,15 @@ public class CP26 {
             
             Variable wind_var = new Variable("Viento");
             
-            wind_var.getValues().add(new Value(299, 0));
-            wind_var.getValues().add(new Value(299, 1));
-            wind_var.getValues().add(new Value(299, 2));
-            wind_var.getValues().add(new Value(299, 3));
-            wind_var.getValues().add(new Value(299, 4));
-            wind_var.getValues().add(new Value(299, 5));
-            wind_var.getValues().add(new Value(299, 6));
-            wind_var.getValues().add(new Value(299, 7));
-            wind_var.getValues().add(new Value(299, 8));
+            wind_var.getValues().add(new Value(307, 0));
+            wind_var.getValues().add(new Value(307, 1));
+            wind_var.getValues().add(new Value(307, 2));
+            wind_var.getValues().add(new Value(307, 3));
+            wind_var.getValues().add(new Value(307, 4));
+            wind_var.getValues().add(new Value(305, 5));
+            wind_var.getValues().add(new Value(307, 6));
+            wind_var.getValues().add(new Value(307, 7));
+            wind_var.getValues().add(new Value(306, 8));
             
             Pair<Integer, Integer> WIND_INTERVAL = new Pair(309, 332);
             
@@ -88,15 +86,15 @@ public class CP26 {
             
             Variable sky_var = new Variable("Meteoro");
             
-            sky_var.getValues().add(new Value(111, 0));
-            sky_var.getValues().add(new Value(108, 1));
-            sky_var.getValues().add(new Value(108, 2));
-            sky_var.getValues().add(new Value(104, 3));
-            sky_var.getValues().add(new Value(104, 4));
-            sky_var.getValues().add(new Value(103, 5));
-            sky_var.getValues().add(new Value(104, 6));
-            sky_var.getValues().add(new Value(104, 7));
-            sky_var.getValues().add(new Value(104, 8));
+            sky_var.getValues().add(new Value(103, 0));
+            sky_var.getValues().add(new Value(104, 1));
+            sky_var.getValues().add(new Value(116, 2));
+            sky_var.getValues().add(new Value(102, 3));
+            sky_var.getValues().add(new Value(107, 4));
+            sky_var.getValues().add(new Value(107, 5));
+            sky_var.getValues().add(new Value(110, 6));
+            sky_var.getValues().add(new Value(110, 7));
+            sky_var.getValues().add(new Value(108, 8));
             
             ICASkyStateOperator ss_op = new ICASkyStateOperator(partitions.get("C"), sky_var, 9);
             
@@ -112,9 +110,9 @@ public class CP26 {
             
             Variable curr_var = new Variable("Meteoro");
             
-            curr_var.getValues().add(new Value(1, 0));
-            curr_var.getValues().add(new Value(3, 1));
-            curr_var.getValues().add(new Value(3, 2));
+            curr_var.getValues().add(new Value(3, 0));
+            curr_var.getValues().add(new Value(1, 1));
+            curr_var.getValues().add(new Value(1, 2));
             
             ICAOperator ica_op = new ICAOperator(partitions.get("ICA"), curr_var);
             
@@ -125,11 +123,11 @@ public class CP26 {
             String salida = nssg.generate();
             
             /*
-             *   En lo que se refiere al estado de la calidad del aire, se espera que cambie a admisible, debido al
-             *   tiempo sin lluvia de los próximos días.
+             *   En lo que se refiere al estado de la calidad del aire, se espera que mejore a bueno, favorecido por
+             *   las precipitaciones de los próximos días.
              */
-            assertThat(salida, anyOf(is("With respect to air quality state, it is expected to change to admissible, because of the dry weather during the coming days."), 
-                    is("With respect to air quality state, it is expected to change to admissible, because of the dry weather during the next few days.")));
+            assertThat(salida, anyOf(is("With respect to air quality state, it is expected to improve to good, favored by the precitipations during the coming days."), 
+                    is("With respect to air quality state, it is expected to improve to good, favored by the precitipations during the next few days.")));
         } catch (Exception ex) {
             Logger.getLogger(CP26.class.getName()).log(Level.SEVERE, null, ex);
         }

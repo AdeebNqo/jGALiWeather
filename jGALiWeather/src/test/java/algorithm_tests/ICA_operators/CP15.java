@@ -1,22 +1,21 @@
 package algorithm_tests.ICA_operators;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import jgaliweather.algorithm.ICA_operators.ICASkyStateOperator;
+import jgaliweather.algorithm.ICA_operators.ICAOperator;
 import jgaliweather.configuration.partition_reader.Partition;
 import jgaliweather.configuration.partition_reader.PartitionReader;
 import jgaliweather.data.data_structures.Value;
 import jgaliweather.data.data_structures.Variable;
-import org.junit.Assert;
 import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-/* Tests ICASkyState operators */
+/* Tests ICA operator */
 public class CP15 {
 
     public CP15() {
@@ -48,23 +47,15 @@ public class CP15 {
             
             Variable curr_var = new Variable("Meteoro");
             
-            curr_var.getValues().add(new Value(110, 0));
-            curr_var.getValues().add(new Value(103, 1));
-            curr_var.getValues().add(new Value(111, 2));
-            curr_var.getValues().add(new Value(107, 3));
-            curr_var.getValues().add(new Value(118, 4));
-            curr_var.getValues().add(new Value(101, 5));
-            curr_var.getValues().add(new Value(109, 6));
-            curr_var.getValues().add(new Value(102, 7));
-            curr_var.getValues().add(new Value(113, 8));
+            curr_var.getValues().add(new Value(5, 0));
+            curr_var.getValues().add(new Value(1, 1));
+            curr_var.getValues().add(new Value(3, 2));
             
-            ICASkyStateOperator ss_op = new ICASkyStateOperator(partitions.get("C"), curr_var, 9);
+            ICAOperator r_op = new ICAOperator(partitions.get("ICA"), curr_var);
             
-            ArrayList<HashMap<String, Double>> salida = ss_op.applyOperator();
+            String salida = r_op.applyOperator();
             
-            double DELTA = 1e-15;
-            Assert.assertEquals(1.3333333333333333, salida.get(0).get("CL"), DELTA);
-            Assert.assertEquals(1.0, salida.get(2).get("C"), DELTA);
+            Assert.assertEquals("- + I", salida);
         } catch (Exception ex) {
             Logger.getLogger(CP15.class.getName()).log(Level.SEVERE, null, ex);
         }

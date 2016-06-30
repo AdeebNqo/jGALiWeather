@@ -22,22 +22,22 @@ import static org.junit.Assert.*;
  * @author Difma
  */
 public class CP91 {
-
+    
     public CP91() {
     }
-
+    
     @BeforeClass
     public static void setUpClass() {
     }
-
+    
     @AfterClass
     public static void tearDownClass() {
     }
-
+    
     @Before
     public void setUp() {
     }
-
+    
     @After
     public void tearDown() {
     }
@@ -47,29 +47,29 @@ public class CP91 {
 
         try {
 
-            String id = "27051";
+            String id = "27058";
 
             ArrayList<String> dates = new ArrayList();
-            dates.add("2015-10-16");
-            dates.add("2015-10-17");
-            dates.add("2015-10-18");
-            dates.add("2015-10-19");
+            dates.add("2015-09-12");
+            dates.add("2015-09-13");
+            dates.add("2015-09-14");
+            dates.add("2015-09-15");
 
             SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = sdt.parse("2015-10-16");
+            Date date = sdt.parse("2015-09-12");
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
-
+            
             PredictionSummarizer ps = new PredictionSummarizer("Configuration/configuration.xml", "");
             String salida = ps.generateTextualForecastsTest(id, dates, cal);
 
             /*
-             *   Tendremos cielos poco nubosos o despejados al principio del periodo, aunque hacia la mitad y al final del mismo tenderán a estar parcialmente nubosos. Tendremos 
-             *   precipitaciones el sábado por la noche y el lunes. Las temperaturas serán normales para esta época del año, con mínimas en ascenso moderado y máximas en descenso 
-             *   ligero, a pesar de que oscilarán.
+             *   Cielos parcialmente nubosos en general durante los próximos días, aunque ocasionalmente se encontrarán muy nubosos. Tendremos precipitaciones el domingo, el lunes y 
+             *   el martes. Las temperaturas serán normales para esta época del año, con mínimas sin cambios aunque oscilarán y máximas en descenso ligero. Viento fuerte del Sudoeste
+             *   el martes por la noche.
              */
-            assertEquals(salida, "There will be clear skies at the beginning of the term, although they will be partly cloudy towards the middle and at the end of the term. Precipitations are expected on Saturday night and on Monday. Temperature will be normal for this period of the year, with minimums in moderate increase and maximums in slight decrease, despite that they will oscillate.");
+            assertEquals(salida, "Partly cloudy skies in general for the next few days, although it will occasionally be cloudy. Precipitations are expected on Sunday, Monday and Tuesday. Temperature will be normal for this period of the year, with minimums without changes although they will oscillate and maximums in slight decrease. Strong Southwest wind on Tuesday night.");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

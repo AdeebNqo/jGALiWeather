@@ -47,16 +47,16 @@ public class CP71 {
 
         try {
 
-            String id = "15067";
+            String id = "32091";
 
             ArrayList<String> dates = new ArrayList();
-            dates.add("2015-09-25");
-            dates.add("2015-09-26");
-            dates.add("2015-09-27");
-            dates.add("2015-09-28");
+            dates.add("2015-07-21");
+            dates.add("2015-07-22");
+            dates.add("2015-07-23");
+            dates.add("2015-07-24");
 
             SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = sdt.parse("2015-09-25");
+            Date date = sdt.parse("2015-07-21");
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
@@ -65,10 +65,10 @@ public class CP71 {
             String salida = ps.generateTextualForecastsTest(id, dates, cal);
 
             /*
-             *   Cielos poco nubosos o despejados en general durante los próximos días, aunque ocasionalmente se encontrarán parcialmente nubosos. Habrá nieblas nocturnas el sábado. 
-             *   Las temperaturas serán normales para esta época del año, con mínimas en descenso ligero y máximas sin cambios.
+             *   Se espera que los cielos alternen periodos parcialmente nubosos con otros poco nubosos o despejados. Tendremos precipitaciones el martes por la tarde. Las 
+             *   temperaturas serán normales para esta época del año, con mínimas en descenso ligero y máximas en descenso moderado, a pesar de que oscilarán.
              */
-            assertEquals(salida, "Clear skies in general for the next few days, although it will occasionally be partly cloudy. There will be night fog on Saturday. Temperature will be normal for this period of the year, with minimums in slight decrease and maximums without changes.");
+            assertEquals(salida, "It is expected an alternance of partly cloudy skies periods with other clear periods. Precipitations are expected on Tuesday afternoon. Temperature will be normal for this period of the year, with minimums in slight decrease and maximums in moderate decrease, despite that they will oscillate.");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

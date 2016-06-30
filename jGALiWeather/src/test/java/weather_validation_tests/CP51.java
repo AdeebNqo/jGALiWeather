@@ -47,16 +47,16 @@ public class CP51 {
 
         try {
 
-            String id = "27045";
+            String id = "32013";
 
             ArrayList<String> dates = new ArrayList();
-            dates.add("2015-09-04");
-            dates.add("2015-09-05");
-            dates.add("2015-09-06");
-            dates.add("2015-09-07");
+            dates.add("2015-08-14");
+            dates.add("2015-08-15");
+            dates.add("2015-08-16");
+            dates.add("2015-08-17");
 
             SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = sdt.parse("2015-09-04");
+            Date date = sdt.parse("2015-08-14");
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
@@ -65,10 +65,10 @@ public class CP51 {
             String salida = ps.generateTextualForecastsTest(id, dates, cal);
 
             /*
-             *   Cielos poco nubosos o despejados en general durante los próximos días, aunque ocasionalmente se encontrarán parcialmente nubosos. Las temperaturas serán 
-             *   normales para esta época del año, con mínimas en ascenso ligero aunque oscilarán y máximas en ascenso notable.
+             *   Se espera que los cielos alternen periodos muy nubosos con otros parcialmente nubosos. Habrá nieblas matinales el sábado y el domingo. Tendremos precipitaciones 
+             *   el domingo por la noche. Las temperaturas serán normales para esta época del año, con valores que globalmente se encontrarán en ascenso moderado.
              */
-            assertEquals(salida, "Clear skies in general for the next few days, although it will occasionally be partly cloudy. Temperature will be normal for this period of the year, with minimums in slight increase although they will oscillate and maximums in notable increase.");
+            assertEquals(salida, "It is expected an alternance of cloudy skies periods with other partly cloudy periods. There will be morning fog on Saturday and on Sunday. Precipitations are expected on Sunday night. Temperature will be normal for this period of the year, which will globally be in moderate increase.");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

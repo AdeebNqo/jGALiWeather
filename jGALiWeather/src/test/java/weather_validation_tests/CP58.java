@@ -47,16 +47,16 @@ public class CP58 {
 
         try {
 
-            String id = "32054";
+            String id = "32082";
 
             ArrayList<String> dates = new ArrayList();
-            dates.add("2016-03-11");
-            dates.add("2016-03-12");
-            dates.add("2016-03-13");
-            dates.add("2016-03-14");
+            dates.add("2015-08-01");
+            dates.add("2015-08-02");
+            dates.add("2015-08-03");
+            dates.add("2015-08-04");
 
             SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = sdt.parse("2016-03-11");
+            Date date = sdt.parse("2015-08-01");
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
@@ -65,10 +65,10 @@ public class CP58 {
             String salida = ps.generateTextualForecastsTest(id, dates, cal);
 
             /*
-             *   Cielos poco nubosos o despejados en general durante los próximos días. Habrá nieblas matinales el viernes. Las temperaturas serán normales para esta época 
-             *   del año, con mínimas sin cambios y máximas en ascenso moderado, a pesar de que oscilarán.
+             *   Cielos poco nubosos o despejados en general durante los próximos días, aunque ocasionalmente se encontrarán parcialmente nubosos. Las temperaturas serán normales 
+             *   para esta época del año, con mínimas en descenso moderado aunque oscilarán y máximas en ascenso moderado.
              */
-            assertEquals(salida, "Clear skies in general for the next few days. There will be morning fog on Friday. Temperature will be normal for this period of the year, with minimums without changes and maximums in moderate increase, despite that they will oscillate.");
+            assertEquals(salida, "Clear skies in general for the next few days, although it will occasionally be partly cloudy. Temperature will be normal for this period of the year, with minimums in moderate decrease although they will oscillate and maximums in moderate increase.");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

@@ -47,16 +47,16 @@ public class CP68 {
 
         try {
 
-            String id = "32091";
+            String id = "27060";
 
             ArrayList<String> dates = new ArrayList();
-            dates.add("2015-07-21");
-            dates.add("2015-07-22");
-            dates.add("2015-07-23");
-            dates.add("2015-07-24");
+            dates.add("2016-03-11");
+            dates.add("2016-03-12");
+            dates.add("2016-03-13");
+            dates.add("2016-03-14");
 
             SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = sdt.parse("2015-07-21");
+            Date date = sdt.parse("2016-03-11");
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
@@ -65,10 +65,11 @@ public class CP68 {
             String salida = ps.generateTextualForecastsTest(id, dates, cal);
 
             /*
-             *   Se espera que los cielos alternen periodos parcialmente nubosos con otros poco nubosos o despejados. Tendremos precipitaciones el martes por la tarde. Las 
-             *   temperaturas serán normales para esta época del año, con mínimas en descenso ligero y máximas en descenso moderado, a pesar de que oscilarán.
+             *   Cielos poco nubosos o despejados en general durante los próximos días, aunque ocasionalmente se encontrarán parcialmente nubosos. Habrá nieblas matinales el sábado. 
+             *   Las temperaturas serán bajas para las mínimas y normales para las máximas respecto a lo habitual en esta época del año, con mínimas en descenso ligero y máximas en 
+             *   ascenso moderado, a pesar de que oscilarán.
              */
-            assertEquals(salida, "It is expected an alternance of partly cloudy skies periods with other clear periods. Precipitations are expected on Tuesday afternoon. Temperature will be normal for this period of the year, with minimums in slight decrease and maximums in moderate decrease, despite that they will oscillate.");
+            assertEquals(salida, "Clear skies in general for the next few days, although it will occasionally be partly cloudy. There will be morning fog on Saturday. Temperature will be low for minimums and normal for maximums compared to the expected for this time of the year, with minimums in slight decrease and maximums in moderate increase, despite that they will oscillate.");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

@@ -47,16 +47,16 @@ public class CP90 {
 
         try {
 
-            String id = "27033";
+            String id = "36019";
 
             ArrayList<String> dates = new ArrayList();
-            dates.add("2015-10-11");
-            dates.add("2015-10-12");
-            dates.add("2015-10-13");
-            dates.add("2015-10-14");
+            dates.add("2015-11-12");
+            dates.add("2015-11-13");
+            dates.add("2015-11-14");
+            dates.add("2015-11-15");
 
             SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = sdt.parse("2015-10-11");
+            Date date = sdt.parse("2015-11-12");
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
@@ -65,10 +65,10 @@ public class CP90 {
             String salida = ps.generateTextualForecastsTest(id, dates, cal);
 
             /*
-             *   Se espera que los cielos alternen periodos muy nubosos con otros parcialmente nubosos. Tendremos precipitaciones el domingo, el lunes y el martes. Las temperaturas 
-             *   serán altas para las mínimas y normales para las máximas respecto a lo habitual en esta época del año, con mínimas en descenso moderado y máximas en descenso ligero.
+             *   Cielos poco nubosos o despejados en general durante los próximos días, aunque ocasionalmente se encontrarán parcialmente nubosos. Las temperaturas serán altas para 
+             *   esta época del año, con mínimas en descenso ligero y máximas sin cambios, a pesar de que oscilarán.
              */
-            assertEquals(salida, "It is expected an alternance of cloudy skies periods with other partly cloudy periods. Precipitations are expected on Sunday, Monday and Tuesday. Temperature will be high for minimums and normal for maximums compared to the expected for this time of the year, with minimums in moderate decrease and maximums in slight decrease.");
+            assertEquals(salida, "Clear skies in general for the next few days, although it will occasionally be partly cloudy. Temperature will be high for this period of the year, with minimums in slight decrease and maximums without changes, despite that they will oscillate.");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

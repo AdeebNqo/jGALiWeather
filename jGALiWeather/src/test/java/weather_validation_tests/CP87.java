@@ -47,16 +47,16 @@ public class CP87 {
 
         try {
 
-            String id = "36019";
+            String id = "36035";
 
             ArrayList<String> dates = new ArrayList();
-            dates.add("2015-11-12");
-            dates.add("2015-11-13");
-            dates.add("2015-11-14");
-            dates.add("2015-11-15");
+            dates.add("2015-10-12");
+            dates.add("2015-10-13");
+            dates.add("2015-10-14");
+            dates.add("2015-10-15");
 
             SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = sdt.parse("2015-11-12");
+            Date date = sdt.parse("2015-10-12");
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
@@ -65,10 +65,10 @@ public class CP87 {
             String salida = ps.generateTextualForecastsTest(id, dates, cal);
 
             /*
-             *   Cielos poco nubosos o despejados en general durante los próximos días, aunque ocasionalmente se encontrarán parcialmente nubosos. Las temperaturas serán altas para 
-             *   esta época del año, con mínimas en descenso ligero y máximas sin cambios, a pesar de que oscilarán.
+             *   Tendremos cielos parcialmente nubosos al principio del periodo, aunque hacia la mitad y al final del mismo tenderán a estar poco nubosos o despejados. Tendremos 
+             *   precipitaciones el lunes. Las temperaturas serán normales para esta época del año, con mínimas en descenso moderado y máximas sin cambios.
              */
-            assertEquals(salida, "Clear skies in general for the next few days, although it will occasionally be partly cloudy. Temperature will be high for this period of the year, with minimums in slight decrease and maximums without changes, despite that they will oscillate.");
+            assertEquals(salida, "There will be partly cloudy skies at the beginning of the term, although they will be clear towards the middle and at the end of the term. Precipitations are expected on Monday. Temperature will be normal for this period of the year, with minimums in moderate decrease and maximums without changes.");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

@@ -5,23 +5,14 @@
         <inpath name="variables">Configuration/variables.xml</inpath>
         <inpath name="partitions">Configuration/partitions.xml</inpath>
         <inpath name="temperatures">Configuration/temperatures.xml</inpath>
+        <inpath name="templates">Configuration/templates.xml</inpath>
     </inpaths>
-
-    <outpaths>
-        <outpath name="output_dir">C:\\</outpath>
-    </outpaths>
-
-    <languages>
-	    <language name="1">
-            <alternative>Configuration/Languages/english.xml</alternative>
-        </language>
-    </languages>
 
     <connections>
         <database name="prediccion">
             <driver>x</driver>
             <host>127.0.0.1</host>
-            <dbname>D:/OneDrive/Clase/TFG/jGALiWeather/jGALiWeather/estudio6-6.db</dbname>
+            <dbname>D:/OneDrive/Clase/TFG/jGALiWeather/datos_meteoroloxicos.db</dbname>
             <user>Predicion_USC</user>
             <pass>Alejandro,USC</pass>
         </database>

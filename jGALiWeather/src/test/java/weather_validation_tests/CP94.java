@@ -22,22 +22,22 @@ import static org.junit.Assert.*;
  * @author Difma
  */
 public class CP94 {
-    
+
     public CP94() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -47,16 +47,16 @@ public class CP94 {
 
         try {
 
-            String id = "32035";
+            String id = "27051";
 
             ArrayList<String> dates = new ArrayList();
-            dates.add("2015-09-21");
-            dates.add("2015-09-22");
-            dates.add("2015-09-23");
-            dates.add("2015-09-24");
+            dates.add("2015-10-16");
+            dates.add("2015-10-17");
+            dates.add("2015-10-18");
+            dates.add("2015-10-19");
 
             SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = sdt.parse("2015-09-21");
+            Date date = sdt.parse("2015-10-16");
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
@@ -65,10 +65,11 @@ public class CP94 {
             String salida = ps.generateTextualForecastsTest(id, dates, cal);
 
             /*
-             *   Se espera que los cielos alternen periodos parcialmente nubosos con otros poco nubosos o despejados. Las temperaturas serán normales para esta época del año, 
-             *   con valores que globalmente se encontrarán en ascenso ligero aunque oscilarán.
+             *   Tendremos cielos poco nubosos o despejados al principio del periodo, aunque hacia la mitad y al final del mismo tenderán a estar parcialmente nubosos. Tendremos 
+             *   precipitaciones el sábado por la noche y el lunes. Las temperaturas serán normales para esta época del año, con mínimas en ascenso moderado y máximas en descenso 
+             *   ligero, a pesar de que oscilarán.
              */
-            assertEquals(salida, "It is expected an alternance of partly cloudy skies periods with other clear periods. Temperature will be normal for this period of the year, which will globally be in slight increase although they will oscillate.");
+            assertEquals(salida, "There will be clear skies at the beginning of the term, although they will be partly cloudy towards the middle and at the end of the term. Precipitations are expected on Saturday night and on Monday. Temperature will be normal for this period of the year, with minimums in moderate increase and maximums in slight decrease, despite that they will oscillate.");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

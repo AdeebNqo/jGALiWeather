@@ -47,16 +47,16 @@ public class CP65 {
 
         try {
 
-            String id = "27060";
+            String id = "15087";
 
             ArrayList<String> dates = new ArrayList();
-            dates.add("2016-03-11");
-            dates.add("2016-03-12");
-            dates.add("2016-03-13");
-            dates.add("2016-03-14");
+            dates.add("2015-10-17");
+            dates.add("2015-10-18");
+            dates.add("2015-10-19");
+            dates.add("2015-10-20");
 
             SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = sdt.parse("2016-03-11");
+            Date date = sdt.parse("2015-10-17");
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
@@ -65,11 +65,10 @@ public class CP65 {
             String salida = ps.generateTextualForecastsTest(id, dates, cal);
 
             /*
-             *   Cielos poco nubosos o despejados en general durante los próximos días, aunque ocasionalmente se encontrarán parcialmente nubosos. Habrá nieblas matinales el sábado. 
-             *   Las temperaturas serán bajas para las mínimas y normales para las máximas respecto a lo habitual en esta época del año, con mínimas en descenso ligero y máximas en 
-             *   ascenso moderado, a pesar de que oscilarán.
+             *   Cielos parcialmente nubosos en general durante los próximos días. Tendremos precipitaciones el sábado por la noche y el lunes. Las temperaturas serán altas para las 
+             *   mínimas y normales para las máximas respecto a lo habitual en esta época del año, con mínimas sin cambios aunque oscilarán y máximas en descenso ligero.
              */
-            assertEquals(salida, "Clear skies in general for the next few days, although it will occasionally be partly cloudy. There will be morning fog on Saturday. Temperature will be low for minimums and normal for maximums compared to the expected for this time of the year, with minimums in slight decrease and maximums in moderate increase, despite that they will oscillate.");
+            assertEquals(salida, "Partly cloudy skies in general for the next few days. Precipitations are expected on Saturday night and on Monday. Temperature will be high for minimums and normal for maximums compared to the expected for this time of the year, with minimums without changes although they will oscillate and maximums in slight decrease.");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

@@ -47,16 +47,16 @@ public class CP83 {
 
         try {
 
-            String id = "32039";
+            String id = "27055";
 
             ArrayList<String> dates = new ArrayList();
-            dates.add("2016-02-27");
-            dates.add("2016-02-28");
-            dates.add("2016-02-29");
-            dates.add("2016-03-01");
+            dates.add("2015-10-17");
+            dates.add("2015-10-18");
+            dates.add("2015-10-19");
+            dates.add("2015-10-20");
 
             SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = sdt.parse("2016-02-27");
+            Date date = sdt.parse("2015-10-17");
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
@@ -65,12 +65,11 @@ public class CP83 {
             String salida = ps.generateTextualForecastsTest(id, dates, cal);
 
             /*
-             *   Tendremos cielos parcialmente nubosos al principio y hacia la mitad del periodo, aunque al final del mismo tenderán a estar poco nubosos o despejados. Tendremos 
-             *   precipitaciones el sábado, que podrán ser de nieve el sábado. Las temperaturas serán normales para esta época del año, con mínimas en ascenso ligero aunque oscilarán 
-             *   y máximas en ascenso moderado. Viento fuerte del Noroeste desde el sábado por la tarde, cambiando a fuerte del Norte el domingo por la mañana; y fuerte del Norte 
-             *   del domingo por la noche al lunes por la mañana.
+             *   Cielos parcialmente nubosos en general durante los próximos días, aunque ocasionalmente se encontrarán poco nubosos o despejados. Tendremos precipitaciones el sábado 
+             *   y el domingo por la noche. Las temperaturas serán altas para esta época del año, con mínimas sin cambios y máximas en descenso moderado. Viento fuerte del Este desde 
+             *   el sábado por la tarde, cambiando a fuerte del Sudeste el sábado por la noche; y fuerte del Nordeste del martes por la mañana al martes por la tarde.
              */
-            assertEquals(salida, "There will be partly cloudy skies at the beginning and towards the middle of the term, although they will be clear at the end of the term. Precipitations are expected on Saturday, which can be of snow on Saturday. Temperature will be normal for this period of the year, with minimums in slight increase although they will oscillate and maximums in moderate increase. Strong Northwest wind from Saturday afternoon, changing to strong North on Sunday morning and strong North from Sunday night to Monday morning.");
+            assertEquals(salida, "Partly cloudy skies in general for the next few days, although it will occasionally be clear. Precipitations are expected on Saturday and on Sunday night. Temperature will be high for this period of the year, with minimums without changes and maximums in moderate decrease. Strong East wind from Saturday afternoon, changing to strong Southeast on Saturday night and strong Northeast from Tuesday morning to Tuesday afternoon.");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

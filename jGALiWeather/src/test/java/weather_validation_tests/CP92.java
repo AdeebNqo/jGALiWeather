@@ -47,28 +47,29 @@ public class CP92 {
 
         try {
 
-            String id = "36017";
+            String id = "36018";
 
             ArrayList<String> dates = new ArrayList();
-            dates.add("2015-11-13");
-            dates.add("2015-11-14");
-            dates.add("2015-11-15");
-            dates.add("2015-11-16");
+            dates.add("2015-07-15");
+            dates.add("2015-07-16");
+            dates.add("2015-07-17");
+            dates.add("2015-07-18");
 
             SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = sdt.parse("2015-11-13");
+            Date date = sdt.parse("2015-07-15");
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
-
+            
             PredictionSummarizer ps = new PredictionSummarizer("Configuration/configuration.xml", "");
             String salida = ps.generateTextualForecastsTest(id, dates, cal);
 
             /*
-             *   Se espera que los cielos alternen periodos parcialmente nubosos con otros poco nubosos o despejados. Las temperaturas serán altas para las mínimas y normales para 
-             *   las máximas respecto a lo habitual en esta época del año, con mínimas en ascenso ligero y máximas en descenso ligero.
+             *   Tendremos cielos poco nubosos o despejados al principio y hacia la mitad del periodo, aunque al final del mismo tenderán a estar parcialmente nubosos. Las 
+             *   temperaturas serán altas para las mínimas y normales para las máximas respecto a lo habitual en esta época del año, con mínimas sin cambios y máximas en descenso 
+             *   moderado, a pesar de que oscilarán.
              */
-            assertEquals(salida, "It is expected an alternance of partly cloudy skies periods with other clear periods. Temperature will be high for minimums and normal for maximums compared to the expected for this time of the year, with minimums in slight increase and maximums in slight decrease.");
+            assertEquals(salida, "There will be clear skies at the beginning and towards the middle of the term, although they will be partly cloudy at the end of the term. Temperature will be high for minimums and normal for maximums compared to the expected for this time of the year, with minimums without changes and maximums in moderate decrease, despite that they will oscillate.");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

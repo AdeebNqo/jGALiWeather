@@ -47,16 +47,16 @@ public class CP66 {
 
         try {
 
-            String id = "27026";
+            String id = "36057";
 
             ArrayList<String> dates = new ArrayList();
-            dates.add("2015-10-09");
-            dates.add("2015-10-10");
-            dates.add("2015-10-11");
-            dates.add("2015-10-12");
+            dates.add("2015-11-11");
+            dates.add("2015-11-12");
+            dates.add("2015-11-13");
+            dates.add("2015-11-14");
 
             SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = sdt.parse("2015-10-09");
+            Date date = sdt.parse("2015-11-11");
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
@@ -65,11 +65,10 @@ public class CP66 {
             String salida = ps.generateTextualForecastsTest(id, dates, cal);
 
             /*
-             *   Tendremos cielos poco nubosos o despejados al principio del periodo, aunque hacia la mitad y al final del mismo tenderán a estar parcialmente nubosos. Tendremos 
-             *   precipitaciones el sábado, el domingo y el lunes. Las temperaturas serán altas para las mínimas y normales para las máximas respecto a lo habitual en esta época 
-             *   del año, con mínimas en ascenso moderado aunque oscilarán y máximas en descenso moderado.
+             *   Cielos poco nubosos o despejados en general durante los próximos días, aunque ocasionalmente se encontrarán parcialmente nubosos. Las temperaturas serán normales 
+             *   para las mínimas y altas para las máximas respecto a lo habitual en esta época del año, con mínimas en descenso ligero y máximas sin cambios, a pesar de que oscilarán.
              */
-            assertEquals(salida, "There will be clear skies at the beginning of the term, although they will be partly cloudy towards the middle and at the end of the term. Precipitations are expected on Saturday, Sunday and Monday. Temperature will be high for minimums and normal for maximums compared to the expected for this time of the year, with minimums in moderate increase although they will oscillate and maximums in moderate decrease.");
+            assertEquals(salida, "Clear skies in general for the next few days, although it will occasionally be partly cloudy. Temperature will be normal for minimums and high for maximums compared to the expected for this time of the year, with minimums in slight decrease and maximums without changes, despite that they will oscillate.");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

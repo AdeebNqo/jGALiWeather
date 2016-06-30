@@ -16,18 +16,16 @@ import jgaliweather.configuration.template_reader.TemplateReader;
 import jgaliweather.configuration.variable_reader.VariableReader;
 import jgaliweather.data.data_structures.Value;
 import jgaliweather.data.data_structures.Variable;
-import jgaliweather.nlg_simpleNLG.nlg_generators.ICAGenerator;
-import static org.hamcrest.CoreMatchers.anyOf;
-import static org.hamcrest.CoreMatchers.is;
+import jgaliweather.nlg.nlg_generators.ICAGenerator;
 import org.javatuples.Pair;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.anyOf;
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 /**
  *
@@ -59,7 +57,7 @@ public class CP28 {
 
         try {
             TemplateReader tr = new TemplateReader();
-            tr.parseFile("Configuration/Languages/english.xml");
+            tr.parseFile("Configuration/templates.xml");
             
             VariableReader vr = new VariableReader();
             vr.parseFile("Configuration/variables.xml");
@@ -88,15 +86,15 @@ public class CP28 {
             
             Variable sky_var = new Variable("Meteoro");
             
-            sky_var.getValues().add(new Value(111, 0));
-            sky_var.getValues().add(new Value(110, 1));
-            sky_var.getValues().add(new Value(108, 2));
+            sky_var.getValues().add(new Value(103, 0));
+            sky_var.getValues().add(new Value(103, 1));
+            sky_var.getValues().add(new Value(104, 2));
             sky_var.getValues().add(new Value(104, 3));
             sky_var.getValues().add(new Value(104, 4));
             sky_var.getValues().add(new Value(103, 5));
-            sky_var.getValues().add(new Value(102, 6));
-            sky_var.getValues().add(new Value(101, 7));
-            sky_var.getValues().add(new Value(101, 8));
+            sky_var.getValues().add(new Value(104, 6));
+            sky_var.getValues().add(new Value(104, 7));
+            sky_var.getValues().add(new Value(104, 8));
             
             ICASkyStateOperator ss_op = new ICASkyStateOperator(partitions.get("C"), sky_var, 9);
             
@@ -112,9 +110,9 @@ public class CP28 {
             
             Variable curr_var = new Variable("Meteoro");
             
-            curr_var.getValues().add(new Value(1, 0));
+            curr_var.getValues().add(new Value(3, 0));
             curr_var.getValues().add(new Value(3, 1));
-            curr_var.getValues().add(new Value(5, 2));
+            curr_var.getValues().add(new Value(3, 2));
             
             ICAOperator ica_op = new ICAOperator(partitions.get("ICA"), curr_var);
             
@@ -125,11 +123,11 @@ public class CP28 {
             String salida = nssg.generate();
             
             /*
-             *   En lo que se refiere al estado de la calidad del aire, se espera que cambie progresivamente a
-             *   malo, debido al tiempo soleado y estable de los próximos días.
+             *   En lo que se refiere al estado de la calidad del aire, se mantendrá admisible en general, debido al
+             *   tiempo sin lluvia de los próximos días.
              */
-            assertThat(salida, anyOf(is("With respect to air quality state, it is expected to change progressively to bad, because of the sunny and stable weather in the coming days."), 
-                    is("With respect to air quality state, it is expected to change progressively to bad, because of the sunny and stable weather in the next few days.")));
+            assertThat(salida, anyOf(is("With respect to air quality state, it will be to remain admissible in general, because of the dry weather during the coming days."), 
+                    is("With respect to air quality state, it will be to remain admissible in general, because of the dry weather during the next few days.")));
         } catch (Exception ex) {
             Logger.getLogger(CP28.class.getName()).log(Level.SEVERE, null, ex);
         }

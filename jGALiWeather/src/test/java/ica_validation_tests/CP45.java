@@ -16,7 +16,7 @@ import jgaliweather.configuration.template_reader.TemplateReader;
 import jgaliweather.configuration.variable_reader.VariableReader;
 import jgaliweather.data.data_structures.Value;
 import jgaliweather.data.data_structures.Variable;
-import jgaliweather.nlg_simpleNLG.nlg_generators.ICAGenerator;
+import jgaliweather.nlg.nlg_generators.ICAGenerator;
 import org.javatuples.Pair;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -24,6 +24,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.anyOf;
+import static org.hamcrest.CoreMatchers.is;
 
 /**
  *
@@ -55,7 +57,7 @@ public class CP45 {
 
         try {
             TemplateReader tr = new TemplateReader();
-            tr.parseFile("Configuration/Languages/english.xml");
+            tr.parseFile("Configuration/templates.xml");
             
             VariableReader vr = new VariableReader();
             vr.parseFile("Configuration/variables.xml");
@@ -72,9 +74,9 @@ public class CP45 {
             wind_var.getValues().add(new Value(299, 3));
             wind_var.getValues().add(new Value(299, 4));
             wind_var.getValues().add(new Value(299, 5));
-            wind_var.getValues().add(new Value(305, 6));
-            wind_var.getValues().add(new Value(312, 7));
-            wind_var.getValues().add(new Value(312, 8));
+            wind_var.getValues().add(new Value(299, 6));
+            wind_var.getValues().add(new Value(299, 7));
+            wind_var.getValues().add(new Value(299, 8));
             
             Pair<Integer, Integer> WIND_INTERVAL = new Pair(309, 332);
             
@@ -110,7 +112,7 @@ public class CP45 {
             
             curr_var.getValues().add(new Value(5, 0));
             curr_var.getValues().add(new Value(6, 1));
-            curr_var.getValues().add(new Value(5, 2));
+            curr_var.getValues().add(new Value(6, 2));
             
             ICAOperator ica_op = new ICAOperator(partitions.get("ICA"), curr_var);
             
@@ -121,10 +123,11 @@ public class CP45 {
             String salida = nssg.generate();
             
             /*
-             *   En lo que se refiere al estado de la calidad del aire, será variable aunque se espera que mejore a
-             *   malo.
+             *   En lo que se refiere al estado de la calidad del aire, se espera que cambie a muy malo, debido al
+             *   tiempo soleado y estable de los próximos días.
              */
-            assertEquals(salida, "With respect to air quality state, it will be changeable although it is expected to change to bad.");
+            assertThat(salida, anyOf(is("With respect to air quality state, it is expected to change to hazardous, because of the sunny and stable weather in the coming days."), 
+                    is("With respect to air quality state, it is expected to change to hazardous, because of the sunny and stable weather in the next few days.")));
         } catch (Exception ex) {
             Logger.getLogger(CP45.class.getName()).log(Level.SEVERE, null, ex);
         }

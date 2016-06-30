@@ -47,7 +47,7 @@ public class CP88 {
 
         try {
 
-            String id = "27058";
+            String id = "32056";
 
             ArrayList<String> dates = new ArrayList();
             dates.add("2015-09-12");
@@ -65,11 +65,11 @@ public class CP88 {
             String salida = ps.generateTextualForecastsTest(id, dates, cal);
 
             /*
-             *   Cielos parcialmente nubosos en general durante los próximos días, aunque ocasionalmente se encontrarán muy nubosos. Tendremos precipitaciones el domingo, el lunes y 
-             *   el martes. Las temperaturas serán normales para esta época del año, con mínimas sin cambios aunque oscilarán y máximas en descenso ligero. Viento fuerte del Sudoeste
-             *   el martes por la noche.
+             *   Cielos parcialmente nubosos en general durante los próximos días, aunque ocasionalmente se encontrarán muy nubosos. Tendremos precipitaciones el domingo, el lunes 
+             *   y el martes. Las temperaturas serán normales para esta época del año, con mínimas sin cambios aunque oscilarán y máximas en descenso ligero. Viento fuerte del Sur 
+             *   desde el martes por la mañana, cambiando a fuerte del Sudoeste el martes por la tarde.
              */
-            assertEquals(salida, "Partly cloudy skies in general for the next few days, although it will occasionally be cloudy. Precipitations are expected on Sunday, Monday and Tuesday. Temperature will be normal for this period of the year, with minimums without changes although they will oscillate and maximums in slight decrease. Strong Southwest wind on Tuesday night.");
+            assertEquals(salida, "Partly cloudy skies in general for the next few days, although it will occasionally be cloudy. Precipitations are expected on Sunday, Monday and Tuesday. Temperature will be normal for this period of the year, with minimums without changes although they will oscillate and maximums in slight decrease. Strong South wind from Tuesday morning, changing to strong Southwest on Tuesday afternoon.");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

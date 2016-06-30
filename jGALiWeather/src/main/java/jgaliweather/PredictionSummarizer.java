@@ -21,7 +21,6 @@ import jgaliweather.algorithm.weather_operators.TemperatureOperator;
 import jgaliweather.algorithm.weather_operators.WindOperator;
 import jgaliweather.configuration.configuration_reader.ConfigurationReader;
 import jgaliweather.configuration.configuration_reader.DatabaseConfiguration;
-import jgaliweather.configuration.configuration_reader.LanguageConfiguration;
 import jgaliweather.configuration.configuration_reader.TemperatureReader;
 import jgaliweather.configuration.logger.GALiLogger;
 import jgaliweather.configuration.partition_reader.CrispInterval;
@@ -40,12 +39,12 @@ import jgaliweather.data.data_structures.Value;
 import jgaliweather.data.data_structures.Variable;
 import jgaliweather.database.DatabaseConnector;
 import jgaliweather.nlg.DescriptionAggregator;
-import jgaliweather.nlg_simpleNLG.nlg_generators.FogGenerator;
-import jgaliweather.nlg_simpleNLG.nlg_generators.RainGenerator;
-import jgaliweather.nlg_simpleNLG.nlg_generators.SkyCoverageGeneratorLevel1;
-import jgaliweather.nlg_simpleNLG.nlg_generators.SkyCoverageGeneratorLevel2;
-import jgaliweather.nlg_simpleNLG.nlg_generators.TemperatureGenerator;
-import jgaliweather.nlg_simpleNLG.nlg_generators.WindGenerator;
+import jgaliweather.nlg.nlg_generators.FogGenerator;
+import jgaliweather.nlg.nlg_generators.RainGenerator;
+import jgaliweather.nlg.nlg_generators.SkyCoverageGeneratorLevel1;
+import jgaliweather.nlg.nlg_generators.SkyCoverageGeneratorLevel2;
+import jgaliweather.nlg.nlg_generators.TemperatureGenerator;
+import jgaliweather.nlg.nlg_generators.WindGenerator;
 import org.apache.commons.lang3.SerializationUtils;
 import org.javatuples.Pair;
 import simplenlg.framework.NLGElement;
@@ -77,8 +76,6 @@ public class PredictionSummarizer {
     private DatabaseConfiguration conn_data;
     private TemplateReader templates;
     private HashMap<String, Partition> partitions;
-    private LanguageConfiguration lng_data;
-    private String output_dir;
 
     public PredictionSummarizer(String config_file, String log_directory) {
 
@@ -95,8 +92,6 @@ public class PredictionSummarizer {
         this.variables = null;
         this.conn_data = null;
         this.partitions = null;
-        this.lng_data = null;
-        this.output_dir = null;
         GALiLogger.initLogger(log_directory);
     }
 
@@ -108,9 +103,7 @@ public class PredictionSummarizer {
         try {
             this.configuration = new ConfigurationReader();
             this.configuration.parseFile(this.config_file);
-            this.lng_data = this.configuration.getLng_data();
             this.conn_data = this.configuration.getDb_data().get("prediccion");
-            this.output_dir = this.configuration.getOutpaths().get("output_dir");
         } catch (Exception e) {
             GALiLogger.getLogger().log(Level.SEVERE, "\nError trying to parse %s:\n %s \nExiting...", config_file);
             System.exit(1);
@@ -136,10 +129,10 @@ public class PredictionSummarizer {
 
         try {
             TemplateReader tr = new TemplateReader();
-            tr.parseFile(this.lng_data.getLanguages().get(0).getPath());
+            tr.parseFile(this.configuration.getInpaths().get("templates"));
             this.templates = tr;
         } catch (Exception e) {
-            GALiLogger.getLogger().log(Level.SEVERE, "\nError trying to parse %s:\n %s \nExiting...", this.lng_data.getLanguages().get(0).getPath());
+            GALiLogger.getLogger().log(Level.SEVERE, "\nError trying to parse %s:\n %s \nExiting...", this.configuration.getInpaths().get("templates"));
             System.exit(1);
         }
     }
@@ -304,19 +297,19 @@ public class PredictionSummarizer {
             HashMap<Integer, ArrayList<ArrayList<Integer>>> f_output = f_op.applyOperator();
 
             // Conversion of linguistic descriptions into natural language texts
-            SkyCoverageGeneratorLevel1 nssg = new SkyCoverageGeneratorLevel1(templates.getLabelsets().get("C1"), templates.getLabelsets().get("C"), partitions.get("SSFTP"), templates.getLabelsets().get("SSFTP"), nssa_output, nlgFactory);
+            SkyCoverageGeneratorLevel1 nssg = new SkyCoverageGeneratorLevel1(templates.getLabelsets().get("C"), partitions.get("SSFTP"), templates.getLabelsets().get("SSFTP"), nssa_output, nlgFactory);
             NLGElement nss_nlg = nssg.parseAndGenerate();
 
             if (nss_nlg == null) {
-                SkyCoverageGeneratorLevel2 anssg = new SkyCoverageGeneratorLevel2(templates.getLabelsets().get("C2"), templates.getLabelsets().get("C"), partitions.get("C"), nssb_op.applyOperator(), nlgFactory);
+                SkyCoverageGeneratorLevel2 anssg = new SkyCoverageGeneratorLevel2(templates.getLabelsets().get("C"), partitions.get("C"), nssb_op.applyOperator(), nlgFactory);
                 nss_nlg = anssg.generate();
             }
 
             RainGenerator rg = new RainGenerator(templates.getLabelsets(), current_date, variables.get("Meteoro").getActual_data_length(), r_output, nlgFactory);
             NLGElement r_nlg = rg.parseAndGenerate();
 
-            TemperatureGenerator tg = new TemperatureGenerator(templates.getLabelsets().get("T"), templates.getLabelsets().get("CT"), templates.getLabelsets().get("V"),
-                    templates.getLabelsets().get("VAR"), partitions.get("VAR"), t_output.getClim_eval(), t_output.getVariation_eval(), t_output.getVariability_eval(), nlgFactory);
+            TemperatureGenerator tg = new TemperatureGenerator(templates.getLabelsets().get("CT"), templates.getLabelsets().get("V"), templates.getLabelsets().get("VAR"), 
+                    partitions.get("VAR"), t_output.getClim_eval(), t_output.getVariation_eval(), t_output.getVariability_eval(), nlgFactory);
             NLGElement t_nlg = tg.parseAndGenerate();
 
             WindGenerator wg = new WindGenerator(templates.getLabelsets(), current_date, w_output, nlgFactory);

@@ -47,16 +47,16 @@ public class CP76 {
 
         try {
 
-            String id = "32047";
+            String id = "32045";
 
             ArrayList<String> dates = new ArrayList();
+            dates.add("2015-11-01");
             dates.add("2015-11-02");
             dates.add("2015-11-03");
             dates.add("2015-11-04");
-            dates.add("2015-11-05");
 
             SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = sdt.parse("2015-11-02");
+            Date date = sdt.parse("2015-11-01");
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
@@ -65,11 +65,10 @@ public class CP76 {
             String salida = ps.generateTextualForecastsTest(id, dates, cal);
 
             /*
-             *   Tendremos cielos parcialmente nubosos al principio y hacia la mitad del periodo, aunque al final del mismo tenderán a estar muy nubosos. Tendremos precipitaciones 
-             *   todos los días. Las temperaturas serán altas para las mínimas y normales para las máximas respecto a lo habitual en esta época del año, con valores que globalmente 
-             *   se encontrarán sin cambios.
+             *   Cielos parcialmente nubosos en general durante los próximos días, aunque ocasionalmente se encontrarán muy nubosos. Tendremos precipitaciones el lunes por la noche 
+             *   y del martes por la noche al miércoles por la tarde. Las temperaturas serán altas para esta época del año, con mínimas sin cambios y máximas en descenso moderado.
              */
-            assertEquals(salida, "There will be partly cloudy skies at the beginning and towards the middle of the term, although they will be cloudy at the end of the term. Precipitations are expected everyday. Temperature will be high for minimums and normal for maximums compared to the expected for this time of the year, which will globally be without changes.");
+            assertEquals(salida, "Partly cloudy skies in general for the next few days, although it will occasionally be cloudy. Precipitations are expected on Monday night and from Tuesday night to Wednesday afternoon. Temperature will be high for this period of the year, with minimums without changes and maximums in moderate decrease.");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

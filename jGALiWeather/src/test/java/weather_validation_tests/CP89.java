@@ -47,16 +47,16 @@ public class CP89 {
 
         try {
 
-            String id = "36018";
+            String id = "36030";
 
             ArrayList<String> dates = new ArrayList();
-            dates.add("2015-07-15");
-            dates.add("2015-07-16");
-            dates.add("2015-07-17");
-            dates.add("2015-07-18");
+            dates.add("2015-11-25");
+            dates.add("2015-11-26");
+            dates.add("2015-11-27");
+            dates.add("2015-11-28");
 
             SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = sdt.parse("2015-07-15");
+            Date date = sdt.parse("2015-11-25");
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
@@ -65,11 +65,10 @@ public class CP89 {
             String salida = ps.generateTextualForecastsTest(id, dates, cal);
 
             /*
-             *   Tendremos cielos poco nubosos o despejados al principio y hacia la mitad del periodo, aunque al final del mismo tenderán a estar parcialmente nubosos. Las 
-             *   temperaturas serán altas para las mínimas y normales para las máximas respecto a lo habitual en esta época del año, con mínimas sin cambios y máximas en descenso 
-             *   moderado, a pesar de que oscilarán.
+             *   Se espera que los cielos alternen periodos muy nubosos con otros parcialmente nubosos, aunque ocasionalmente podrán encontrarse poco nubosos o despejados. Tendremos 
+             *   precipitaciones el viernes por la noche. Las temperaturas serán normales para esta época del año, con mínimas en descenso moderado y máximas en descenso ligero.
              */
-            assertEquals(salida, "There will be clear skies at the beginning and towards the middle of the term, although they will be partly cloudy at the end of the term. Temperature will be high for minimums and normal for maximums compared to the expected for this time of the year, with minimums without changes and maximums in moderate decrease, despite that they will oscillate.");
+            assertEquals(salida, "It is expected an alternance of cloudy skies periods with other partly cloudy periods, although they will occasionally be clear. Precipitations are expected on Friday night. Temperature will be normal for this period of the year, with minimums in moderate decrease and maximums in slight decrease.");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

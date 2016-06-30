@@ -47,16 +47,16 @@ public class CP70 {
 
         try {
 
-            String id = "15060";
+            String id = "36044";
 
             ArrayList<String> dates = new ArrayList();
-            dates.add("2015-09-22");
-            dates.add("2015-09-23");
-            dates.add("2015-09-24");
-            dates.add("2015-09-25");
+            dates.add("2015-12-05");
+            dates.add("2015-12-06");
+            dates.add("2015-12-07");
+            dates.add("2015-12-08");
 
             SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = sdt.parse("2015-09-22");
+            Date date = sdt.parse("2015-12-05");
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
@@ -65,10 +65,10 @@ public class CP70 {
             String salida = ps.generateTextualForecastsTest(id, dates, cal);
 
             /*
-             *   Se espera que los cielos alternen periodos parcialmente nubosos con otros poco nubosos o despejados, aunque ocasionalmente podrán encontrarse muy nubosos. Habrá 
-             *   nieblas matinales el jueves. Las temperaturas serán normales para esta época del año, con mínimas en ascenso ligero y máximas en ascenso moderado.
+             *   Cielos parcialmente nubosos en general durante los próximos días, aunque ocasionalmente se encontrarán muy nubosos. Tendremos precipitaciones el lunes y el martes. 
+             *   Las temperaturas serán altas para esta época del año, con valores que globalmente se encontrarán sin cambios.
              */
-            assertEquals(salida, "It is expected an alternance of partly cloudy skies periods with other clear periods, although they will occasionally be cloudy. There will be morning fog on Thursday. Temperature will be normal for this period of the year, with minimums in slight increase and maximums in moderate increase.");
+            assertEquals(salida, "Partly cloudy skies in general for the next few days, although it will occasionally be cloudy. Precipitations are expected on Monday and on Tuesday. Temperature will be high for this period of the year, which will globally be without changes.");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

@@ -47,16 +47,16 @@ public class CP53 {
 
         try {
 
-            String id = "32018";
+            String id = "36044";
 
             ArrayList<String> dates = new ArrayList();
-            dates.add("2015-09-22");
-            dates.add("2015-09-23");
-            dates.add("2015-09-24");
-            dates.add("2015-09-25");
+            dates.add("2015-08-04");
+            dates.add("2015-08-05");
+            dates.add("2015-08-06");
+            dates.add("2015-08-07");
 
             SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = sdt.parse("2015-09-22");
+            Date date = sdt.parse("2015-08-04");
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
@@ -65,10 +65,10 @@ public class CP53 {
             String salida = ps.generateTextualForecastsTest(id, dates, cal);
 
             /*
-             *   Tendremos cielos parcialmente nubosos al principio del periodo, aunque hacia la mitad y al final del mismo tenderán a estar poco nubosos o despejados. Las 
-             *   temperaturas serán normales para esta época del año, con mínimas en ascenso moderado y máximas en ascenso notable.
+             *   Se espera que los cielos alternen periodos parcialmente nubosos con otros poco nubosos o despejados, aunque ocasionalmente podrán encontrarse muy nubosos. Las 
+             *   temperaturas serán normales para esta época del año, con mínimas sin cambios aunque oscilarán y máximas en descenso moderado.
              */
-            assertEquals(salida, "There will be partly cloudy skies at the beginning of the term, although they will be clear towards the middle and at the end of the term. Temperature will be normal for this period of the year, with minimums in moderate increase and maximums in notable increase.");
+            assertEquals(salida, "It is expected an alternance of partly cloudy skies periods with other clear periods, although they will occasionally be cloudy. Temperature will be normal for this period of the year, with minimums without changes although they will oscillate and maximums in moderate decrease.");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

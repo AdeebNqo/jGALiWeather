@@ -45,26 +45,15 @@ public class CP01 {
             HashMap<String, String> inpaths = new HashMap();
             inpaths.put("variables", "Configuration/variables.xml");
             inpaths.put("partitions", "Configuration/partitions.xml");
+            inpaths.put("templates", "Configuration/templates.xml");
             
-            HashMap<String, String> outpaths = new HashMap();
-            outpaths.put("output_dir", "C:\\\\");
             
-            DatabaseConfiguration dc1 = new DatabaseConfiguration("prediccion", "x", "127.0.0.1", "Predicion",
-                    "Predicion_USC", "Alejandro,USC");
-            DatabaseConfiguration dc2 = new DatabaseConfiguration("ica", "SQL Server Native Client 11.0", "127.0.0.1", "CalidadeAire",
-                    "CalidadeAire_TextosICA", ",Fresc05,O2");
-            
-            Language l = new Language("1", "Configuration/Languages/english.xml");
+            Language l = new Language("1", "Configuration/templates.xml");
             
             Assert.assertEquals(cr.getInpaths().get("variables"), inpaths.get("variables"));
             Assert.assertEquals(cr.getInpaths().get("partitions"), inpaths.get("partitions"));
+            Assert.assertEquals(cr.getInpaths().get("templates"), inpaths.get("templates"));
             
-            Assert.assertEquals(cr.getOutpaths().get("output_dir"), outpaths.get("output_dir"));
-            
-            Assert.assertEquals(cr.getDb_data().get("prediccion").getName(), dc1.getName());
-            Assert.assertEquals(cr.getDb_data().get("ica").getName(), dc2.getName());
-            
-            Assert.assertEquals(cr.getLng_data().getLanguages().get(0).toString(), l.toString());   
         } catch (Exception ex) {
             Logger.getLogger(CP01.class.getName()).log(Level.SEVERE, null, ex);
         }

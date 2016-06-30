@@ -47,16 +47,16 @@ public class CP52 {
 
         try {
 
-            String id = "27055";
+            String id = "15079";
 
             ArrayList<String> dates = new ArrayList();
-            dates.add("2015-10-06");
-            dates.add("2015-10-07");
-            dates.add("2015-10-08");
-            dates.add("2015-10-09");
+            dates.add("2015-08-19");
+            dates.add("2015-08-20");
+            dates.add("2015-08-21");
+            dates.add("2015-08-22");
 
             SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = sdt.parse("2015-10-06");
+            Date date = sdt.parse("2015-08-19");
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
@@ -65,10 +65,10 @@ public class CP52 {
             String salida = ps.generateTextualForecastsTest(id, dates, cal);
 
             /*
-             *   Se espera que los cielos alternen periodos parcialmente nubosos con otros poco nubosos o despejados. Tendremos precipitaciones el martes. Las temperaturas 
-             *   serán normales para esta época del año, con mínimas en descenso ligero aunque oscilarán y máximas en ascenso moderado.
+             *   Se espera que los cielos alternen periodos parcialmente nubosos con otros poco nubosos o despejados, aunque ocasionalmente podrán encontrarse muy nubosos. Tendremos 
+             *   precipitaciones el sábado. Las temperaturas serán normales para esta época del año, con mínimas sin cambios y máximas en descenso moderado, a pesar de que oscilarán.
              */
-            assertEquals(salida, "It is expected an alternance of partly cloudy skies periods with other clear periods. Precipitations are expected on Tuesday. Temperature will be normal for this period of the year, with minimums in slight decrease although they will oscillate and maximums in moderate increase.");
+            assertEquals(salida, "It is expected an alternance of partly cloudy skies periods with other clear periods, although they will occasionally be cloudy. Precipitations are expected on Saturday. Temperature will be normal for this period of the year, with minimums without changes and maximums in moderate decrease, despite that they will oscillate.");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

@@ -1,10 +1,9 @@
 package algorithm_tests.weather_operators;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import jgaliweather.algorithm.weather_operators.RainOperator;
+import jgaliweather.algorithm.weather_operators.SkyStateBOperator;
 import jgaliweather.configuration.partition_reader.Partition;
 import jgaliweather.configuration.partition_reader.PartitionReader;
 import jgaliweather.data.data_structures.Value;
@@ -16,7 +15,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-/* Tests Rain operators */
+/* Tests SkyStateB operators */
 public class CP11 {
 
     public CP11() {
@@ -48,32 +47,24 @@ public class CP11 {
             
             Variable curr_var = new Variable("Meteoro");
             
-            curr_var.getValues().add(new Value(110, 0));
-            curr_var.getValues().add(new Value(117, 1));
-            curr_var.getValues().add(new Value(111, 2));
-            curr_var.getValues().add(new Value(107, 3));
-            curr_var.getValues().add(new Value(118, 4));
-            curr_var.getValues().add(new Value(103, 5));
-            curr_var.getValues().add(new Value(109, 6));
-            curr_var.getValues().add(new Value(104, 7));
-            curr_var.getValues().add(new Value(113, 8));
-            curr_var.getValues().add(new Value(119, 9));
-            curr_var.getValues().add(new Value(105, 10));
-            curr_var.getValues().add(new Value(108, 11));
+            curr_var.getValues().add(new Value(115, 0));
+            curr_var.getValues().add(new Value(115, 1));
+            curr_var.getValues().add(new Value(115, 2));
+            curr_var.getValues().add(new Value(115, 3));
+            curr_var.getValues().add(new Value(115, 4));
+            curr_var.getValues().add(new Value(115, 5));
+            curr_var.getValues().add(new Value(115, 6));
+            curr_var.getValues().add(new Value(115, 7));
+            curr_var.getValues().add(new Value(115, 8));
+            curr_var.getValues().add(new Value(115, 9));
+            curr_var.getValues().add(new Value(115, 10));
+            curr_var.getValues().add(new Value(115, 11));
             
-            RainOperator r_op = new RainOperator(partitions.get("R"), curr_var);
+            SkyStateBOperator nssa_op = new SkyStateBOperator(partitions.get("C"), partitions.get("CP"), curr_var);
             
-            ArrayList<String> salida_esperada = new ArrayList();
-            salida_esperada.add("0-4 I I P P I");
-            salida_esperada.add("6 SN");
-            salida_esperada.add("8-9 ST ST");
-            salida_esperada.add("11 P");
+            double[][] salida = nssa_op.applyOperator();
             
-            ArrayList<String> salida = r_op.applyOperator();
-            
-            for (int i = 0; i < salida.size(); i++) {
-                Assert.assertEquals(salida.get(i), salida_esperada.get(i));
-            }
+            Assert.assertEquals(2.0, salida[1][1], 1e-15);
         } catch (Exception ex) {
             Logger.getLogger(CP11.class.getName()).log(Level.SEVERE, null, ex);
         }

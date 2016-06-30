@@ -47,16 +47,16 @@ public class CP61 {
 
         try {
 
-            String id = "15052";
+            String id = "32054";
 
             ArrayList<String> dates = new ArrayList();
-            dates.add("2015-08-06");
-            dates.add("2015-08-07");
-            dates.add("2015-08-08");
-            dates.add("2015-08-09");
+            dates.add("2016-03-11");
+            dates.add("2016-03-12");
+            dates.add("2016-03-13");
+            dates.add("2016-03-14");
 
             SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = sdt.parse("2015-08-06");
+            Date date = sdt.parse("2016-03-11");
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
@@ -65,11 +65,10 @@ public class CP61 {
             String salida = ps.generateTextualForecastsTest(id, dates, cal);
 
             /*
-             *   Se espera que los cielos alternen periodos parcialmente nubosos con otros poco nubosos o despejados, aunque ocasionalmente podrán encontrarse muy nubosos. 
-             *   Tendremos precipitaciones el sábado por la mañana. Las temperaturas serán normales para esta época del año, con valores que globalmente se encontrarán sin 
-             *   cambios aunque oscilarán.
+             *   Cielos poco nubosos o despejados en general durante los próximos días. Habrá nieblas matinales el viernes. Las temperaturas serán normales para esta época 
+             *   del año, con mínimas sin cambios y máximas en ascenso moderado, a pesar de que oscilarán.
              */
-            assertEquals(salida, "It is expected an alternance of partly cloudy skies periods with other clear periods, although they will occasionally be cloudy. Precipitations are expected on Saturday morning. Temperature will be normal for this period of the year, which will globally be without changes although they will oscillate.");
+            assertEquals(salida, "Clear skies in general for the next few days. There will be morning fog on Friday. Temperature will be normal for this period of the year, with minimums without changes and maximums in moderate increase, despite that they will oscillate.");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

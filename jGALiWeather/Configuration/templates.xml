@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language id="EN" name="English">
+	<labelset name="C" value="Cloud Coverage">
+	    <label name="C">clear</label>
+	    <label name="CL">partly cloudy</label>
+	    <label name="O">cloudy</label>
+	    <label name="F">foggy</label>
+	</labelset>
+	<labelset name="R" value="Rain">
+		<label name="I">intermittent</label>
+	    <label name="P">persistent</label>
+	    <label name="SN">of snow</label>
+	    <label name="ST">stormy</label>
+	    <label name="H">of hail</label>
+	</labelset>
+	<labelset name="V" value="Temperature Variation">
+		<label name="ED">in extreme decrease</label>
+		<label name="ND">in notable decrease</label>
+		<label name="MD">in moderate decrease</label>
+		<label name="SD">in slight decrease</label>
+		<label name="WC">without changes</label>
+	    <label name="SI">in slight increase</label>
+		<label name="MI">in moderate increase</label>
+		<label name="NI">in notable increase</label>
+		<label name="EI">in extreme increase</label>
+	</labelset>
+	<labelset name="CT" value="Climate Temperature">
+		<label name="VL">very low</label>
+		<label name="L">low</label>
+		<label name="N">normal</label>
+		<label name="H">high</label>
+	    <label name="VH">very high</label>
+	</labelset>
+	<labelset name="W" value="Wind">
+		<label name="317">strong North</label>
+		<label name="318">strong Northeast</label>
+		<label name="319">strong East</label>
+		<label name="320">strong Southeast</label>
+		<label name="321">strong South</label>
+		<label name="322">strong Southwest</label>
+		<label name="323">strong West</label>
+		<label name="324">strong Northwest</label>
+		<label name="325">Very strong North</label>
+		<label name="326">very strong Northeast</label>
+		<label name="327">very strong East</label>
+		<label name="328">very strong Southeast</label>
+		<label name="329">very strong South</label>
+		<label name="330">very strong Southwest</label>
+		<label name="331">very strong West</label>
+		<label name="332">very strong Northwest</label>
+	</labelset>
+	<labelset name="VAR" value="Temperature variability">
+		<label name="C">will not oscillate</label>
+		<label name="PV">will oscillate</label>
+		<label name="BV">will oscillate</label>
+		<label name="MV">will oscillate</label>
+	</labelset>
+	<labelset name="PD" value="Parts of the day">
+		<label name="0">morning</label>
+		<label name="1">afternoon</label>
+		<label name="2">night</label>
+	</labelset>
+	<labelset name="DW" value="Days of the week">
+		<label name="0">Monday</label>
+		<label name="1">Tuesday</label>
+		<label name="2">Wednesday</label>
+		<label name="3">Thursday</label>
+		<label name="4">Friday</label>
+		<label name="5">Saturday</label>
+		<label name="6">Sunday</label>
+	</labelset>
+	<labelset name="SSFTP" value="Periods">
+		<label name="B">at the beginning</label>
+		<label name="H">towards the middle</label>
+		<label name="E">at the end</label>
+	</labelset>
+    <labelset name="FOG" value="Fog NLG expressions">
+        <label name="0">morning</label>
+        <label name="1">afternoon</label>
+        <label name="2">night</label>
+    </labelset>
+    <labelset name="ICA" value="Air quality expressions">
+        <label name="nuance_rain">the precitipations</label>
+        <label name="nuance_wind">the wind expected</label>
+        <label name="nuance_rainwind">the low pressures in the atmosphere</label>
+        <label name="nuance_sunnowind">the sunny and stable weather</label>
+        <label name="nuance_dry">the dry weather</label>
+        <label name="interval0">the coming days</label>
+        <label name="interval1">the next few days</label>
+        <label name="G">good</label>
+        <label name="I">admissible</label>
+        <label name="B">bad</label>
+        <label name="H">hazardous</label>
+        <label name="change">change</label>
+        <label name="improve">improve</label>
+    </labelset>
+</language>

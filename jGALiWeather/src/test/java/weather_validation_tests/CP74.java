@@ -47,16 +47,16 @@ public class CP74 {
 
         try {
 
-            String id = "15041";
+            String id = "15067";
 
             ArrayList<String> dates = new ArrayList();
-            dates.add("2015-10-31");
-            dates.add("2015-11-01");
-            dates.add("2015-11-02");
-            dates.add("2015-11-03");
+            dates.add("2015-09-25");
+            dates.add("2015-09-26");
+            dates.add("2015-09-27");
+            dates.add("2015-09-28");
 
             SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = sdt.parse("2015-10-31");
+            Date date = sdt.parse("2015-09-25");
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
@@ -65,11 +65,10 @@ public class CP74 {
             String salida = ps.generateTextualForecastsTest(id, dates, cal);
 
             /*
-             *   Cielos parcialmente nubosos en general durante los próximos días. Tendremos precipitaciones el sábado, el lunes por la noche y el martes por la noche. Las 
-             *   temperaturas serán altas para las mínimas y normales para las máximas respecto a lo habitual en esta época del año, con valores que globalmente se encontrarán sin 
-             *   cambios aunque oscilarán.
+             *   Cielos poco nubosos o despejados en general durante los próximos días, aunque ocasionalmente se encontrarán parcialmente nubosos. Habrá nieblas nocturnas el sábado. 
+             *   Las temperaturas serán normales para esta época del año, con mínimas en descenso ligero y máximas sin cambios.
              */
-            assertEquals(salida, "Partly cloudy skies in general for the next few days. Precipitations are expected on Saturday, on Monday night and on Tuesday night. Temperature will be high for minimums and normal for maximums compared to the expected for this time of the year, which will globally be without changes although they will oscillate.");
+            assertEquals(salida, "Clear skies in general for the next few days, although it will occasionally be partly cloudy. There will be night fog on Saturday. Temperature will be normal for this period of the year, with minimums in slight decrease and maximums without changes.");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

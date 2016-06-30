@@ -47,16 +47,16 @@ public class CP63 {
 
         try {
 
-            String id = "36057";
+            String id = "36007";
 
             ArrayList<String> dates = new ArrayList();
-            dates.add("2015-11-11");
-            dates.add("2015-11-12");
-            dates.add("2015-11-13");
-            dates.add("2015-11-14");
+            dates.add("2015-11-20");
+            dates.add("2015-11-21");
+            dates.add("2015-11-22");
+            dates.add("2015-11-23");
 
             SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = sdt.parse("2015-11-11");
+            Date date = sdt.parse("2015-11-20");
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
@@ -65,10 +65,11 @@ public class CP63 {
             String salida = ps.generateTextualForecastsTest(id, dates, cal);
 
             /*
-             *   Cielos poco nubosos o despejados en general durante los próximos días, aunque ocasionalmente se encontrarán parcialmente nubosos. Las temperaturas serán normales 
-             *   para las mínimas y altas para las máximas respecto a lo habitual en esta época del año, con mínimas en descenso ligero y máximas sin cambios, a pesar de que oscilarán.
+             *   Cielos parcialmente nubosos en general durante los próximos días, aunque ocasionalmente se encontrarán muy nubosos. Tendremos precipitaciones el viernes, 
+             *   el sábado y el domingo. Las temperaturas serán normales para esta época del año, con mínimas en descenso notable y máximas en descenso moderado, a pesar de que 
+             *   oscilarán.
              */
-            assertEquals(salida, "Clear skies in general for the next few days, although it will occasionally be partly cloudy. Temperature will be normal for minimums and high for maximums compared to the expected for this time of the year, with minimums in slight decrease and maximums without changes, despite that they will oscillate.");
+            assertEquals(salida, "Partly cloudy skies in general for the next few days, although it will occasionally be cloudy. Precipitations are expected on Friday, Saturday and Sunday. Temperature will be normal for this period of the year, with minimums in notable decrease and maximums in moderate decrease, despite that they will oscillate.");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

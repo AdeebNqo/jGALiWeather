@@ -47,16 +47,16 @@ public class CP75 {
 
         try {
 
-            String id = "36048";
+            String id = "27010";
 
             ArrayList<String> dates = new ArrayList();
-            dates.add("2015-11-21");
-            dates.add("2015-11-22");
-            dates.add("2015-11-23");
-            dates.add("2015-11-24");
+            dates.add("2015-07-20");
+            dates.add("2015-07-21");
+            dates.add("2015-07-22");
+            dates.add("2015-07-23");
 
             SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = sdt.parse("2015-11-21");
+            Date date = sdt.parse("2015-07-20");
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
@@ -65,10 +65,11 @@ public class CP75 {
             String salida = ps.generateTextualForecastsTest(id, dates, cal);
 
             /*
-             *   Cielos parcialmente nubosos en general durante los próximos días. Tendremos precipitaciones del sábado por la mañana al domingo por la tarde y el martes por la tarde. 
-             *   Las temperaturas serán normales para esta época del año, con mínimas en descenso moderado aunque oscilarán y máximas en descenso ligero.
+             *   Tendremos cielos parcialmente nubosos con momentos muy nubosos. Habrá nieblas matinales el martes, el miércoles y el jueves. Tendremos precipitaciones el martes por 
+             *   la tarde, que podrán ser tormentosas el martes. Las temperaturas serán altas para las mínimas y normales para las máximas respecto a lo habitual en esta época del 
+             *   año, con valores que globalmente se encontrarán en descenso moderado aunque oscilarán.
              */
-            assertEquals(salida, "Partly cloudy skies in general for the next few days. Precipitations are expected from Saturday morning to Sunday afternoon and on Tuesday afternoon. Temperature will be normal for this period of the year, with minimums in moderate decrease although they will oscillate and maximums in slight decrease, despite that they will oscillate.");
+            assertEquals(salida, "There will be partly cloudy skies with cloudy moments. There will be morning fog on Tuesday, on Wednesday and on Thursday. Precipitations are expected on Tuesday afternoon, which can be stormy on Tuesday. Temperature will be high for minimums and normal for maximums compared to the expected for this time of the year, which will globally be in moderate decrease although they will oscillate.");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

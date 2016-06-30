@@ -47,16 +47,16 @@ public class CP64 {
 
         try {
 
-            String id = "27026";
+            String id = "15052";
 
             ArrayList<String> dates = new ArrayList();
-            dates.add("2015-10-07");
-            dates.add("2015-10-08");
-            dates.add("2015-10-09");
-            dates.add("2015-10-10");
+            dates.add("2015-08-06");
+            dates.add("2015-08-07");
+            dates.add("2015-08-08");
+            dates.add("2015-08-09");
 
             SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = sdt.parse("2015-10-07");
+            Date date = sdt.parse("2015-08-06");
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
@@ -66,10 +66,10 @@ public class CP64 {
 
             /*
              *   Se espera que los cielos alternen periodos parcialmente nubosos con otros poco nubosos o despejados, aunque ocasionalmente podrán encontrarse muy nubosos. 
-             *   Habrá nieblas matinales el jueves; y nocturnas el miércoles. Tendremos precipitaciones el sábado. Las temperaturas serán normales para esta época del año, con 
-             *   mínimas en ascenso moderado y máximas en ascenso ligero.
+             *   Tendremos precipitaciones el sábado por la mañana. Las temperaturas serán normales para esta época del año, con valores que globalmente se encontrarán sin 
+             *   cambios aunque oscilarán.
              */
-            assertEquals(salida, "It is expected an alternance of partly cloudy skies periods with other clear periods, although they will occasionally be cloudy. There will be morning fog on Thursday and night fog on Wednesday. Precipitations are expected on Saturday. Temperature will be normal for this period of the year, with minimums in moderate increase and maximums in slight increase.");
+            assertEquals(salida, "It is expected an alternance of partly cloudy skies periods with other clear periods, although they will occasionally be cloudy. Precipitations are expected on Saturday morning. Temperature will be normal for this period of the year, which will globally be without changes although they will oscillate.");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

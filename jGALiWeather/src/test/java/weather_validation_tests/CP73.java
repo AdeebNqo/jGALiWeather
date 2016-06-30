@@ -47,16 +47,16 @@ public class CP73 {
 
         try {
 
-            String id = "32045";
+            String id = "15060";
 
             ArrayList<String> dates = new ArrayList();
-            dates.add("2015-11-01");
-            dates.add("2015-11-02");
-            dates.add("2015-11-03");
-            dates.add("2015-11-04");
+            dates.add("2015-09-22");
+            dates.add("2015-09-23");
+            dates.add("2015-09-24");
+            dates.add("2015-09-25");
 
             SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = sdt.parse("2015-11-01");
+            Date date = sdt.parse("2015-09-22");
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
@@ -65,10 +65,10 @@ public class CP73 {
             String salida = ps.generateTextualForecastsTest(id, dates, cal);
 
             /*
-             *   Cielos parcialmente nubosos en general durante los próximos días, aunque ocasionalmente se encontrarán muy nubosos. Tendremos precipitaciones el lunes por la noche 
-             *   y del martes por la noche al miércoles por la tarde. Las temperaturas serán altas para esta época del año, con mínimas sin cambios y máximas en descenso moderado.
+             *   Se espera que los cielos alternen periodos parcialmente nubosos con otros poco nubosos o despejados, aunque ocasionalmente podrán encontrarse muy nubosos. Habrá 
+             *   nieblas matinales el jueves. Las temperaturas serán normales para esta época del año, con mínimas en ascenso ligero y máximas en ascenso moderado.
              */
-            assertEquals(salida, "Partly cloudy skies in general for the next few days, although it will occasionally be cloudy. Precipitations are expected on Monday night and from Tuesday night to Wednesday afternoon. Temperature will be high for this period of the year, with minimums without changes and maximums in moderate decrease.");
+            assertEquals(salida, "It is expected an alternance of partly cloudy skies periods with other clear periods, although they will occasionally be cloudy. There will be morning fog on Thursday. Temperature will be normal for this period of the year, with minimums in slight increase and maximums in moderate increase.");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

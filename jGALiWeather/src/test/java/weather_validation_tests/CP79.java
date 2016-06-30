@@ -47,16 +47,16 @@ public class CP79 {
 
         try {
 
-            String id = "27029";
+            String id = "32047";
 
             ArrayList<String> dates = new ArrayList();
-            dates.add("2015-10-21");
-            dates.add("2015-10-22");
-            dates.add("2015-10-23");
-            dates.add("2015-10-24");
+            dates.add("2015-11-02");
+            dates.add("2015-11-03");
+            dates.add("2015-11-04");
+            dates.add("2015-11-05");
 
             SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = sdt.parse("2015-10-21");
+            Date date = sdt.parse("2015-11-02");
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
@@ -65,11 +65,11 @@ public class CP79 {
             String salida = ps.generateTextualForecastsTest(id, dates, cal);
 
             /*
-             *   Se espera que los cielos alternen periodos muy nubosos con otros poco nubosos o despejados, aunque ocasionalmente podrán encontrarse parcialmente nubosos. Habrá 
-             *   nieblas matinales el miércoles y el jueves. Tendremos precipitaciones el sábado por la tarde. Las temperaturas serán normales para esta época del año, con mínimas 
-             *   en ascenso ligero y máximas sin cambios, a pesar de que oscilarán.
+             *   Tendremos cielos parcialmente nubosos al principio y hacia la mitad del periodo, aunque al final del mismo tenderán a estar muy nubosos. Tendremos precipitaciones 
+             *   todos los días. Las temperaturas serán altas para las mínimas y normales para las máximas respecto a lo habitual en esta época del año, con valores que globalmente 
+             *   se encontrarán sin cambios.
              */
-            assertEquals(salida, "It is expected an alternance of cloudy skies periods with other clear periods, although they will occasionally be partly cloudy. There will be morning fog on Wednesday and on Thursday. Precipitations are expected on Saturday afternoon. Temperature will be normal for this period of the year, with minimums in slight increase and maximums without changes, despite that they will oscillate.");
+            assertEquals(salida, "There will be partly cloudy skies at the beginning and towards the middle of the term, although they will be cloudy at the end of the term. Precipitations are expected everyday. Temperature will be high for minimums and normal for maximums compared to the expected for this time of the year, which will globally be without changes.");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

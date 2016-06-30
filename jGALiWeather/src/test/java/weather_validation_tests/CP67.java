@@ -47,16 +47,16 @@ public class CP67 {
 
         try {
 
-            String id = "36044";
+            String id = "27026";
 
             ArrayList<String> dates = new ArrayList();
-            dates.add("2015-12-05");
-            dates.add("2015-12-06");
-            dates.add("2015-12-07");
-            dates.add("2015-12-08");
+            dates.add("2015-10-07");
+            dates.add("2015-10-08");
+            dates.add("2015-10-09");
+            dates.add("2015-10-10");
 
             SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = sdt.parse("2015-12-05");
+            Date date = sdt.parse("2015-10-07");
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
@@ -65,10 +65,11 @@ public class CP67 {
             String salida = ps.generateTextualForecastsTest(id, dates, cal);
 
             /*
-             *   Cielos parcialmente nubosos en general durante los próximos días, aunque ocasionalmente se encontrarán muy nubosos. Tendremos precipitaciones el lunes y el martes. 
-             *   Las temperaturas serán altas para esta época del año, con valores que globalmente se encontrarán sin cambios.
+             *   Se espera que los cielos alternen periodos parcialmente nubosos con otros poco nubosos o despejados, aunque ocasionalmente podrán encontrarse muy nubosos. 
+             *   Habrá nieblas matinales el jueves; y nocturnas el miércoles. Tendremos precipitaciones el sábado. Las temperaturas serán normales para esta época del año, con 
+             *   mínimas en ascenso moderado y máximas en ascenso ligero.
              */
-            assertEquals(salida, "Partly cloudy skies in general for the next few days, although it will occasionally be cloudy. Precipitations are expected on Monday and on Tuesday. Temperature will be high for this period of the year, which will globally be without changes.");
+            assertEquals(salida, "It is expected an alternance of partly cloudy skies periods with other clear periods, although they will occasionally be cloudy. There will be morning fog on Thursday and night fog on Wednesday. Precipitations are expected on Saturday. Temperature will be normal for this period of the year, with minimums in moderate increase and maximums in slight increase.");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

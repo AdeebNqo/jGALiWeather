@@ -47,16 +47,16 @@ public class CP69 {
 
         try {
 
-            String id = "36059";
+            String id = "27026";
 
             ArrayList<String> dates = new ArrayList();
-            dates.add("2015-11-24");
-            dates.add("2015-11-25");
-            dates.add("2015-11-26");
-            dates.add("2015-11-27");
+            dates.add("2015-10-09");
+            dates.add("2015-10-10");
+            dates.add("2015-10-11");
+            dates.add("2015-10-12");
 
             SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = sdt.parse("2015-11-24");
+            Date date = sdt.parse("2015-10-09");
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
@@ -65,10 +65,11 @@ public class CP69 {
             String salida = ps.generateTextualForecastsTest(id, dates, cal);
 
             /*
-             *   Se espera que los cielos alternen periodos muy nubosos con otros parcialmente nubosos. Tendremos precipitaciones el martes por la tarde y el viernes por la noche. 
-             *   Las temperaturas serán normales para esta época del año, con mínimas en ascenso moderado y máximas sin cambios.
+             *   Tendremos cielos poco nubosos o despejados al principio del periodo, aunque hacia la mitad y al final del mismo tenderán a estar parcialmente nubosos. Tendremos 
+             *   precipitaciones el sábado, el domingo y el lunes. Las temperaturas serán altas para las mínimas y normales para las máximas respecto a lo habitual en esta época 
+             *   del año, con mínimas en ascenso moderado aunque oscilarán y máximas en descenso moderado.
              */
-            assertEquals(salida, "It is expected an alternance of cloudy skies periods with other partly cloudy periods. Precipitations are expected on Tuesday afternoon and on Friday night. Temperature will be normal for this period of the year, with minimums in moderate increase and maximums without changes.");
+            assertEquals(salida, "There will be clear skies at the beginning of the term, although they will be partly cloudy towards the middle and at the end of the term. Precipitations are expected on Saturday, Sunday and Monday. Temperature will be high for minimums and normal for maximums compared to the expected for this time of the year, with minimums in moderate increase although they will oscillate and maximums in moderate decrease.");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

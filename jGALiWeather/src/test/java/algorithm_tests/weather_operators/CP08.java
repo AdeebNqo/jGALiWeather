@@ -1,21 +1,18 @@
 package algorithm_tests.weather_operators;
 
-import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import jgaliweather.algorithm.weather_operators.TemperatureOperator;
-import jgaliweather.configuration.partition_reader.Partition;
-import jgaliweather.configuration.partition_reader.PartitionReader;
-import jgaliweather.data.data_structures.Temperature;
+import java.util.ArrayList;
+import jgaliweather.algorithm.weather_operators.WindOperator;
 import jgaliweather.data.data_structures.Value;
 import jgaliweather.data.data_structures.Variable;
+import org.javatuples.Pair;
 import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-/* Tests Temperature operators */
+/* Tests Wind operators */
 public class CP08 {
 
     public CP08() {
@@ -39,33 +36,35 @@ public class CP08 {
 
     @Test
     public void test() {
-        try {
-            PartitionReader pr = new PartitionReader();
-            pr.parseFile("Configuration/partitions.xml");
-            HashMap<String, Partition> partitions = pr.getPartitions();
-            
-            Variable curr_var = new Variable("Temperatura");
-            
-            curr_var.getValues().add(new Value(15, 0));
-            curr_var.getValues().add(new Value(16, 1));
-            curr_var.getValues().add(new Value(17, 2));
-            curr_var.getValues().add(new Value(15, 3));
-            curr_var.getValues().add(new Value(15, 4));
-            curr_var.getValues().add(new Value(16, 5));
-            curr_var.getValues().add(new Value(17, 6));
-            curr_var.getValues().add(new Value(15, 7));
-            
-            Partition max_climate_partition = partitions.get("T");
-            Partition min_climate_partition = partitions.get("T");
-            
-            TemperatureOperator top = new TemperatureOperator(partitions.get("V"), max_climate_partition, min_climate_partition, partitions.get("VAR"), curr_var);
-            
-            Temperature salida = top.applyOperator();
-            
-            System.out.println(salida.getClim_eval() + ", " + salida.getVariation_eval() + ", " + salida.getVariability_eval() + ", " + salida.getMxlist() + ", " + salida.getMnlist());
-        } catch (Exception ex) {
-            Logger.getLogger(CP08.class.getName()).log(Level.SEVERE, null, ex);
+
+        Variable curr_var = new Variable("Viento");
+
+        curr_var.getValues().add(new Value(320, 0));
+        curr_var.getValues().add(new Value(320, 1));
+        curr_var.getValues().add(new Value(320, 2));
+        curr_var.getValues().add(new Value(320, 3));
+        curr_var.getValues().add(new Value(320, 4));
+        curr_var.getValues().add(new Value(301, 5));
+        curr_var.getValues().add(new Value(332, 6));
+        curr_var.getValues().add(new Value(317, 7));
+        curr_var.getValues().add(new Value(332, 8));
+        curr_var.getValues().add(new Value(302, 9));
+        curr_var.getValues().add(new Value(317, 10));
+        curr_var.getValues().add(new Value(332, 11));
+
+        Pair<Integer, Integer> WIND_INTERVAL = new Pair(317, 332);
+
+        WindOperator w_op = new WindOperator(WIND_INTERVAL, curr_var);
+
+        ArrayList<String> salida_esperada = new ArrayList();
+        salida_esperada.add("0-4 320 320 320 320 320");
+        salida_esperada.add("6-8 332 317 332");
+        salida_esperada.add("10-11 317 332");
+
+        ArrayList<String> salida = w_op.applyOperator();
+
+        for (int i = 0; i < salida.size(); i++) {
+            Assert.assertEquals(salida.get(i), salida_esperada.get(i));
         }
-        
     }
 }

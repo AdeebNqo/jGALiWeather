@@ -1,6 +1,5 @@
 package jgaliweather.configuration.configuration_reader;
 
-import jgaliweather.data.data_structures.Language;
 import java.io.File;
 import java.util.HashMap;
 import javax.xml.parsers.DocumentBuilder;
@@ -14,24 +13,18 @@ public class ConfigurationReader {
 
     private Document xmlData;
     private HashMap<String, String> inpaths;
-    private HashMap<String, String> outpaths;
     private HashMap<String, DatabaseConfiguration> db_data;
-    private LanguageConfiguration lng_data;
 
     public ConfigurationReader() {
         this.xmlData = null;
         this.inpaths = new HashMap();
-        this.outpaths = new HashMap();
         this.db_data = new HashMap();
-        this.lng_data = new LanguageConfiguration();
     }
 
-    public ConfigurationReader(Document xmlData, HashMap<String, String> inpaths, HashMap<String, String> outpaths, HashMap<String, DatabaseConfiguration> db_data, LanguageConfiguration lng_data) {
+    public ConfigurationReader(Document xmlData, HashMap<String, String> inpaths, HashMap<String, DatabaseConfiguration> db_data) {
         this.xmlData = xmlData;
         this.inpaths = inpaths;
-        this.outpaths = outpaths;
         this.db_data = db_data;
-        this.lng_data = lng_data;
     }
 
     public void setXmlData(Document xmlData) {
@@ -46,28 +39,12 @@ public class ConfigurationReader {
         this.inpaths = inpaths;
     }
 
-    public HashMap<String, String> getOutpaths() {
-        return outpaths;
-    }
-
-    public void setOutpaths(HashMap<String, String> outpaths) {
-        this.outpaths = outpaths;
-    }
-
     public HashMap<String, DatabaseConfiguration> getDb_data() {
         return db_data;
     }
 
     public void setDb_data(HashMap<String, DatabaseConfiguration> db_data) {
         this.db_data = db_data;
-    }
-
-    public LanguageConfiguration getLng_data() {
-        return lng_data;
-    }
-
-    public void setLng_data(LanguageConfiguration lng_data) {
-        this.lng_data = lng_data;
     }
 
     public Document getXmlData() {
@@ -88,7 +65,6 @@ public class ConfigurationReader {
 
         this.setPaths();
         this.setDatabaseData();
-        this.setLanguageData();
 
     }
 
@@ -104,15 +80,6 @@ public class ConfigurationReader {
             name = path.getAttribute("name");
             string_path = path.getFirstChild().getTextContent();
             inpaths.put(name, string_path);
-        }
-
-        NodeList outroutes = xmlData.getElementsByTagName("outpath");
-        for (int i = 0; i < outroutes.getLength(); i++) {
-            path = (Element) outroutes.item(i);
-
-            name = path.getAttribute("name");
-            string_path = path.getFirstChild().getTextContent();
-            outpaths.put(name, string_path);
         }
     }
 
@@ -133,26 +100,6 @@ public class ConfigurationReader {
             pwd = path.getElementsByTagName("pass").item(0).getFirstChild().getTextContent();
 
             db_data.put(name, new DatabaseConfiguration(name, driver, host, dbname, user, pwd));
-        }
-    }
-
-    /* Loads language template files configuration data */
-    private void setLanguageData() {
-        String name, path;
-        Element el;
-
-        NodeList lngs = xmlData.getElementsByTagName("language");
-        for (int i = 0; i < lngs.getLength(); i++) {
-            el = (Element) lngs.item(i);
-
-            name = el.getAttribute("name");
-
-            NodeList alternatives = el.getElementsByTagName("alternative");
-            for (int j = 0; j < alternatives.getLength(); j++) {
-                path = alternatives.item(j).getFirstChild().getTextContent();
-
-                lng_data.getLanguages().add(new Language(name, path));
-            }
         }
     }
 }

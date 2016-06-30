@@ -47,16 +47,16 @@ public class CP85 {
 
         try {
 
-            String id = "32056";
+            String id = "27044";
 
             ArrayList<String> dates = new ArrayList();
-            dates.add("2015-09-12");
-            dates.add("2015-09-13");
-            dates.add("2015-09-14");
-            dates.add("2015-09-15");
+            dates.add("2015-09-21");
+            dates.add("2015-09-22");
+            dates.add("2015-09-23");
+            dates.add("2015-09-24");
 
             SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = sdt.parse("2015-09-12");
+            Date date = sdt.parse("2015-09-21");
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
@@ -65,11 +65,10 @@ public class CP85 {
             String salida = ps.generateTextualForecastsTest(id, dates, cal);
 
             /*
-             *   Cielos parcialmente nubosos en general durante los próximos días, aunque ocasionalmente se encontrarán muy nubosos. Tendremos precipitaciones el domingo, el lunes 
-             *   y el martes. Las temperaturas serán normales para esta época del año, con mínimas sin cambios aunque oscilarán y máximas en descenso ligero. Viento fuerte del Sur 
-             *   desde el martes por la mañana, cambiando a fuerte del Sudoeste el martes por la tarde.
+             *   Cielos parcialmente nubosos en general durante los próximos días, aunque ocasionalmente se encontrarán poco nubosos o despejados. Las temperaturas serán normales 
+             *   para esta época del año, con mínimas en ascenso moderado y máximas sin cambios.
              */
-            assertEquals(salida, "Partly cloudy skies in general for the next few days, although it will occasionally be cloudy. Precipitations are expected on Sunday, Monday and Tuesday. Temperature will be normal for this period of the year, with minimums without changes although they will oscillate and maximums in slight decrease. Strong South wind from Tuesday morning, changing to strong Southwest on Tuesday afternoon.");
+            assertEquals(salida, "Partly cloudy skies in general for the next few days, although it will occasionally be clear. Temperature will be normal for this period of the year, with minimums in moderate increase and maximums without changes.");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

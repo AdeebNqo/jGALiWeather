@@ -47,16 +47,16 @@ public class CP86 {
 
         try {
 
-            String id = "36030";
+            String id = "32039";
 
             ArrayList<String> dates = new ArrayList();
-            dates.add("2015-11-25");
-            dates.add("2015-11-26");
-            dates.add("2015-11-27");
-            dates.add("2015-11-28");
+            dates.add("2016-02-27");
+            dates.add("2016-02-28");
+            dates.add("2016-02-29");
+            dates.add("2016-03-01");
 
             SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = sdt.parse("2015-11-25");
+            Date date = sdt.parse("2016-02-27");
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
@@ -65,10 +65,12 @@ public class CP86 {
             String salida = ps.generateTextualForecastsTest(id, dates, cal);
 
             /*
-             *   Se espera que los cielos alternen periodos muy nubosos con otros parcialmente nubosos, aunque ocasionalmente podrán encontrarse poco nubosos o despejados. Tendremos 
-             *   precipitaciones el viernes por la noche. Las temperaturas serán normales para esta época del año, con mínimas en descenso moderado y máximas en descenso ligero.
+             *   Tendremos cielos parcialmente nubosos al principio y hacia la mitad del periodo, aunque al final del mismo tenderán a estar poco nubosos o despejados. Tendremos 
+             *   precipitaciones el sábado, que podrán ser de nieve el sábado. Las temperaturas serán normales para esta época del año, con mínimas en ascenso ligero aunque oscilarán 
+             *   y máximas en ascenso moderado. Viento fuerte del Noroeste desde el sábado por la tarde, cambiando a fuerte del Norte el domingo por la mañana; y fuerte del Norte 
+             *   del domingo por la noche al lunes por la mañana.
              */
-            assertEquals(salida, "It is expected an alternance of cloudy skies periods with other partly cloudy periods, although they will occasionally be clear. Precipitations are expected on Friday night. Temperature will be normal for this period of the year, with minimums in moderate decrease and maximums in slight decrease.");
+            assertEquals(salida, "There will be partly cloudy skies at the beginning and towards the middle of the term, although they will be clear at the end of the term. Precipitations are expected on Saturday, which can be of snow on Saturday. Temperature will be normal for this period of the year, with minimums in slight increase although they will oscillate and maximums in moderate increase. Strong Northwest wind from Saturday afternoon, changing to strong North on Sunday morning and strong North from Sunday night to Monday morning.");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

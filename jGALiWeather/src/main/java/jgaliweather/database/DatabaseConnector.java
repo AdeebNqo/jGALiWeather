@@ -113,9 +113,9 @@ public class DatabaseConnector {
         Statement stmt = null;
         StringTokenizer st = null;
         HashMap<String, ArrayList<Integer>> data = new HashMap();
-        ArrayList<Integer> viento = new ArrayList();;
-        ArrayList<Integer> cielo = new ArrayList();;
-        ArrayList<Integer> temperatura = new ArrayList();;
+        ArrayList<Integer> viento = new ArrayList();
+        ArrayList<Integer> cielo = new ArrayList();
+        ArrayList<Integer> temperatura = new ArrayList();
 
         if (!dates.isEmpty()) {
 
